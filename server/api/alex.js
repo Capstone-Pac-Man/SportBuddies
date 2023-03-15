@@ -19,10 +19,13 @@ router.post("/", async (req, res, next) => {
 	}
 });
 
-// api/users/:id
-router.get('/:id', async (req, res, next) => {
+// api/users/me
+router.get('/me', async (req, res, next) => {
 	try {
-	  const user = await User.findByPk(req.params.id, {
+	  const user = await User.findOne({
+        where: {
+            uid : req.params.uid
+        },
 		include: [{
 			model:UserSport,
 		}],
