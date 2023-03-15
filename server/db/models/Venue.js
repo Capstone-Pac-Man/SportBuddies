@@ -37,11 +37,7 @@ const Venue = db.define(
       },
     },
     description: {
-      type: Sequelize.STRING,
-      allowNull: true,
-      validate: {
-        notEmpty: true,
-      },
+      type: Sequelize.TEXT,
     },
 
     hours: {
