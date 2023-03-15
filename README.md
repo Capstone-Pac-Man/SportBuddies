@@ -1,5 +1,8 @@
 # Getting Started with Create React App
 
+creadb DATABASE_NAME
+create .ENV file with DATABASE_URL='postgres://localhost:5432/DATABASE_NAME'
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
