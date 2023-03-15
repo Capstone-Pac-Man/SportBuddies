@@ -1,4 +1,4 @@
-// (jw) ADD NEW SPORT.       // REMOVE SPORT.        // CREATE VENUE
+// (jw) ADD NEW SPORT.       REMOVE SPORT.        CREATE VENUE
 const router = require("express").Router();
 const { Sport, Venue } = require("../db/index");
 
