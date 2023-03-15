@@ -4,9 +4,13 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const path = require("path");
 
+const api = require("./api/index");
+
 const PORT = 5000;
 
 const app = express();
+
+app.use("/api", api);
 
 app.use(morgan("tiny"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,7 +24,7 @@ app.use(
 );
 
 app.use("/", (req, res) => {
-  res.send("Api");
+  res.send("API Home page");
 });
 
 app.use((err, req, res, next) => {
