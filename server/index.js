@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const path = require("path");
 
-const api = require("./api/index");
+const api = require("./api");
 
 const PORT = 5000;
 
