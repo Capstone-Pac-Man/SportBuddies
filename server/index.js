@@ -10,8 +10,6 @@ const PORT = 5000;
 
 const app = express();
 
-app.use("/api", api);
-
 app.use(morgan("tiny"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -22,6 +20,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use("/api", api);
 
 app.use("/", (req, res) => {
   res.send("API Home page");
