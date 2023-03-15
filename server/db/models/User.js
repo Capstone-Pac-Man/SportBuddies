@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const db = require("db");
+const db = require("../db");
 
 const User = db.define(
   "user",
@@ -45,6 +45,12 @@ const User = db.define(
     userType: {
       type: Sequelize.ENUM("player", "trainer"),
       defaultValue: "player",
+    },
+
+    uid: {
+      type: Sequelize.STRING,
+      unique: true,
+      allowNull: false,
     },
   },
   { timestamps: false }
