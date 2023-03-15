@@ -1,52 +1,31 @@
-// (jw) ADD NEW SPORT.       // REMOVE SPORT.        CREATE VENUE
+// (jw) ADD NEW SPORT.       // REMOVE SPORT.        // CREATE VENUE
 const router = require("express").Router();
 const { Sport, Venue } = require("../db/index");
 
-// GET /api/users
-router.get("/", async (req, res, next) => {
-  try {
-    const users = await User.findAll();
-    res.json(users);
-  } catch (err) {
-    next(err);
-  }
-});
-// GET /api/users/:id
-router.get("/:id", async (req, res, next) => {
-  try {
-    const user = await User.findByPk(req.params.id, {
-      include: Order,
-    });
-    res.json(user);
-  } catch (error) {
-    next(error);
-  }
-});
-// POST /api/users
+// ADD A NEW SPORT via post route. /api/sports
 router.post("/", async (req, res, next) => {
   try {
-    res.status(201).send(await User.create(req.body));
+    res.status(201).send(await Sport.create(req.body));
   } catch (error) {
     next(error);
   }
 });
 
-// PUT /api/users/:id
-router.put("/:id", async (req, res, next) => {
+// REMOVE (i.e., DELETE) a sport: /api/sports/:id
+router.delete("/:id", async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id);
-    res.send(await user.update(req.body));
+    const sportToDrop = await Sport.findByPk(req.params.id);
+    await sportToDrop.destroy();
+    res.send(sportToDrop);
   } catch (error) {
-    next();
+    next(error);
   }
 });
 
-// DELETE /api/users/:id
-router.delete("/:id", async (req, res, next) => {
+// CREATE A NEW VENUE via post route. /api/venues
+router.post("/", async (req, res, next) => {
   try {
-    const usertoDestroy = await User.findByPk(req.params.id);
-    await usertoDestroy.destroy();
-    res.send(usertoDestroy);
+    res.status(201).send(await Venue.create(req.body));
   } catch (error) {
     next(error);
   }
