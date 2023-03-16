@@ -4,22 +4,6 @@ const Venue = require("../db/models/Venue");
 const Sport = require("../db/models/Sport");
 
 //GET api/venues/
-router.post("/", async (req, res, next) => {
-  try {
-    const { sports, ...rest } = req.body;
-    const venue = await Venue.create(rest);
-    if (sports) {
-      const sportObj = await Sport.findAll({ where: { name: sports } });
-      await Promise.all(sportObj.map((s) => venue.addSport(s)));
-    }
-    const updated = await Venue.findByPk(venue.id, {
-      include: { model: Sport },
-    });
-    res.json(updated);
-  } catch (error) {
-    next(error);
-  }
-});
 router.get("/", async (req, res, next) => {
   try {
     const venues = await Venue.findAll({
@@ -41,6 +25,23 @@ router.get("/:id", async (req, res, next) => {
     res.json(venue);
   } catch (err) {
     next(err);
+  }
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    const { sports, ...rest } = req.body;
+    const venue = await Venue.create(rest);
+    if (sports) {
+      const sportObj = await Sport.findAll({ where: { name: sports } });
+      await Promise.all(sportObj.map((s) => venue.addSport(s)));
+    }
+    const updated = await Venue.findByPk(venue.id, {
+      include: { model: Sport },
+    });
+    res.json(updated);
+  } catch (error) {
+    next(error);
   }
 });
 
