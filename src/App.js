@@ -5,8 +5,10 @@ import Login from "./components/UserAuth/Login";
 import SignUp from "./components/UserAuth/SignUp";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase"
-import AlexHome from "./components/AlexHome";
 import NavBar from "./components/Navbar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { HomePage } from "./components/homepage/homepage";
+
 
 
 
@@ -31,11 +33,11 @@ function App() {
       {isLoggedIn ? (
         <Routes>
           {/* needs to be deleted after we have home page */}
-          <Route path="/" element={<AlexHome />} />
+          <Route path="/" element={<HomePage />} />
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" element={<AlexHome />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
