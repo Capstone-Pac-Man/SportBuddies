@@ -117,6 +117,7 @@ const venues = [
   },
 ];
 
+const sports = ["Soccer", "Basketball", "Baseball", "Football"];
 const seed = async () => {
   try {
     await db.sync({ force: true });
@@ -124,6 +125,11 @@ const seed = async () => {
     await Promise.all(
       users.map((user) => {
         return User.create(user);
+      })
+    );
+    await Promise.all(
+      sports.map((sport) => {
+        return Sport.create({ name: sport });
       })
     );
 
