@@ -1,32 +1,22 @@
 import React, { useState } from "react";
 import { auth, googleProvider } from "../../config/firebase";
-import {
-  signInWithPopup,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { Form, Button, Container, Card } from 'react-bootstrap';
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { Form, Button, Container, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
-
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState('')
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (e) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      //**FOR NOW** console.log userCredential.user to see information offered
-      if(userCredential.user.uid){
-        setUser(userCredential.user.uid)
-      } 
-      console.log("SIGN IN SUCCESS");
-      console.log(userCredential.user);
+      e.preventDefault();
+      console.log(auth.currentUser);
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log(auth.currentUser);
+
+      setEmail("");
+      setPassword("");
     } catch (err) {
       console.error("ERROR!!", err);
     }
@@ -45,7 +35,7 @@ const Login = () => {
 
   return (
     <Container className="d-flex align-items-center justify-content-center">
-      <Card style={{width: "50%"}}>
+      <Card style={{ width: "50%" }}>
         <Card.Body>
           <Card.Title>Login</Card.Title>
           <Form onSubmit={handleSignIn} name="login" className="form">
@@ -59,7 +49,7 @@ const Login = () => {
               />
             </Form.Group>
             <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+              <Form.Label>Password</Form.Label>
               <Form.Control
                 className="formInput"
                 type="password"
@@ -68,17 +58,13 @@ const Login = () => {
               />
             </Form.Group>
             <br></br>
-            <Link to="/"> 
-              <Button variant="primary" type="submit" className="btn">
-        		    Login
-      		    </Button> 
-            </Link>
+            <Button variant="primary" type="submit" className="btn">
+              Login
+            </Button>
           </Form>
           <br></br>
           <Link to="/">
-            <Button onClick={signInWithGoogle}>
-              Sign in with Google
-            </Button>
+            <Button onClick={signInWithGoogle}>Sign in with Google</Button>
           </Link>
         </Card.Body>
       </Card>
