@@ -32,6 +32,7 @@ function App() {
     <div className="App">
 
       <NavBar/>
+    <SearchBar/>
       {isLoggedIn ? (
         <Routes>
           {/* needs to be deleted after we have home page */}
