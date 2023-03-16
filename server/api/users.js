@@ -2,8 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const Sequelize = require("sequelize");
-const User = require("../db/models/User");
-const UserSport = require("../db/models/UserSport");
+const { User, UserSport, Sport } = require("../db/index");
 
 // POST api/users/
 router.post("/", async (req, res, next) => {
@@ -43,16 +42,34 @@ router.get("/me", async (req, res, next) => {
 
 router.put("/me", async (req, res, next) => {
   try {
+    const { id, sportId, skillLevel, status, ...rest } = req.body;
     // Use authentication class Function
     const user = await User.findOne({
       where: {
-        uid: req.body.uid,
+        id: id,
+      },
+      include: {
+        model: Sport,
       },
     });
+    if (sportId) {
+      if (skillLevel) {
+        await UserSport.update(
+          { skillLevel: skillLevel },
+          { where: { userId: id, sportId: sportId } }
+        );
+      }
+      if (status) {
+        await UserSport.update(
+          { status: status },
+          { where: { userId: id, sportId: sportId } }
+        );
+      }
+    }
     if (!user) {
       next();
     }
-    const updated = await user.update(req.body);
+    const updated = await user.update(rest);
     res.json(updated);
   } catch (e) {
     next(e);
@@ -94,17 +111,16 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/me/sports", async (req, res, next) => {
-  const { sportId, skillLevel, id } = req.body;
-  const user = await User.findByPk(id);
-
+  const { sportId, skillLevel, userId } = req.body;
+  const user = await User.findByPk(userId);
   await UserSport.create({
-    userId: id,
+    userId: userId,
     sportId: sportId,
     skillLevel: skillLevel,
   });
-  const updatedUser = User.findByPk(user.id, {
+  const updatedUser = await User.findByPk(user.id, {
     include: {
-      model: UserSport,
+      model: Sport,
     },
   });
 
