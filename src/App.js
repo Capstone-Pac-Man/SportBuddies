@@ -6,16 +6,19 @@ import SignUp from "./components/UserAuth/SignUp";
 import NavBar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { HomePage } from "./components/homepage/homepage";
+import { SearchBar } from "./components/searchBarSports";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
+      <SearchBar/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
+
     </div>
   );
 }
