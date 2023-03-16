@@ -15,6 +15,36 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+//POST api/venues/sports - add sport to venue
+router.post("/sports", async (req, res, next) => {
+  try {
+    const { id, sportId } = req.body;
+    const venue = await Venue.findByPk(id);
+    const sport = await Sport.findByPk(sportId);
+    await venue.addSport(sport);
+    const updated = await Venue.findByPk(id, {
+      include: { model: Sport },
+    });
+    res.json(updated);
+  } catch (e) {
+    next(e);
+  }
+});
+router.delete("/sports", async (req, res, next) => {
+  try {
+    const { id, sportId } = req.body;
+    const venue = await Venue.findByPk(id);
+    const sport = await Sport.findByPk(sportId);
+    await venue.removeSport(sport);
+    const updated = await Venue.findByPk(id, {
+      include: { model: Sport },
+    });
+    res.json(updated);
+  } catch (e) {
+    next(e);
+  }
+});
+
 //GET api/venues/:id
 router.get("/:id", async (req, res, next) => {
   try {
