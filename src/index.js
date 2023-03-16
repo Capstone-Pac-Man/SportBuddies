@@ -3,17 +3,17 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
-import store from "../server/store"
+// import store from "../server/store"
 //import Navbar from "./components/Navbar"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <div>
-        {/* <Navbar/> */}
-        <App />
-      </div>
-    </Provider>
+    {/* <Provider store={store}> */}
+    <div>
+      {/* <Navbar/> */}
+      <App />
+    </div>
+    {/* </Provider> */}
   </React.StrictMode>
 );
