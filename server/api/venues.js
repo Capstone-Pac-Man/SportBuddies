@@ -4,13 +4,6 @@ const Venue = require("../db/models/Venue");
 const Sport = require("../db/models/Sport");
 
 //GET api/venues/
-router.post("/", async (req, res, next) => {
-  try {
-    res.status(201).send(await Venue.create(req.body));
-  } catch (error) {
-    next(error);
-  }
-});
 router.get("/", async (req, res, next) => {
   try {
     const venues = await Venue.findAll({
@@ -33,6 +26,15 @@ router.get("/:id", async (req, res, next) => {
     res.json(venue);
   } catch (err) {
     next(err);
+  }
+});
+
+// POST api/venues/
+router.post("/", async (req, res, next) => {
+  try {
+    res.status(201).send(await Venue.create(req.body));
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -59,7 +61,5 @@ router.put("/:id", async (req, res, next) => {
     next(err);
   }
 });
-
-// CREATE A NEW VENUE via post route. /api/venues
 
 module.exports = router;
