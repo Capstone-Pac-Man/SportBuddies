@@ -31,7 +31,16 @@ router.get("/:id", async (req, res, next) => {
 // POST api/venues/
 router.post("/", async (req, res, next) => {
   try {
-    res.status(201).send(await Venue.create(req.body));
+    const { sports, ...rest } = req.body;
+    const venue = await Venue.create(rest);
+    if (sports) {
+      const sportObj = await Sport.findAll({ where: { name: sports } });
+      await Promise.all(sportObj.map((s) => venue.addSport(s)));
+    }
+    const updated = await Venue.findByPk(venue.id, {
+      include: { model: Sport },
+    });
+    res.json(updated);
   } catch (error) {
     next(error);
   }
