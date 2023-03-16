@@ -5,24 +5,17 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 /* user model has: name, email, imageUrl, mobile, availableFrom, 
 availableTo,address, city, country and userType. */
 
-export const fetchAllUsersAsync = createAsyncThunk(
-  "users/fetchAll",
-  async () => {
-    try {
-      const { data } = await axios.get(`/api/users/`);
-      return data;
-    } catch (e) {
-      console.log(e);
-    }
-  }
-);
+const instance = axios.create({
+  baseURL: "http://localhost:5000",
+  withCredentials: true,
+});
 
 export const fetchOneUserAsync = createAsyncThunk(
   "users/fetchOne",
   async () => {
     // does the above async need a parameter....?
     try {
-      const { data } = await axios.get(`/api/users/me`);
+      const { data } = await instance.get(`/api/users/me`);
       return data;
     } catch (e) {
       console.log(e);
@@ -34,7 +27,7 @@ export const createUserAsync = createAsyncThunk(
   "users/createUser",
   async () => {
     try {
-      const { data } = await axios.post(`/api/users/`);
+      const { data } = await instance.post(`/api/users/`);
       return data;
     } catch (e) {
       console.log(e);
@@ -60,7 +53,7 @@ export const editUserAsync = createAsyncThunk(
     userType,
     id,
   }) => {
-    const { data } = await axios.put(`/api/users/me`, {
+    const { data } = await instance.put(`/api/users/me`, {
       name,
       email,
       imageUrl,
@@ -104,9 +97,6 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchOneUserAsync.fulfilled, (state, action) => {
       return action.payload;
-    });
-    builder.addCase(fetchAllUsersAsync.fulfilled, (state, { payload }) => {
-      return payload;
     });
     builder.addCase(editUserAsync.fulfilled, (state, action) => {
       return action.payload;

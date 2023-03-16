@@ -1,7 +1,17 @@
+import React, { useEffect } from "react";
 import { Row, Card } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
+import { useDispatch } from "react-redux";
+import { fetchAllUsersAsync } from "../../reducers/usersSlice";
+
 
 export const PlayersBox = () => {
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(fetchAllUsersAsync())
+  }, [dispatch])
+
   return (
     <Row>
       <Card
