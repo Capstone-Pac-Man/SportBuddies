@@ -52,6 +52,9 @@ const NavBar = () => {
               <Nav.Link href="/signup" className="link">
                 Sign Up
               </Nav.Link>
+              <Nav.Link href="/venues" className="link">
+                Venues
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
