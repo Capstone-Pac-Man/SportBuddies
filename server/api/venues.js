@@ -4,17 +4,10 @@ const Venue = require("../db/models/Venue");
 const Sport = require("../db/models/Sport");
 
 //GET api/venues/
-router.post("/", async (req, res, next) => {
-  try {
-    res.status(201).send(await Venue.create(req.body));
-  } catch (error) {
-    next(error);
-  }
-});
 router.get("/", async (req, res, next) => {
   try {
     const venues = await Venue.findAll({
-      include: "venueSports",
+      include: Sport,
     });
     res.json(venues);
   } catch (err) {
@@ -25,10 +18,9 @@ router.get("/", async (req, res, next) => {
 //GET api/venues/:id
 router.get("/:id", async (req, res, next) => {
   try {
-    let id = req.params.id;
-    const venue = await Venue.findByPk({
-      id,
-      include: "venueSports",
+    const id = req.params.id;
+    const venue = await Venue.findByPk(id, {
+      include: { model: Sport },
     });
     res.json(venue);
   } catch (err) {
@@ -36,30 +28,49 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+// POST api/venues/
+router.post("/", async (req, res, next) => {
+  try {
+    const { sports, ...rest } = req.body;
+    const venue = await Venue.create(rest);
+    if (sports) {
+      const sportObj = await Sport.findAll({ where: { name: sports } });
+      await Promise.all(sportObj.map((s) => venue.addSport(s)));
+    }
+    const updated = await Venue.findByPk(venue.id, {
+      include: { model: Sport },
+    });
+    res.json(updated);
+  } catch (error) {
+    next(error);
+  }
+});
+
 //DELETE api/venues/:id
 router.delete("/:id", async (req, res, next) => {
   try {
     let id = req.params.id;
-    const venue = await Venue.findByPk({ id });
+    const venue = await Venue.findByPk(id);
+    if (!venue) {
+      res.send("Venue does not exist");
+    }
     await venue.destroy();
-    res.json(venue);
+    res.json({ message: "deleted!" });
   } catch (err) {
     next(err);
   }
 });
 
 //PUT api/venues/:id
-router.put("/:id", async (req, res, next) => {
+router.put("/", async (req, res, next) => {
   try {
-    let id = req.params.id;
-    const venue = await Venue.findByPk({ id, include: "venueSports" });
-
-    res.json(await venue.update(req.body));
+    const { id, ...updated } = req.body;
+    console.log(id);
+    const venue = await Venue.findByPk(id);
+    res.json(await venue.update(updated));
   } catch (err) {
     next(err);
   }
 });
-
-// CREATE A NEW VENUE via post route. /api/venues
 
 module.exports = router;
