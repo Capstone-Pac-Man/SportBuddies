@@ -4,7 +4,7 @@ import { Signup } from "./components/signup";
 function App() {
   return (
     <div className="App">
-      Hello
+      Pacman Power!
       <Authenticate />
       <Signup />
     </div>
