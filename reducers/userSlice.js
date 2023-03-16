@@ -2,7 +2,7 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-/* user model has name, email, imageUrl, mobile, availableFrom, 
+/* user model has: name, email, imageUrl, mobile, availableFrom, 
 availableTo,address, city, country and userType. */
 
 export const fetchAllUsersAsync = createAsyncThunk(
@@ -19,7 +19,8 @@ export const fetchAllUsersAsync = createAsyncThunk(
 
 export const fetchOneUserAsync = createAsyncThunk(
   "users/fetchOne",
-  async (id) => {
+  async () => {
+    // does the above async need a parameter....?
     try {
       const { data } = await axios.get(`/api/users/me`);
       return data;
@@ -29,9 +30,9 @@ export const fetchOneUserAsync = createAsyncThunk(
   }
 );
 
-export const createOneUserAsync = createAsyncThunk(
-  "users/createOne",
-  async (id) => {
+export const createUserAsync = createAsyncThunk(
+  "users/createUser",
+  async () => {
     try {
       const { data } = await axios.post(`/api/users/`);
       return data;
@@ -76,6 +77,26 @@ export const editUserAsync = createAsyncThunk(
   }
 );
 
+/* MISSING: a thunk for this POST route:
+
+router.post("/me/sports", async (req, res, next) => {
+    const { sportId, skillLevel, id } = req.body;
+    const user = await User.findByPk(id);
+  
+    await UserSport.create({
+      userId: id,
+      sportId: sportId,
+      skillLevel: skillLevel,
+    });
+    const updatedUser = User.findByPk(user.id, {
+      include: {
+        model: UserSport,
+      },
+    });
+  
+    res.json(updatedUser);
+  }); */
+
 const userSlice = createSlice({
   name: "user",
   initialState: {},
@@ -90,12 +111,12 @@ const userSlice = createSlice({
     builder.addCase(editUserAsync.fulfilled, (state, action) => {
       return action.payload;
     });
+    builder.addCase(createUserAsync.fulfilled, (state, action) => {
+      return action.payload;
+    });
   },
 });
 
-/* This is a function we will pass to useSelector in our component,
-to read values from our specific slice of redux state. */
 export const selectUser = (state) => state.user;
-// this is the same "user" that is stuck to the name property in userSlice.
 
 export default userSlice.reducer;
