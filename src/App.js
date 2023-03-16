@@ -8,6 +8,7 @@ import { auth } from "./config/firebase"
 import NavBar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { HomePage } from "./components/homepage/homepage";
+import { SearchBar } from "./components/searchBarSports";
 
 
 
@@ -29,6 +30,7 @@ function App() {
 
   return (
     <div className="App">
+
       <NavBar/>
       {isLoggedIn ? (
         <Routes>
