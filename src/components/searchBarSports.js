@@ -6,9 +6,18 @@ a user search for sports. */
 export const SearchBar = () => {
   const [query, setQuery] = useState("");
 
-  /* we will need to grab our ACTUAL SPORTS from our database.
-  (via a hook?) But for now, here's an array: */
-  const sports = ["Soccer", "Basketball", "Baseball", "Football"];
+  /* We will need to grab the ACTUAL sports from our database.
+  (via... a hook?) But for now, here's an array: */
+  const sports = [
+    "soccer",
+    "basketball",
+    "baseball",
+    "football",
+    "hockey",
+    "street hockey",
+    "field hockey",
+  ];
+  let results = [];
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -16,34 +25,29 @@ export const SearchBar = () => {
   };
 
   if (query.length > 0) {
-    sports.filter((sport) => {
-      return sport.name.match(query);
-    });
+    results = sports.filter((sport) => sport.includes(query.toLowerCase()));
+    console.log("On line 20, query =====", query);
+    console.log("sports ====", results);
   }
 
   return (
     <>
+      <div>Rudimentary search bar follows:</div>
       <input
         type="search"
-        placeholder="Find a sport here"
+        placeholder="Enter a sport"
         onChange={handleChange}
         value={query}
       />
-      <table>
-        <tr>
-          <th>SPORT</th>
-        </tr>
 
-        {sports.map((sport) => {
-          return (
-            <div>
-              <tr>
-                <td>{sport.name}</td>
-              </tr>
-            </div>
-          );
+      <h5>
+        <i>Results: </i>
+      </h5>
+      <ul>
+        {results.map((sport) => {
+          return <li key={sport}>{sport}</li>;
         })}
-      </table>
+      </ul>
     </>
   );
 };
