@@ -1,33 +1,23 @@
-// ## JW
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// venue model has: name, type, addr, city, state, description, hours.
 
-export const fetchAllVenuesAsync = createAsyncThunk(
-  "venues/getAll",
-  async () => {
-    try {
-      const { data } = await axios.get("/api/venues");
-      return data;
-    } catch (e) {
-      console.log(e);
-    }
+const instance = axios.create({
+  baseURL: "http://localhost:5000",
+  withCredentials: true,
+});
+
+export const fetchVenue = createAsyncThunk(
+  "venues/fetchOne",
+  async (id) => {
+    const { data } = await instance.get(`/api/venues/${id}`);
+    return data;
   }
 );
-
-export const fetchVenueAsync = createAsyncThunk("venues/getOne", async (id) => {
-  try {
-    const { data } = await axios.get(`/api/venues/${id}`);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-});
 
 export const addVenueAsync = createAsyncThunk(
   "venues/add",
   async ({ name, type, address, city, state, description, hours }) => {
-    const { data } = await axios.post("/api/products", {
+    const { data } = await instance.post("/api/venues", {
       name: name,
       type: type,
       address: address,
@@ -43,7 +33,7 @@ export const addVenueAsync = createAsyncThunk(
 export const deleteVenueAsync = createAsyncThunk(
   "venues/delete",
   async ({ id }) => {
-    const { data } = await axios.delete(`/api/venues/${id}`);
+    const { data } = await instance.delete(`/api/venues/${id}`);
     return data;
   }
 );
@@ -51,7 +41,7 @@ export const deleteVenueAsync = createAsyncThunk(
 export const editVenueAsync = createAsyncThunk(
   "venues/update",
   async ({ id, name, type, address, city, state, description, hours }) => {
-    const { data } = await axios.put(`/api/venues/${id}`, {
+    const { data } = await instance.put(`/api/venues/${id}`, {
       name: name,
       type: type,
       address: address,
@@ -63,20 +53,15 @@ export const editVenueAsync = createAsyncThunk(
     return data;
   }
 );
-export const venuesSlice = createSlice({
-  name: "venues",
-  initialState: [],
+
+export const venueSlice = createSlice({
+  name: "venue",
+  initialState: {},
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAllVenuesAsync.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchVenue.fulfilled, (state, { payload }) => {
       return payload;
     });
-    //// This next one might be an issue...
-    builder.addCase(fetchVenueAsync.fulfilled, (state, { payload }) => {
-      state.singleVenue = payload;
-    });
-    ////
-    ////
     builder.addCase(addVenueAsync.fulfilled, (state, { payload }) => {
       state.push(payload);
     });
@@ -88,6 +73,6 @@ export const venuesSlice = createSlice({
     });
   },
 });
-export const selectVenues = (state) => state.venues;
 
-export default venuesSlice.reducer;
+export const selectVenue = (state) => state.venue;
+export default venueSlice.reducer;
