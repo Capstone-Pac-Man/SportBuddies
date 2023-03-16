@@ -28,23 +28,6 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
-  try {
-    const { sports, ...rest } = req.body;
-    const venue = await Venue.create(rest);
-    if (sports) {
-      const sportObj = await Sport.findAll({ where: { name: sports } });
-      await Promise.all(sportObj.map((s) => venue.addSport(s)));
-    }
-    const updated = await Venue.findByPk(venue.id, {
-      include: { model: Sport },
-    });
-    res.json(updated);
-  } catch (error) {
-    next(error);
-  }
-});
-
 //DELETE api/venues/:id
 router.delete("/:id", async (req, res, next) => {
   try {
