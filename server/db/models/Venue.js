@@ -46,6 +46,9 @@ const Venue = db.define(
         notEmpty: true,
       },
     },
+    imageUrl: {
+      type: Sequelize.STRING,
+    },
   },
   { timestamps: false }
 );

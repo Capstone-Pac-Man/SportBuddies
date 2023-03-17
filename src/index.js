@@ -12,7 +12,6 @@ root.render(
     <Provider store={store}>
     <Router>
       <div>
-        
         <App />
       </div>
     </Router>

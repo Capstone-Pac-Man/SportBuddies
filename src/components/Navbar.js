@@ -4,6 +4,7 @@ import { Navbar, Button, Nav, Container } from "react-bootstrap";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { Logout } from "./UserAuth/LogOut";
+import { SearchBar } from "../components/searchBarSports";
 
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,6 +58,9 @@ const NavBar = () => {
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
+          <Nav.Item>
+            <SearchBar />
+          </Nav.Item>
         </Container>
       )}
     </Navbar>

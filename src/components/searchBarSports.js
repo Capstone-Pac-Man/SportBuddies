@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Form, Button, ListGroup, Dropdown, DropdownButton, Card } from 'react-bootstrap';
 
 /* this component will render a search bar that will let
 a user search for sports. */
@@ -31,24 +32,23 @@ export const SearchBar = () => {
   }
 
   return (
-    <>
-      <div>Rudimentary search bar follows:</div>
-      <input
+    <Card>
+      <Form className="d-flex">
+      <Form.Control
         type="search"
         placeholder="Enter a sport"
         onChange={handleChange}
         value={query}
       />
-
-      <h5>
-        <i>Results: </i>
-      </h5>
-      <ul>
-        {results.map((sport) => {
-          return <li key={sport}>{sport}</li>;
-        })}
-      </ul>
-    </>
+      {results.length > 0 && (
+      <Dropdown.Menu show>
+          {results.map((sport, index) => {
+            return <Dropdown.Item key={index}>{sport}</Dropdown.Item>
+          })}
+        </Dropdown.Menu>
+        )}
+      </Form>
+    </Card>
   );
 };
 

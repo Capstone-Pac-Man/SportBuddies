@@ -1,64 +1,52 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Row, Card } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 
+import { fetchAllVenuesAsync, selectVenues } from "../../reducers/venuesSlice";
+
 export const VenuesBox = () => {
+  const dispatch = useDispatch()
+  const venues = useSelector(selectVenues)
+  console.log("VENUES",venues)
+
+  useEffect(()=>{
+    dispatch(fetchAllVenuesAsync())
+  }, [dispatch])
+
+  if (!venues.length) return "Loading. Please wait";
+
   return (
-    <Row>
-      <Card
-        bg="secondary"
-        style={{
-          height: "250px",
-        }}
-      >
-        <Card.Body>
-          <Carousel>
-            <Carousel.Item>
-              <Card.Img
-                style={{
-                  width: "500px",
-                  height: "210px",
-                }}
-                src="https://dummyimage.com/600x400/f08d46/fff"
-                alt="First slide"
-              />
-              <Carousel.Caption>
-                <h3>Venue #1</h3>
-                <p>Venue Info</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <Card.Img
-                style={{
-                  width: "500px",
-                  height: "210px",
-                }}
-                src="https://dummyimage.com/600x400/f08d46/fff"
-                alt="Second slide"
-              />
-
-              <Carousel.Caption>
-                <h3>Venue #2</h3>
-                <p>Venue Info</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <Card.Img
-                style={{
-                  width: "500px",
-                  height: "210px",
-                }}
-                src="https://dummyimage.com/600x400/f08d46/fff"
-                alt="Third slide"
-              />
-
-              <Carousel.Caption>
-                <h3>Venue #3</h3>
-                <p>Venue Info</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-          </Carousel>
-        </Card.Body>
-      </Card>
-    </Row>
+    <div>
+      <h1 className="homeHeader">Venues</h1>
+      <Carousel style={{height: "250px", marginBottom: "50px"}}>
+        {[0, 3].map((startIndex) => (
+          <Carousel.Item key={startIndex} className="carouselHome">
+            <div className="d-flex justify-content-evenly">
+              {venues.slice(startIndex, startIndex + 3).map((venue) => (
+                <div key={venue.id}>
+                  <Card.Body className="homeCard">
+                    
+                    <Card.Img
+                      style={{
+                        width: "400px",
+                        height: "210px",
+                      }}
+                      className="homeImg"
+                      src={venue.imageUrl}
+                      alt="First slide"
+                    />
+                    <div className="homeTextBox">
+                    <Card.Title>{venue.name}</Card.Title>
+                    <Card.Text>{venue.description}</Card.Text>
+                    </div>
+                  </Card.Body>
+                </div>
+              ))}
+            </div>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </div>
   );
 };
