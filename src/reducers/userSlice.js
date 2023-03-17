@@ -12,10 +12,13 @@ const instance = axios.create({
 
 export const fetchOneUserAsync = createAsyncThunk(
   "users/fetchOne",
-  async () => {
+  async (val) => {
     // does the above async need a parameter....?
     try {
-      const { data } = await instance.get(`/api/users/me`);
+      console.log("THUNK VAL", val);
+      const { data } = await instance.get(`/api/users/me`, {
+        params: { uid: val },
+      });
       return data;
     } catch (e) {
       console.log(e);
@@ -70,33 +73,13 @@ export const editUserAsync = createAsyncThunk(
   }
 );
 
-/* MISSING: a thunk for this POST route:
-
-router.post("/me/sports", async (req, res, next) => {
-    const { sportId, skillLevel, id } = req.body;
-    const user = await User.findByPk(id);
-  
-    await UserSport.create({
-      userId: id,
-      sportId: sportId,
-      skillLevel: skillLevel,
-    });
-    const updatedUser = User.findByPk(user.id, {
-      include: {
-        model: UserSport,
-      },
-    });
-  
-    res.json(updatedUser);
-  }); */
-
 const userSlice = createSlice({
   name: "user",
   initialState: {},
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchOneUserAsync.fulfilled, (state, action) => {
-      return action.payload;
+    builder.addCase(fetchOneUserAsync.fulfilled, (state, { payload }) => {
+      return payload;
     });
     builder.addCase(editUserAsync.fulfilled, (state, action) => {
       return action.payload;

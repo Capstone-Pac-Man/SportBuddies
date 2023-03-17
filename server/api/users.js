@@ -25,15 +25,13 @@ router.post("/", async (req, res, next) => {
 // api/users/me
 router.get("/me", async (req, res, next) => {
   try {
+    console.log("REQ query", req.query);
+
     const user = await User.findOne({
       where: {
-        uid: req.params.uid,
+        uid: req.query.uid,
       },
-      include: [
-        {
-          model: UserSport,
-        },
-      ],
+      include: Sport,
     });
     res.json(user);
   } catch (error) {

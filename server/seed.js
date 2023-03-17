@@ -1,3 +1,4 @@
+const { findNonSerializableValue } = require("@reduxjs/toolkit");
 const { db, User, Sport, UserSport, Venue } = require("../server/db/index");
 
 const users = [
@@ -117,25 +118,73 @@ const venues = [
   },
 ];
 
+const userSport = [
+  {
+    skillLevel: "intermediate",
+    status: "active",
+    userId: 1,
+    sportId: 1,
+  },
+  {
+    status: "active",
+    userId: 2,
+    sportId: 1,
+  },
+  {
+    status: "active",
+    userId: 3,
+    sportId: 4,
+  },
+  {
+    status: "active",
+    userId: 4,
+    sportId: 1,
+  },
+  {
+    status: "active",
+    userId: 5,
+    sportId: 2,
+  },
+  {
+    status: "active",
+    userId: 6,
+    sportId: 3,
+  },
+];
+
 const sports = ["Soccer", "Basketball", "Baseball", "Football"];
 const seed = async () => {
   try {
     await db.sync({ force: true });
 
     await Promise.all(
-      users.map((user) => {
-        return User.create(user);
+      users.map(async (user) => {
+        await User.create(user);
       })
     );
     await Promise.all(
-      sports.map((sport) => {
-        return Sport.create({ name: sport });
+      sports.map(async (sport) => {
+        await Sport.create({ name: sport });
       })
     );
 
     await Promise.all(
-      venues.map((product) => {
-        return Venue.create(product);
+      userSport.map(async (val) => {
+        let user = await User.findOne({
+          where: {
+            id: val.userId,
+          },
+        });
+
+        await user.addSport(val.sportId, {
+          through: { skillLevel: val.skillLevel },
+        });
+      })
+    );
+
+    await Promise.all(
+      venues.map(async (product) => {
+        await Venue.create(product);
       })
     );
 
