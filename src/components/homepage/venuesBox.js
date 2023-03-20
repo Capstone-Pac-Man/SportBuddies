@@ -8,7 +8,6 @@ import { fetchAllVenuesAsync, selectVenues } from "../../reducers/venuesSlice";
 export const VenuesBox = () => {
   const dispatch = useDispatch()
   const venues = useSelector(selectVenues)
-  console.log("VENUES",venues)
 
   useEffect(()=>{
     dispatch(fetchAllVenuesAsync())
@@ -31,6 +30,7 @@ export const VenuesBox = () => {
                       style={{
                         width: "400px",
                         height: "210px",
+                        borderRadius: "10%"
                       }}
                       className="homeImg"
                       src={venue.imageUrl}

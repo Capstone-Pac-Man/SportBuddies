@@ -187,6 +187,10 @@ const userSport = [
 ];
 
 const sports = ["Soccer", "Basketball", "Baseball", "Football"];
+
+
+
+
 const seed = async () => {
   try {
     await db.sync({ force: true });
@@ -201,7 +205,7 @@ const seed = async () => {
         await Sport.create({ name: sport });
       })
     );
-
+    
     await Promise.all(
       userSport.map(async (val) => {
         let user = await User.findOne({
