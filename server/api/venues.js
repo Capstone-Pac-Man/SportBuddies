@@ -1,4 +1,7 @@
 // Api Route
+const Offset = require("./helpers/offset");
+const distanceFilter = require("./helpers/distanceFilter");
+const Sequelize = require("sequelize");
 const router = require("express").Router();
 const Venue = require("../db/models/Venue");
 const Sport = require("../db/models/Sport");
@@ -6,10 +9,68 @@ const Sport = require("../db/models/Sport");
 //GET api/venues/
 router.get("/", async (req, res, next) => {
   try {
-    const venues = await Venue.findAll({
-      include: Sport,
-    });
-    res.json(venues);
+    const { filters, latitude, longitude, distance } = req.query;
+    const dist = parseInt(distance);
+    const lat = latitude ? parseFloat(latitude) : 40.77193565657;
+    const long = longitude ? parseFloat(longitude) : -73.974863;
+    let filter = [];
+    let venues = [];
+    const { longOffset, latOffset } = Offset(long, lat);
+    // Check distance between user coords and all state users coordinates.
+    // Return back all users within query distance
+    if (filters) {
+      const temp = JSON.parse(filters);
+      const sports = await Sport.findAll({
+        where: {
+          name: {
+            [Sequelize.Op.in]: temp,
+          },
+        },
+      });
+      filter = sports.map((e) => e.id);
+    }
+    if (filter.length > 0) {
+      venues = await Venue.findAll({
+        where: {
+          [Sequelize.Op.and]: {
+            longitude: {
+              [Sequelize.Op.between]: [long - longOffset, long + longOffset],
+            },
+            latitude: {
+              [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+            },
+          },
+        },
+        include: {
+          model: Sport,
+          where: {
+            id: {
+              [Sequelize.Op.in]: filter,
+            },
+          },
+        },
+      });
+    } else {
+      venues = await Venue.findAll({
+        where: {
+          [Sequelize.Op.and]: {
+            longitude: {
+              [Sequelize.Op.between]: [long - longOffset, long + longOffset],
+            },
+            latitude: {
+              [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+            },
+          },
+        },
+        include: {
+          model: Sport,
+        },
+      });
+    }
+
+    console.log(venues);
+    const newVenues = distanceFilter({ lat, long }, venues, dist);
+    res.json(newVenues);
   } catch (err) {
     next(err);
   }
