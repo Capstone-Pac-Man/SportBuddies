@@ -1,4 +1,3 @@
-// ## JW
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // venue model has: name, type, addr, city, state, description, hours.

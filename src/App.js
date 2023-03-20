@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { HomePage } from "./components/homepage/homepage";
 import { SearchBar } from "./components/searchBarSports";
 import { Venues } from "./components/venues";
+import { SelectedSport } from "./components/selectedSport";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/venues" element={<Venues />} />
+        <Route path="/:sport" element={<SelectedSport />}/>
       </Routes>
     </div>
   );

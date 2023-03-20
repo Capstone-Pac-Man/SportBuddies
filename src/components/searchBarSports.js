@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Form, Button, ListGroup, Dropdown, DropdownButton, Card } from 'react-bootstrap';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchAllSportsAsync, selectSports } from "../reducers/sportsSlice";
 
 /* this component will render a search bar that will let
 a user search for sports. */
 
 export const SearchBar = () => {
   const [query, setQuery] = useState("");
+  const dispatch = useDispatch()
+  const dbSports = useSelector(selectSports)
+  const navigate = useNavigate()
 
-  /* We will need to grab the ACTUAL sports from our database.
-  (via... a hook?) But for now, here's an array: */
-  const sports = [
-    "soccer",
-    "basketball",
-    "baseball",
-    "football",
-    "hockey",
-    "street hockey",
-    "field hockey",
-  ];
+  useEffect(()=>{
+    dispatch(fetchAllSportsAsync())
+  }, [dispatch])
+  let sports = []
   let results = [];
-
+  for (const element of dbSports) {
+    sports.push(element.name.toLowerCase())
+  }
   const handleChange = (e) => {
     e.preventDefault();
     setQuery(e.target.value);
@@ -27,8 +28,6 @@ export const SearchBar = () => {
 
   if (query.length > 0) {
     results = sports.filter((sport) => sport.includes(query.toLowerCase()));
-    console.log("On line 20, query =====", query);
-    console.log("sports ====", results);
   }
 
   return (
@@ -43,7 +42,7 @@ export const SearchBar = () => {
       {results.length > 0 && (
       <Dropdown.Menu show>
           {results.map((sport, index) => {
-            return <Dropdown.Item key={index}>{sport}</Dropdown.Item>
+            return <Dropdown.Item key={index} onClick={()=>(navigate(`/${sport}`))}>{sport}</Dropdown.Item>
           })}
         </Dropdown.Menu>
         )}

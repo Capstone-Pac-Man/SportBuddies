@@ -28,7 +28,7 @@ export const PlayersBox = () => {
                   <Card.Body className="homeCard">
                     <Card.Img 
                       src={user.imageUrl}
-                      style={{ width: "240px", height: "180px", objectFit: "cover" }}
+                      style={{ width: "240px", height: "180px", objectFit: "cover",borderRadius: "10%" }}
                       alt="Image"
                       className="homeImg"
                     

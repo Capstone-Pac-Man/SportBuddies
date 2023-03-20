@@ -1,4 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
+import sportSlice from "./reducers/sportSlice";
+import sportsSlice from "./reducers/sportsSlice";
 import userSlice from "./reducers/userSlice";
 import usersSlice from "./reducers/usersSlice";
 import venueSlice from "./reducers/venueSlice";
@@ -9,7 +11,9 @@ const store = configureStore({
 		user: userSlice,
 		users: usersSlice,
 		venue: venueSlice,
-		venues: venuesSlice
+		venues: venuesSlice,
+		sport: sportSlice,
+		sports: sportsSlice
 	},
 });
 
