@@ -17,11 +17,12 @@ const User = db.define(
     },
     imageUrl: {
       type: Sequelize.STRING,
+      defaultValue:
+        "https://i.pinimg.com/474x/98/7a/df/987adf097a98ab1b32a953e2c33bba09.jpg",
     },
     mobile: {
       type: Sequelize.STRING,
       unique: true,
-      allowNull: false,
       validate: {
         is: /^\+?[0-9]{10,12}$/,
       },
@@ -38,6 +39,12 @@ const User = db.define(
     city: {
       type: Sequelize.STRING,
     },
+    state: {
+      type: Sequelize.STRING,
+    },
+    zipcode: {
+      type: Sequelize.INTEGER,
+    },
     country: {
       type: Sequelize.STRING,
     },
@@ -50,6 +57,12 @@ const User = db.define(
       type: Sequelize.STRING,
       unique: true,
       allowNull: false,
+    },
+    longitude: {
+      type: Sequelize.FLOAT,
+    },
+    latitude: {
+      type: Sequelize.FLOAT,
     },
   },
   { timestamps: false }

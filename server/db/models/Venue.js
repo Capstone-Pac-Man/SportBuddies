@@ -49,6 +49,12 @@ const Venue = db.define(
     imageUrl: {
       type: Sequelize.STRING,
     },
+    latitude: {
+      type: Sequelize.FLOAT,
+    },
+    longitude: {
+      type: Sequelize.FLOAT,
+    },
   },
   { timestamps: false }
 );

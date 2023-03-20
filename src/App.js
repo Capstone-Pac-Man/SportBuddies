@@ -9,6 +9,8 @@ import { HomePage } from "./components/homepage/homepage";
 import { SearchBar } from "./components/searchBarSports";
 import { Venues } from "./components/venues";
 import { SelectedSport } from "./components/selectedSport";
+import { UserProfile } from "./components/users/userProfile";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/me" element={<UserProfile />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/venues" element={<Venues />} />
         <Route path="/:sport" element={<SelectedSport />}/>

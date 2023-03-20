@@ -1,19 +1,21 @@
 // Api Route
+const Offset = require("./helpers/offset");
+const distanceFilter = require("./helpers/distanceFilter");
 const express = require("express");
-const { request } = require("http");
 const router = express.Router();
 const Sequelize = require("sequelize");
 const { User, UserSport, Sport } = require("../db/index");
+const axios = require("axios");
 
 // POST api/users/
 router.post("/", async (req, res, next) => {
   try {
-    const { name, email, mobile, password, uid } = req.body;
+    const { name, email, state, zipcode, uid } = req.body;
     const user = await User.create({
       name: name,
       email: email,
-      mobile: mobile,
-      password: password,
+      state: state,
+      zipcode: zipcode,
       uid: uid,
     });
     res.status(201).json(user);
@@ -25,15 +27,13 @@ router.post("/", async (req, res, next) => {
 // api/users/me
 router.get("/me", async (req, res, next) => {
   try {
+    console.log("REQ query", req.query);
+
     const user = await User.findOne({
       where: {
-        uid: req.params.uid,
+        uid: req.query.uid,
       },
-      include: [
-        {
-          model: UserSport,
-        },
-      ],
+      include: Sport,
     });
     res.json(user);
   } catch (error) {
@@ -82,15 +82,35 @@ router.put("/me", async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   try {
-    const { filters } = req.query;
+    // Take in address and convert it to coordinates. Save address state.
+    let users = [];
+    const { filters, longitude, latitude, distance } = req.query;
+    const dist = parseInt(distance);
+    const lat = latitude ? parseFloat(latitude) : 40.77193565657;
+    const long = longitude ? parseFloat(longitude) : -73.974863;
     let filter = [];
+    const { longOffset, latOffset } = Offset(long, lat);
+    // Check distance between user coords and all state users coordinates.
+    // Return back all users within query distance
     if (filters) {
       filter = JSON.parse(filters);
-      console.log(filter);
     }
     if (filter.length === 0) {
-      const users = await User.findAll();
-      res.json(users);
+      users = await User.findAll({
+        where: {
+          [Sequelize.Op.and]: {
+            longitude: {
+              [Sequelize.Op.between]: [long - longOffset, long + longOffset],
+            },
+            latitude: {
+              [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+            },
+          },
+        },
+        include: {
+          model: Sport,
+        },
+      });
     } else {
       const userSports = await UserSport.findAll({
         where: {
@@ -104,9 +124,17 @@ router.get("/", async (req, res, next) => {
       const id = userSports.map((val) => {
         return val.userId;
       });
-      const users = await User.findAll({
+      users = await User.findAll({
         where: {
           id,
+          [Sequelize.Op.and]: {
+            longitude: {
+              [Sequelize.Op.between]: [long - longOffset, long + longOffset],
+            },
+            latitude: {
+              [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+            },
+          },
         },
         include: {
           model: Sport,
@@ -115,8 +143,9 @@ router.get("/", async (req, res, next) => {
       if (!users) {
         next();
       }
-      res.json(users);
     }
+    const newUsers = distanceFilter({ lat, long }, users, dist);
+    res.json(newUsers);
   } catch (e) {
     next(e);
   }

@@ -6,6 +6,7 @@ const UserSport = require("../db/models/UserSport");
 
 User.belongsToMany(Sport, { through: UserSport });
 Sport.belongsToMany(User, { through: UserSport });
+
 // because we created the UserSport model, we DON'T need quotes around name.
 
 Venue.belongsToMany(Sport, { through: "venueSports" });
