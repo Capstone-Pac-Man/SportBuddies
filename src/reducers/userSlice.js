@@ -26,11 +26,17 @@ export const fetchOneUserAsync = createAsyncThunk(
   }
 );
 
-export const createUserAsync = createAsyncThunk(
+export const signUpThunk = createAsyncThunk(
   "users/createUser",
-  async () => {
+  async ({ name, email, state, zipcode, uid }) => {
     try {
-      const { data } = await instance.post(`/api/users/`);
+      const { data } = await instance.post(`/api/users/`, {
+        name: name,
+        email: email,
+        state: state,
+        zipcode: zipcode,
+        uid: uid,
+      });
       return data;
     } catch (e) {
       console.log(e);
@@ -84,7 +90,7 @@ const userSlice = createSlice({
     builder.addCase(editUserAsync.fulfilled, (state, action) => {
       return action.payload;
     });
-    builder.addCase(createUserAsync.fulfilled, (state, action) => {
+    builder.addCase(signUpThunk.fulfilled, (state, action) => {
       return action.payload;
     });
   },

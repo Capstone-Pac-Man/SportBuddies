@@ -8,14 +8,17 @@ const { User, UserSport, Sport } = require("../db/index");
 // POST api/users/
 router.post("/", async (req, res, next) => {
   try {
-    const { name, email, mobile, password, uid } = req.body;
+    const { name, email, state, zipcode, uid } = req.body;
+    console.log("req body =>", req.body);
     const user = await User.create({
       name: name,
       email: email,
-      mobile: mobile,
-      password: password,
+      state: state,
+      zipcode: zipcode,
       uid: uid,
     });
+
+    console.log("user ->", user);
     res.status(201).json(user);
   } catch (error) {
     next(error);

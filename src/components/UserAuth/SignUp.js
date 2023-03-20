@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import { auth } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Form, Button, Container, Card, Row, Col } from "react-bootstrap";
-import { createUserAsync } from "../../reducers/userSlice";
+import { signUpThunk } from "../../reducers/userSlice";
+import { useDispatch } from "react-redux";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const dispatch = useDispatch();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -18,7 +22,12 @@ const SignUp = () => {
         email,
         password
       );
-      //**FOR NOW** console.log userCredential.user to see information offered
+
+      const name = firstName + " " + lastName;
+      const uid = userCredential.user.uid;
+
+      dispatch(signUpThunk({ name, email, state, zipcode, uid }));
+
       console.log("SIGN UP SUCCESS");
       console.log(userCredential.user);
       console.log(userCredential);
@@ -51,6 +60,29 @@ const SignUp = () => {
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
+                  />
+                </Col>
+              </Row>
+            </Form.Group>
+
+            <Form.Group controlId="state-zipcode">
+              <Row>
+                <Col>
+                  <Form.Label>State</Form.Label>
+                  <Form.Control
+                    className="formInput"
+                    type="text"
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
+                  />
+                </Col>
+                <Col>
+                  <Form.Label>Zip code</Form.Label>
+                  <Form.Control
+                    className="formInput"
+                    type="text"
+                    value={zipcode}
+                    onChange={(e) => setZipcode(e.target.value)}
                   />
                 </Col>
               </Row>
