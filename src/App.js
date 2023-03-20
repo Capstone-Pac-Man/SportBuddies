@@ -9,6 +9,7 @@ import { HomePage } from "./components/homepage/homepage";
 import { SearchBar } from "./components/searchBarSports";
 import { Venues } from "./components/venues";
 import { UserProfile } from "./components/users/userProfile";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (

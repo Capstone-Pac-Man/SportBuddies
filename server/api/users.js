@@ -9,7 +9,6 @@ const { User, UserSport, Sport } = require("../db/index");
 router.post("/", async (req, res, next) => {
   try {
     const { name, email, state, zipcode, uid } = req.body;
-    console.log("req body =>", req.body);
     const user = await User.create({
       name: name,
       email: email,
@@ -17,8 +16,6 @@ router.post("/", async (req, res, next) => {
       zipcode: zipcode,
       uid: uid,
     });
-
-    console.log("user ->", user);
     res.status(201).json(user);
   } catch (error) {
     next(error);

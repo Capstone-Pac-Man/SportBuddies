@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Form, Button, Container, Card, Row, Col } from "react-bootstrap";
 import { signUpThunk } from "../../reducers/userSlice";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -29,8 +30,13 @@ const SignUp = () => {
       dispatch(signUpThunk({ name, email, state, zipcode, uid }));
 
       console.log("SIGN UP SUCCESS");
-      console.log(userCredential.user);
-      console.log(userCredential);
+
+      setEmail("");
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+      setState("");
+      setZipcode("");
     } catch (err) {
       console.error("ERROR!!", err);
     }
@@ -123,6 +129,7 @@ variant="primary" type="submit" className="btn">
           </Form>
         </Card.Body>
       </Card>
+      <ToastContainer />
     </Container>
   );
 };
