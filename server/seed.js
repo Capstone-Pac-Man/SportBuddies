@@ -186,6 +186,38 @@ const userSport = [
   },
 ];
 
+
+const venueSport = [
+  {
+    venueId: 1,
+    sportId: 1,
+  },
+  {
+    venueId: 2,
+    sportId: 1,
+  },
+  {
+    venueId: 2,
+    sportId: 2,
+  },
+  {
+    venueId: 3,
+    sportId: 4,
+  },
+  {
+    venueId: 4,
+    sportId: 1,
+  },
+  {
+    venueId: 1,
+    sportId: 3,
+  },
+  {
+    venueId: 1,
+    sportId: 4,
+  },
+];
+
 const sports = ["Soccer", "Basketball", "Baseball", "Football"];
 
 
@@ -220,9 +252,27 @@ const seed = async () => {
       })
     );
 
+    
+
     await Promise.all(
-      venues.map(async (product) => {
-        await Venue.create(product);
+      venues.map(async (venue) => {
+        await Venue.create(venue);
+      })
+    );
+
+    await Promise.all(
+      venueSport.map(async (val) => {
+        let venue = await Venue.findOne({
+          where: {
+            id: val.venueId,
+          },
+        });
+        let sport = await Sport.findOne({
+          where: {
+            id: val.sportId,
+          },
+        });
+        await venue.addSport(sport);
       })
     );
 
