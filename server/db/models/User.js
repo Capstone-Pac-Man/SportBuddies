@@ -38,7 +38,7 @@ const User = db.define(
     city: {
       type: Sequelize.STRING,
     },
-    country: {
+    state: {
       type: Sequelize.STRING,
     },
     userType: {
@@ -50,6 +50,12 @@ const User = db.define(
       type: Sequelize.STRING,
       unique: true,
       allowNull: false,
+    },
+    longitude: {
+      type: Sequelize.FLOAT,
+    },
+    latitude: {
+      type: Sequelize.FLOAT,
     },
   },
   { timestamps: false }
