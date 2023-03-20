@@ -68,7 +68,7 @@ const SignUp = () => {
             <Form.Group controlId="state-zipcode">
               <Row>
                 <Col>
-                  <Form.Label>State</Form.Label>
+                  <Form.Label>State (abbr)</Form.Label>
                   <Form.Control
                     className="formInput"
                     type="text"
@@ -77,7 +77,7 @@ const SignUp = () => {
                   />
                 </Col>
                 <Col>
-                  <Form.Label>Zip code</Form.Label>
+                  <Form.Label>ZIP code</Form.Label>
                   <Form.Control
                     className="formInput"
                     type="text"
@@ -106,7 +106,18 @@ const SignUp = () => {
               />
             </Form.Group>
             <br></br>
-            <Button variant="primary" type="submit" className="btn">
+            <Button 
+disabled={
+                firstName === "" ||
+                lastName === "" ||
+                email === "" || state.length !== 2 || zipcode.length < 5 || 
+                email.includes("@") === false ||
+                email.includes(".") === false ||
+                password.length < 8 ||
+                password.length > 88
+              }
+
+variant="primary" type="submit" className="btn">
               Sign Up
             </Button>
           </Form>
