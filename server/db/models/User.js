@@ -58,6 +58,12 @@ const User = db.define(
       unique: true,
       allowNull: false,
     },
+    longitude: {
+      type: Sequelize.FLOAT,
+    },
+    latitude: {
+      type: Sequelize.FLOAT,
+    },
   },
   { timestamps: false }
 );
