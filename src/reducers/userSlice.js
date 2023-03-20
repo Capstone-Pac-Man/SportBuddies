@@ -60,8 +60,10 @@ export const editUserAsync = createAsyncThunk(
     city,
     country,
     userType,
-    id,
+    uid,
   }) => {
+    console.log("UID IN SLLICE", uid);
+
     const { data } = await instance.put(`/api/users/me`, {
       name,
       email,
@@ -73,7 +75,7 @@ export const editUserAsync = createAsyncThunk(
       city,
       country,
       userType,
-      id,
+      uid: uid,
     });
     return data;
   }

@@ -3,6 +3,7 @@ import { auth } from "../../config/firebase";
 import { useEffect } from "react";
 import { fetchOneUserAsync, selectUser } from "../../reducers/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
+import { UploadPfp } from "./uploadPfp";
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
@@ -18,5 +19,11 @@ export const UserProfile = () => {
     });
   }, []);
 
-  return <h1> welcome {user.name}!</h1>;
+  return (
+    <div>
+      <h1> welcome {user.name}!</h1>
+      <img alt="" src={user.imageUrl} />
+      <UploadPfp uid={user.uid} />
+    </div>
+  );
 };
