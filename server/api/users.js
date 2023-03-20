@@ -10,12 +10,12 @@ const axios = require("axios");
 // POST api/users/
 router.post("/", async (req, res, next) => {
   try {
-    const { name, email, mobile, password, uid } = req.body;
+    const { name, email, state, zipcode, uid } = req.body;
     const user = await User.create({
       name: name,
       email: email,
-      mobile: mobile,
-      password: password,
+      state: state,
+      zipcode: zipcode,
       uid: uid,
     });
     res.status(201).json(user);
@@ -27,15 +27,13 @@ router.post("/", async (req, res, next) => {
 // api/users/me
 router.get("/me", async (req, res, next) => {
   try {
+    console.log("REQ query", req.query);
+
     const user = await User.findOne({
       where: {
-        uid: req.params.uid,
+        uid: req.query.uid,
       },
-      include: [
-        {
-          model: UserSport,
-        },
-      ],
+      include: Sport,
     });
     res.json(user);
   } catch (error) {

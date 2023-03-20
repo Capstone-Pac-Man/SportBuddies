@@ -10,12 +10,9 @@ const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dispatch = useDispatch();
 
-  console.log(auth.currentUser);
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
@@ -36,6 +33,9 @@ const NavBar = () => {
               <Nav.Item>
                 <Logout />
               </Nav.Item>
+              <Nav.Link href="/me" className="link">
+                User Profile
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
