@@ -111,6 +111,8 @@ const venues = [
     hours: "7a to 7p",
     imageUrl:
       "https://images.unsplash.com/photo-1566349872260-a1d88307b698?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3802&q=80",
+    latitude: 40.1699644,
+    longitude: -74.0806924,
   },
   {
     name: "Curt's Clubs",
@@ -121,6 +123,8 @@ const venues = [
     hours: "6a to 8p",
     imageUrl:
       "https://images.unsplash.com/photo-1633328514190-f69982416e90?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80",
+    latitude: 40.68161,
+    longitude: -73.9591971,
   },
   {
     name: "Rhonda's Rings & Rinks",
@@ -131,6 +135,8 @@ const venues = [
     hours: "9a to 11p",
     imageUrl:
       "https://images.unsplash.com/photo-1607863400985-8d3bc50e3fd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2150&q=80",
+    latitude: 33.5889916,
+    longitude: -111.8339069,
   },
   {
     name: "Courtney Fields' Courts & Fields",
@@ -141,6 +147,8 @@ const venues = [
     hours: "11a to 11p",
     imageUrl:
       "https://images.unsplash.com/photo-1443029433954-f508cb9936b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
+    latitude: 40.746472,
+    longitude: -73.990957,
   },
 ];
 
