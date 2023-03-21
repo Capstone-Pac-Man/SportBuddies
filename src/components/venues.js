@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-//import { fetchAllVenuesAsync, selectVenues } from "../../reducers/venuesSlice";
+import { fetchAllVenuesAsync, selectVenues } from "../../reducers/venuesSlice";
 
 export const Venues = () => {
   const dispatch = useDispatch();
