@@ -3,6 +3,7 @@ import { auth, googleProvider } from "../../config/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { Form, Button, Container, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,14 +12,22 @@ const Login = () => {
   const handleSignIn = async (e) => {
     try {
       e.preventDefault();
-      console.log(auth.currentUser);
       await signInWithEmailAndPassword(auth, email, password);
-      console.log(auth.currentUser);
-
+      // After successful login, send sign in request to backend api.
+      const { data } = await axios.post(
+        "http://localhost:5000/api/users/login",
+        {
+          email: auth.currentUser.email,
+        },
+        { withCredentials: true }
+      );
+      if (data.name) {
+        localStorage.setItem("auth", true);
+      }
       setEmail("");
       setPassword("");
     } catch (err) {
-      console.error("ERROR!!", err);
+      console.log("ERROR!!", err);
     }
   };
 
@@ -28,6 +37,19 @@ const Login = () => {
       //**FOR NOW** console.log userCredential.user to see information offered
       console.log("SIGN IN SUCCESS");
       console.log(userCredential.user);
+      const { data } = await axios.post(
+        "http://localhost:5000/api/users/login",
+        {
+          providerId: userCredential.user.providerData[0].providerId,
+          name: userCredential.user.displayName,
+          email: userCredential.user.email,
+          uid: userCredential.user.uid,
+        },
+        { withCredentials: true }
+      );
+      if (data.name) {
+        localStorage.setItem("auth", true);
+      }
     } catch (err) {
       console.error("Error!!", err);
     }
