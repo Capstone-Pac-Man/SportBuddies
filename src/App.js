@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { HomePage } from "./components/homepage/homepage";
 import { SearchBar } from "./components/searchBarSports";
 import { Venues } from "./components/venues";
+import { Venue } from "./components/venue";
 import { SelectedSport } from "./components/selectedSport";
 import { UserProfile } from "./components/users/userProfile";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,12 +18,13 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/me" element={<UserProfile />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/venues" element={<Venues />} />
-        <Route path="/:sport" element={<SelectedSport />}/>
+        <Route exact path="/" element={<HomePage />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/me" element={<UserProfile />} />
+        <Route exact path="/signup" element={<SignUp />} />
+        <Route exact path="/venues/:id" element={<Venue />} />
+        <Route exact path="/venues" element={<Venues />} />
+        <Route exact path="/:sport" element={<SelectedSport />} />
       </Routes>
     </div>
   );
