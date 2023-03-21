@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Card } from "react-bootstrap";
+import { Row, Card, Button, Col } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 
 import { fetchAllVenuesAsync, selectVenues } from "../../reducers/venuesSlice";
 
 export const VenuesBox = () => {
+  const [showMore, setShowMore] = useState(false);
   const dispatch = useDispatch()
   const venues = useSelector(selectVenues)
 
@@ -15,38 +16,78 @@ export const VenuesBox = () => {
 
   if (!venues.length) return "Loading. Please wait";
 
-  return (
-    <div>
-      <h1 className="homeHeader">Venues</h1>
-      <Carousel style={{height: "250px", marginBottom: "50px"}}>
-        {[0, 3].map((startIndex) => (
-          <Carousel.Item key={startIndex} className="carouselHome">
-            <div className="d-flex justify-content-evenly">
-              {venues.slice(startIndex, startIndex + 3).map((venue) => (
-                <div key={venue.id}>
-                  <Card.Body className="homeCard">
+  const displayCards = showMore ? venues : venues.slice(0, 6);
+
+  const renderCards = () => {
+    return displayCards.map(card => (
+      <Col key={card.id} md={4} style={{margin:"auto"}}>
+        <Card.Body className="homeCard">
+          <Card.Img
+            style={{
+              width: "500px",
+              height: "350px",
+              borderRadius: "10%"
+            }}
+            className="homeImg"
+            src={card.imageUrl}
+            alt="First slide"
+          />
+          <div className="homeTextBox">
+            <Card.Title>{card.name}</Card.Title>
+            <Card.Text>{card.description}</Card.Text>
+          </div>
+        </Card.Body>
+      </Col>
+    ));
+  };
+
+  // return (
+  //   <div>
+  //     <h1 className="homeHeader">Venues Near You</h1>
+  //     {/* <Carousel style={{height: "400px", marginTop:"40px"}}>
+  //       {[0, 3].map((startIndex) => (
+  //         <Carousel.Item key={startIndex} className="carouselHome"> */}
+  //           <div className="d-flex justify-content-evenly">
+  //             {/* {venues.slice(startIndex, startIndex + 3).map((venue) => ( */}
+  //             {venues.map((venue) => (
+  //               <div key={venue.id}>
+  //                 <Card.Body className="homeCard">
                     
-                    <Card.Img
-                      style={{
-                        width: "400px",
-                        height: "210px",
-                        borderRadius: "10%"
-                      }}
-                      className="homeImg"
-                      src={venue.imageUrl}
-                      alt="First slide"
-                    />
-                    <div className="homeTextBox">
-                    <Card.Title>{venue.name}</Card.Title>
-                    <Card.Text>{venue.description}</Card.Text>
-                    </div>
-                  </Card.Body>
-                </div>
-              ))}
-            </div>
-          </Carousel.Item>
-        ))}
-      </Carousel>
-    </div>
+  //                   <Card.Img
+  //                     style={{
+  //                       width: "600px",
+  //                       height: "300px",
+  //                       borderRadius: "10%"
+  //                     }}
+  //                     className="homeImg"
+  //                     src={venue.imageUrl}
+  //                     alt="First slide"
+  //                   />
+  //                   <div className="homeTextBox">
+  //                   <Card.Title>{venue.name}</Card.Title>
+  //                   <Card.Text>{venue.description}</Card.Text>
+  //                   </div>
+  //                 </Card.Body>
+  //               </div>
+  //             ))}
+  //           </div>
+  //         {/* </Carousel.Item>
+  //       ))}
+  //     </Carousel> */}
+  //   </div>
+  // );
+  return (
+    <>
+      <Row>
+        <h1 className="homeHeader">Venues Near You</h1>
+      </Row>
+      <Row>
+        {renderCards().slice(0, 3)}
+      </Row>
+      <Row>
+        {renderCards().slice(3, 6)}
+      </Row>
+      {displayCards.length < venues.length && <Button variant="primary" onClick={() => setShowMore(true)}>Show More</Button>}
+    </>
   );
 };
