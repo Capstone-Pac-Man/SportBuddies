@@ -7,13 +7,18 @@ import {
   editUserAsync,
 } from "../../reducers/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
 import { UploadPfp } from "./uploadPfp";
 import { ListGroup } from "react-bootstrap";
 import { useState } from "react";
 
+
 export const UserProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector(selectUser);
+  const isAuth = localStorage.getItem("auth");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -39,14 +44,25 @@ export const UserProfile = () => {
   }, [user]);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        console.log("UID!!!", uid);
-        dispatch(fetchOneUserAsync(uid));
-      }
-    });
+    // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     const uid = user.uid;
+    //     console.log("UID!!!", uid);
+    //     dispatch(fetchOneUserAsync(uid));
+    //   }
+    // });
+    if (isAuth) {
+      dispatch(fetchOneUserAsync());
+    } else {
+      signOut(auth);
+      navigate("/login");
+    }
   }, []);
+  useEffect(() => {
+    if (user.error === "error") {
+      navigate("/login");
+    }
+  }, [user]);
 
   const handlePurge = () => {
     setFirstName("");

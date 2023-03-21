@@ -1,5 +1,10 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
+const Sport = require("./Sport");
+dotenv.config();
+
 const User = db.define(
   "user",
   {
@@ -67,5 +72,25 @@ const User = db.define(
   },
   { timestamps: false }
 );
+
+User.findByToken = async (token) => {
+  try {
+    if (!token) {
+      throw new Error("No token");
+    }
+    const { id } = jwt.verify(token, process.env.JWT);
+    const user = await User.findByPk(id, {
+      include: {
+        model: Sport,
+      },
+    });
+    if (!user) {
+      console.log("User not found");
+    }
+    return user;
+  } catch (e) {
+    throw e;
+  }
+};
 
 module.exports = User;

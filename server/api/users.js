@@ -5,7 +5,9 @@ const express = require("express");
 const router = express.Router();
 const Sequelize = require("sequelize");
 const { User, UserSport, Sport } = require("../db/index");
-const axios = require("axios");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
 
 // POST api/users/
 router.post("/", async (req, res, next) => {
@@ -24,17 +26,50 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.post("/login", async (req, res, next) => {
+  try {
+    let user;
+    if (req.body.providerId === "google.com") {
+      const { name, email, uid, photoUrl } = req.body;
+      const googleUser = await User.findOne({
+        where: { email: email, uid: uid },
+      });
+      if (!googleUser) {
+        user = await User.create({
+          name: name,
+          email: email,
+          uid: uid,
+          imageUrl: photoUrl,
+        });
+      } else {
+        user = googleUser;
+      }
+    } else {
+      user = await User.findOne({ where: { email: req.body.email } });
+    }
+    if (Object.keys(user).length > 0) {
+      const token = jwt.sign({ id: user.id }, process.env.JWT);
+      res.cookie("token", token, {
+        httpOnly: true,
+      });
+      res.json(user);
+    } else {
+      res.send("User not found");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 // api/users/me
 router.get("/me", async (req, res, next) => {
   try {
     console.log("REQ query", req.query);
-
-    const user = await User.findOne({
-      where: {
-        uid: req.query.uid,
-      },
-      include: Sport,
-    });
+    if (!req.cookies.token) {
+      next();
+    }
+    const user = await User.findByToken(req.cookies.token);
+    console.log(user);
     res.json(user);
   } catch (error) {
     next(error);
@@ -118,6 +153,7 @@ router.get("/", async (req, res, next) => {
   try {
     // Take in address and convert it to coordinates. Save address state.
     let users = [];
+    // axios.get("/api/users", {params: {}})
     const { filters, longitude, latitude, distance } = req.query;
     const dist = parseInt(distance);
     const lat = latitude ? parseFloat(latitude) : 40.77193565657;

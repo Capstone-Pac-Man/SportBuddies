@@ -67,8 +67,6 @@ router.get("/", async (req, res, next) => {
         },
       });
     }
-
-    console.log(venues);
     const newVenues = distanceFilter({ lat, long }, venues, dist);
     res.json(newVenues);
   } catch (err) {
