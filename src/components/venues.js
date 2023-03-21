@@ -4,18 +4,18 @@ import { useSelector, useDispatch } from "react-redux";
 
 export const Venues = () => {
   const dispatch = useDispatch();
-  //  const venues = useSelector(selectVenues);
-  //   useEffect(() => {
-  //     dispatch(fetchAllVenuesAsync());
-  //   }, [dispatch]);
+  const venues = useSelector(selectVenues);
+  useEffect(() => {
+    dispatch(fetchAllVenuesAsync());
+  }, [dispatch]);
 
-  const venues = [
+/*  const venues = [
     "Colter's Court",
     "Frank's Field",
     "Rachel's Rink",
     "Pavel's Pool",
     "Travis's Track",
-  ];
+  ]; */
 
   return (
     <>
