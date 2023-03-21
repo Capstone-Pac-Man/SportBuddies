@@ -184,8 +184,12 @@ const userSport = [
     userId: 6,
     sportId: 3,
   },
+  {
+    status: "active",
+    userId: 1,
+    sportId: 2,
+  },
 ];
-
 
 const venueSport = [
   {
@@ -220,9 +224,6 @@ const venueSport = [
 
 const sports = ["Soccer", "Basketball", "Baseball", "Football"];
 
-
-
-
 const seed = async () => {
   try {
     await db.sync({ force: true });
@@ -237,7 +238,7 @@ const seed = async () => {
         await Sport.create({ name: sport });
       })
     );
-    
+
     await Promise.all(
       userSport.map(async (val) => {
         let user = await User.findOne({
@@ -251,8 +252,6 @@ const seed = async () => {
         });
       })
     );
-
-    
 
     await Promise.all(
       venues.map(async (venue) => {
