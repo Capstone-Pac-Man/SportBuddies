@@ -21,7 +21,7 @@ export const UserProfile = () => {
 
   return (
     <div>
-      <h1> welcome {user.name}!</h1>
+      <h1> Welcome, {user.name}!</h1>
       <img alt="" src={user.imageUrl} />
       <UploadPfp uid={user.uid} />
     </div>
