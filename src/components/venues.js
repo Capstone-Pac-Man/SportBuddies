@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllVenuesAsync, selectVenues } from "../reducers/venuesSlice";
+import { Link } from "react-router-dom";
 
 export const Venues = () => {
   const dispatch = useDispatch();
@@ -18,11 +19,25 @@ export const Venues = () => {
         <div>
           <ul>
             {venues.map((venue) => {
-              return(                 
+              return(
                 <li key={venue}>
-                  {venue.name}: {venue.address}<br></br><br></br>
-                  <img src={venue.imageUrl} height="158" width="273"></img></li>)
-
+                  {venue.name}: {venue.address}
+                  <br></br>
+                  <br></br>
+                  <Link
+                    to={`/venues/${venue.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <img
+                      src={venue.imageUrl}
+                      alt="Dazzling photo of the venue"
+                      height="158"
+                      width="273"
+                    ></img>
+                  </Link>
+                </li>
+              );
             })}
           </ul>
         </div>
