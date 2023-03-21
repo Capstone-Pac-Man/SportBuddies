@@ -11,5 +11,5 @@ export const Logout = () => {
       console.error(error);
     }
   };
-  return <Button onClick={logout}>Logout</Button>;
+  return <Button className="myBtn" onClick={logout}>Logout</Button>;
 };

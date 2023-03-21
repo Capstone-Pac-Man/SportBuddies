@@ -64,7 +64,7 @@ const SignUp = () => {
 
   return (
     <Container className="d-flex align-items-center justify-content-center">
-      <Card style={{ width: "50%" }}>
+      <Card style={{ width: "50%", marginTop:"20%"}}>
         <Card.Body>
           <Card.Title className="title">Sign Up</Card.Title>
           <Form onSubmit={handleSignUp} name="signup" className="form">
@@ -147,7 +147,7 @@ const SignUp = () => {
               }
               variant="primary"
               type="submit"
-              className="btn"
+              className="myBtn"
             >
               Sign Up
             </Button>

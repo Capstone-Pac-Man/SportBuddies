@@ -21,7 +21,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <Navbar id="navbar" sticky="top" bg="dark" variant="dark">
+    <Navbar className="navbar" sticky="top" bg="dark" variant="dark">
       {isLoggedIn ? (
         <Container>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

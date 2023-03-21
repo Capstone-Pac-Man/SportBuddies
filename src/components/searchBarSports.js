@@ -21,6 +21,7 @@ export const SearchBar = () => {
   for (const element of dbSports) {
     sports.push(element.name.toLowerCase())
   }
+
   const handleChange = (e) => {
     e.preventDefault();
     setQuery(e.target.value);
