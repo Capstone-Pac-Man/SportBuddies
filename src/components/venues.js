@@ -9,21 +9,20 @@ export const Venues = () => {
   useEffect(() => {
     dispatch(fetchAllVenuesAsync());
   }, [dispatch]);
-  
+
   return (
     <>
       <h1>
         <u>VENUES</u>
       </h1>{" "}
-    <h3>Click to view individual venue details in new tab</h3>
+      <h3>Click to view individual venue details in new tab</h3>
       {venues && venues[0] ? (
         <div>
           <ul>
             {venues.map((venue) => {
-              return(
+              return (
                 <li key={venue}>
                   {venue.name}: {venue.address}
-                  <br></br>
                   <br></br>
                   <Link
                     to={`/venues/${venue.id}`}
@@ -32,7 +31,7 @@ export const Venues = () => {
                   >
                     <img
                       src={venue.imageUrl}
-                      alt="Dazzling photo of the venue"
+                      alt="Dazzling foto of the venue"
                       height="158"
                       width="273"
                     ></img>
