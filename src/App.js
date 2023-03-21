@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { HomePage } from "./components/homepage/homepage";
 import { SearchBar } from "./components/searchBarSports";
 import { Venues } from "./components/venues";
+import { Venue } from "./components/venue";
 import { SelectedSport } from "./components/selectedSport";
 import { UserProfile } from "./components/users/userProfile";
 import "react-toastify/dist/ReactToastify.css";

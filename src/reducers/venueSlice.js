@@ -6,13 +6,10 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-export const fetchVenue = createAsyncThunk(
-  "venues/fetchOne",
-  async (id) => {
-    const { data } = await instance.get(`/api/venues/${id}`);
-    return data;
-  }
-);
+export const fetchVenue = createAsyncThunk("venues/fetchOne", async (id) => {
+  const { data } = await instance.get(`/api/venues/${id}`);
+  return data;
+});
 
 export const addVenueAsync = createAsyncThunk(
   "venues/add",
