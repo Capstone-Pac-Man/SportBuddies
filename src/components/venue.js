@@ -16,13 +16,12 @@ export const Venue = () => {
 
   return (
     <>
-      <h1>
-        <u>VENUE #{id}</u>
-      </h1>{" "}
-{venue && venue.name ? (
+      {venue && venue.name ? (
         <>
           <div>
-            {venue.name}: {venue.address}
+            <h2>
+              VENUE #{id}: {venue.name} at {venue.address}
+            </h2>{" "}
             <br></br>
             <img
               src={venue.imageUrl}
@@ -32,7 +31,9 @@ export const Venue = () => {
             ></img>
           </div>
           <div>
-            <h4>SPORTS OFFERED:</h4>
+            <h4>
+              <i>SPORTS OFFERED:</i>
+            </h4>
             {venue.sports && venue.sports[0] ? (
               <div>
                 <ul>
@@ -54,4 +55,3 @@ export const Venue = () => {
 };
 
 export default Venue;
-
