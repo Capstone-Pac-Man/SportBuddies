@@ -27,9 +27,10 @@ export const Venues = () => {
         <div>
           <ul>
             {venues.map((venue) => {
-              return                 <li key={venue}>
-                  {venue.name}: {venue.address}
-                  <img src={venue.imageUrl} height="158" width="273"></img></li>
+              return(                 
+                <li key={venue}>
+                  {venue.name}: {venue.address}<br><br>
+                  <img src={venue.imageUrl} height="158" width="273"></img></li>)
 
             })}
           </ul>
