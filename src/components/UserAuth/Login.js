@@ -37,7 +37,7 @@ const Login = () => {
     <Container className="d-flex align-items-center justify-content-center">
       <Card style={{ width: "50%", marginTop:"20%" }}>
         <Card.Body>
-          <Card.Title>Login</Card.Title>
+          <Card.Title>Log in</Card.Title>
           <Form onSubmit={handleSignIn} name="login" className="form">
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
@@ -58,8 +58,12 @@ const Login = () => {
               />
             </Form.Group>
             <br></br>
-            <Button type="submit" className="myBtn">
-              Login
+            <Button
+              type="submit"
+              className="myBtn"
+              disabled={email === "" || password.length === 0}
+            >
+              Log in
             </Button>
           </Form>
           <br></br>

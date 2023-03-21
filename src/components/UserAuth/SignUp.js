@@ -127,6 +127,7 @@ const SignUp = () => {
             <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
+                placeholder="Minimum: 8 characters"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

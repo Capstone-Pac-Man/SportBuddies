@@ -43,38 +43,72 @@ router.get("/me", async (req, res, next) => {
 
 router.put("/me", async (req, res, next) => {
   try {
-    const { id, sportId, skillLevel, status, ...rest } = req.body;
+    const { uid, sportId, skillLevel, status, imageUrl, ...rest } = req.body;
+    console.log("IMAGE =>", imageUrl);
+    console.log("UID", uid);
+    console.log("REQ BODY ==>", req.body);
     // Use authentication class Function
     const user = await User.findOne({
       where: {
-        id: id,
+        uid: uid,
       },
       include: {
         model: Sport,
       },
     });
+
+    console.log("USERS ID", user.id);
     if (sportId) {
       if (skillLevel) {
         console.log("came here");
         await UserSport.update(
           { skillLevel: skillLevel },
-          { where: { userId: id, sportId: sportId } }
+          { where: { userId: user.id, sportId: sportId } }
         );
       }
       if (status) {
         console.log("came here");
         await UserSport.update(
           { status: status },
-          { where: { userId: id, sportId: sportId } }
+          { where: { userId: user.id, sportId: sportId } }
         );
       }
     }
+
+    if (imageUrl) {
+      await user.update({
+        imageUrl: imageUrl,
+      });
+    }
+
     if (!user) {
       next();
     }
     await user.update(rest);
-    const final = await User.findByPk(id, { include: { model: Sport } });
+    const final = await User.findOne({
+      where: {
+        uid: uid,
+      },
+      include: {
+        model: Sport,
+      },
+    });
     res.json(final);
+  } catch (e) {
+    next(e);
+  }
+});
+
+//GET api/users/:id
+router.get("/:id", async (req, res, next) => {
+  try {
+    const singleUser = await User.findByPk(req.params.id, {
+      include: {
+        model: Sport,
+      },
+    });
+
+    res.json(singleUser);
   } catch (e) {
     next(e);
   }
