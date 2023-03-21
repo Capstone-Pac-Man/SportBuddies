@@ -99,6 +99,21 @@ router.put("/me", async (req, res, next) => {
   }
 });
 
+//GET api/users/:id
+router.get("/:id", async (req, res, next) => {
+  try {
+    const singleUser = await User.findByPk(req.params.id, {
+      include: {
+        model: Sport,
+      },
+    });
+
+    res.json(singleUser);
+  } catch (e) {
+    next(e);
+  }
+});
+
 router.get("/", async (req, res, next) => {
   try {
     // Take in address and convert it to coordinates. Save address state.
