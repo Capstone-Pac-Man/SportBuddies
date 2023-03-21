@@ -8,15 +8,6 @@ export const Venues = () => {
   useEffect(() => {
     dispatch(fetchAllVenuesAsync());
   }, [dispatch]);
-
-/*  const venues = [
-    "Colter's Court",
-    "Frank's Field",
-    "Rachel's Rink",
-    "Pavel's Pool",
-    "Travis's Track",
-  ]; */
-
   
   return (
     <>
@@ -29,7 +20,7 @@ export const Venues = () => {
             {venues.map((venue) => {
               return(                 
                 <li key={venue}>
-                  {venue.name}: {venue.address}<br><br>
+                  {venue.name}: {venue.address}<br></br><br></br>
                   <img src={venue.imageUrl} height="158" width="273"></img></li>)
 
             })}
