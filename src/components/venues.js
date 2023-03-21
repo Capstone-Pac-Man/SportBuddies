@@ -15,6 +15,7 @@ export const Venues = () => {
       <h1>
         <u>VENUES</u>
       </h1>{" "}
+    <h3>Click to view individual venue details in new tab</h3>
       {venues && venues[0] ? (
         <div>
           <ul>
