@@ -30,7 +30,7 @@
     color: rgba(134, 122, 143); */
   border: none;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   transition: 0.2s ease-in-out;
@@ -41,7 +41,7 @@
 
 .homeImg {
   height: 50%;
-  position: absolute;
+  /* position: absolute; */
   transition: 0.2s ease-in-out;
   z-index: 1;
   display: flex;
