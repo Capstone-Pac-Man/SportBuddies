@@ -7,68 +7,95 @@ import {
   editUserAsync,
 } from "../../reducers/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
 import { UploadPfp } from "./uploadPfp";
 import { ListGroup } from "react-bootstrap";
 import { useState } from "react";
 
+/* USER: name, email, imageUrl, mobile, availableFrom, 
+availableTo, address, city, state, zipcode, country*/
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const user = useSelector(selectUser);
-  const isAuth = localStorage.getItem("auth");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [availableFrom, setAvailableFrom] = useState("");
+  const [availableTo, setAvailableTo] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [country, setCountry] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const firstName = e.target.firstName.value;
-    const lastName = e.target.lastName.value;
     const email = e.target.email.value;
-    const password = e.target.password.value;
-    const address = e.target.address.value;
+    const mobile = e.target.mobile.value;
 
-    dispatch(editUserAsync({ firstName, lastName, email, password, address }));
-    setFirstName("");
-    setLastName("");
+    const address = e.target.address.value;
+    const state = e.target.state.value;
+    const city = e.target.city.value;
+    const country = e.target.country.value;
+    const zipcode = e.target.zipcode.value;
+
+    const availableFrom = e.target.availableFrom.value;
+    const availableTo = e.target.availableTo.value;
+
+    dispatch(
+      editUserAsync({
+        name,
+        email,
+        mobile,
+        availableFrom,
+        availableTo,
+        city,
+        state,
+        zipcode,
+        country,
+        address,
+      })
+    );
+    setName("");
     setEmail("");
+    setMobile("");
+    setAvailableFrom("");
+    setAvailableTo("");
+    setCity("");
+    setState("");
+    setZipcode("");
+    setCountry("");
+    setAddress("");
   };
 
   useEffect(() => {
-    setFirstName(user.firstName || "");
-    setLastName(user.lastName || "");
+    setName(user.name || "");
     setEmail(user.email || "");
   }, [user]);
 
   useEffect(() => {
-    // onAuthStateChanged(auth, (user) => {
-    //   if (user) {
-    //     const uid = user.uid;
-    //     console.log("UID!!!", uid);
-    //     dispatch(fetchOneUserAsync(uid));
-    //   }
-    // });
-    if (isAuth) {
-      dispatch(fetchOneUserAsync());
-    } else {
-      signOut(auth);
-      navigate("/login");
-    }
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log("in useEffect, UID========", uid);
+        dispatch(fetchOneUserAsync(uid));
+      }
+    });
   }, []);
-  useEffect(() => {
-    if (user.error === "error") {
-      navigate("/login");
-    }
-  }, [user]);
 
   const handlePurge = () => {
-    setFirstName("");
-    setLastName("");
+    setName("");
     setEmail("");
+    setMobile("");
+    setAvailableFrom("");
+    setAvailableTo("");
+    setCity("");
+    setState("");
+    setZipcode("");
+    setCountry("");
+    setAddress("");
   };
+  console.log("user========", user);
 
   return (
     <>
@@ -91,30 +118,99 @@ export const UserProfile = () => {
           </ListGroup.Item>
           <ListGroup.Item>
             <br></br>
-            <label htmlFor="firstName">Update first name:</label>
+            <label htmlFor="name" style={{ width: 130 }}>
+              Update full name:
+            </label>
             <input
-              name="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              name="name"
+              style={{ width: 400 }}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />{" "}
-            <label htmlFor="lastName">Update last name:</label>
-            <input
-              name="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
             <br></br>
             <br></br>
+            {/* /// */}
             <label htmlFor="email">Update email address:</label>
             <input
+              style={{ width: 400 }}
               name="email"
               value={email}
               size="39"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <br></br> <br></br>
+            {/* /// */}
+            <label htmlFor="mobile">Update mobile:</label>
+            <input
+              name="mobile"
+              value={mobile}
+              style={{ width: 150 }}
+              size="39"
+              onChange={(e) => setMobile(e.target.value)}
+            />
+            {/* /// */}
+            <br></br>
+            <br></br>
+            <label htmlFor="address">
+              Update street address (e.g "19 Haversine Ave #3F"):
+            </label>
+            <input
+              name="address"
+              value={address}
+              style={{ width: 340 }}
+              size="39"
+              onChange={(e) => setAddress(e.target.value)}
+            />
+            <label htmlFor="city">Update city:</label>
+            <input
+              name="city"
+              value={city}
+              style={{ width: 200 }}
+              size="39"
+              onChange={(e) => setCity(e.target.value)}
+            />
+            <div>
+              <br></br> (State dropdown will go here)
+              <label htmlFor="zipcode" style={{ width: 90 }}>
+                Update ZIP:
+              </label>
+              <input
+                name="zipcode"
+                value={zipcode}
+                style={{ width: 130 }}
+                size="39"
+                onChange={(e) => setZipcode(e.target.value)}
+              />
+              <label htmlFor="country" style={{ width: 125 }}>
+                Update country:
+              </label>
+              <input
+                name="country"
+                value={country}
+                style={{ width: 200 }}
+                size="39"
+                onChange={(e) => setZipcode(e.target.value)}
+              />
+            </div>
+            <br></br>
+            <label htmlFor="availableFrom">I am available from:</label>
+            <input
+              name="availableFrom"
+              value={availableFrom}
+              style={{ width: 60 }}
+              size="39"
+              onChange={(e) => setAvailableFrom(e.target.value)}
+            />{" "}
+            to <label htmlFor="availableTo"></label>
+            <input
+              name="availableTo"
+              value={availableTo}
+              style={{ width: 60 }}
+              size="39"
+              onChange={(e) => setAvailableTo(e.target.value)}
+            />{" "}
+            .<br></br>
             <p>
-              <i>Note: this button will remain gray if any fields are empty.</i>
+              <i>This button will remain frozen if any fields are empty.</i>
             </p>
             <button type="submit">Update my info.</button>
           </ListGroup.Item>
@@ -123,3 +219,5 @@ export const UserProfile = () => {
     </>
   );
 };
+
+export default UserProfile;
