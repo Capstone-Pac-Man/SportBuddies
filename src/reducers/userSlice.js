@@ -28,10 +28,11 @@ export const fetchOneUserAsync = createAsyncThunk(
 
 export const signUpThunk = createAsyncThunk(
   "users/createUser",
-  async ({ name, email, state, zipcode, uid }) => {
+  async ({ firstName, lastName, email, state, zipcode, uid }) => {
     try {
       const { data } = await instance.post(`/api/users/`, {
-        name: name,
+        firstName: firstName,
+        lastName : lastName,
         email: email,
         state: state,
         zipcode: zipcode,
@@ -50,7 +51,8 @@ availableTo,address, city, country and userType. */
 export const editUserAsync = createAsyncThunk(
   "users/editOne",
   async ({
-    name,
+    firstName,
+    lastName,
     email,
     imageUrl,
     mobile,
@@ -65,7 +67,8 @@ export const editUserAsync = createAsyncThunk(
     console.log("UID IN SLLICE", uid);
 
     const { data } = await instance.put(`/api/users/me`, {
-      name,
+      firstName,
+      lastName,
       email,
       imageUrl,
       mobile,

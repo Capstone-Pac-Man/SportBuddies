@@ -26,10 +26,9 @@ const SignUp = () => {
         password
       );
 
-      const name = firstName + " " + lastName;
       const uid = userCredential.user.uid;
 
-      dispatch(signUpThunk({ name, email, state, zipcode, uid }));
+      dispatch(signUpThunk({ firstName, lastName, email, state, zipcode, uid }));
 
       console.log("SIGN UP SUCCESS");
 

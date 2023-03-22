@@ -8,36 +8,16 @@ import {
 } from "../../reducers/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { UploadPfp } from "./uploadPfp";
-import { ListGroup } from "react-bootstrap";
+import { UpdateUser } from "./updateUserProfile";
+import { Container, ListGroup, Col, Card, Button, Table } from "react-bootstrap";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const user = useSelector(selectUser);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const firstName = e.target.firstName.value;
-    const lastName = e.target.lastName.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const address = e.target.address.value;
-
-    dispatch(editUserAsync({ firstName, lastName, email, password, address }));
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-  };
-
-  useEffect(() => {
-    setFirstName(user.firstName || "");
-    setLastName(user.lastName || "");
-    setEmail(user.email || "");
-  }, [user]);
-
+  
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -47,63 +27,42 @@ export const UserProfile = () => {
       }
     });
   }, []);
-
-  const handlePurge = () => {
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-  };
+  
+  if (!user) return "Loading" 
 
   return (
     <>
-      <div>
-        <h1> Welcome, {user.name}!</h1>
-        <img alt="" src={user.imageUrl} />
-        <UploadPfp uid={user.uid} />
-      </div>
-      <ListGroup>
-        <form id="edit-user-form">
-          <ListGroup.Item>
-            <button
-              type="button"
-              onClick={() => {
-                handlePurge();
-              }}
-            >
-              Wipe all fields.
-            </button>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <br></br>
-            <label htmlFor="firstName">Update first name:</label>
-            <input
-              name="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />{" "}
-            <label htmlFor="lastName">Update last name:</label>
-            <input
-              name="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <br></br>
-            <br></br>
-            <label htmlFor="email">Update email address:</label>
-            <input
-              name="email"
-              value={email}
-              size="39"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <br></br> <br></br>
-            <p>
-              <i>Note: this button will remain gray if any fields are empty.</i>
-            </p>
-            <button type="submit">Update my info.</button>
-          </ListGroup.Item>
-        </form>
-      </ListGroup>
+      <Container>
+        <Col>
+          <h1> Welcome, {user.fullName}!</h1>
+          <img src={user.imageUrl} className="img-fluid rounded-start "style={{width:"240px"}} alt="avatar"></img>
+          <Card>
+            <Card.Header>Personal Information 
+              <UpdateUser />
+            <Button variant="primary" onClick={()=> navigate("/change_password")}>
+              Change Password
+              </Button>
+              </Card.Header>
+            <Table striped bordered hover size="sm">
+              <thead>
+                <tr>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{user.fullName}</td>
+                  <td>{user.email}</td>
+                  <td>{user.mobile}</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Card>      
+        </Col>
+      </Container>
+      
     </>
   );
 };

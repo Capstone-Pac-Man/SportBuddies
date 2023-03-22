@@ -3,7 +3,8 @@ const { db, User, Sport, UserSport, Venue } = require("../server/db/index");
 
 const users = [
   {
-    name: "AlexTrainer",
+    firstName: "Alex",
+    lastName: "Trainer",
     email: "alex@gmail.com",
     imageUrl:
       "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1349&q=80",
@@ -19,7 +20,8 @@ const users = [
     latitude: 33.578713,
   },
   {
-    name: "Bianca",
+    firstName: "Bianca",
+    lastName: "Miles",
     email: "bianca@gmail.com",
     imageUrl:
       "https://images.unsplash.com/photo-1569241872171-7fbfc33b4b21?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
@@ -35,7 +37,8 @@ const users = [
     latitude: 33.59631,
   },
   {
-    name: "Ciara",
+    firstName: "Ciara",
+    lastName: "Jones",
     email: "ciara@gmail.com",
     imageUrl:
       "https://images.unsplash.com/photo-1529271765130-29999f125749?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
@@ -52,7 +55,8 @@ const users = [
   },
 
   {
-    name: "Diego",
+    firstName: "Diego",
+    lastName: "Maradona",
     email: "diego@gmail.com",
     imageUrl:
       "https://plus.unsplash.com/premium_photo-1676790135048-f74d2a55faab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
@@ -68,7 +72,8 @@ const users = [
     latitude: 33.56941,
   },
   {
-    name: "Ernesto",
+    firstName: "Ernesto",
+    lastName: "De La Cruz",
     email: "ernesto@gmail.com",
     imageUrl:
       "https://images.unsplash.com/photo-1602339824201-171804fff052?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
@@ -84,7 +89,8 @@ const users = [
     latitude: 32.232601,
   },
   {
-    name: "Fred",
+    firstName: "Fred",
+    lastName: "Smith",
     email: "freddy@gmail.com",
     imageUrl:
       "https://images.unsplash.com/photo-1518614368389-5160c0b0de72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2200&q=80",

@@ -33,7 +33,7 @@ export const PlayersBox = () => {
             alt="First slide"
           />
           <div className="homeTextBox">
-            <Card.Title>{card.name}</Card.Title>
+            <Card.Title>{card.fullName}</Card.Title>
             <Card.Text>{card.userType}</Card.Text>
             <Card.Text>Available from {card.availableFrom} to {card.availableTo}</Card.Text>
           </div>

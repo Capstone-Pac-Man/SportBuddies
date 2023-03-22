@@ -64,7 +64,7 @@ export const SelectedSport = () => {
                                 className="homeImg"
                                 />
                                 <div className="homeTextBox">
-                                <Card.Title>{user.name}</Card.Title>
+                                <Card.Title>{user.fullName}</Card.Title>
                                 <Card.Text>{user.userType}</Card.Text>
                                 <Card.Text>Available from {user.availableFrom} to {user.availableTo}</Card.Text>
                                 </div>
