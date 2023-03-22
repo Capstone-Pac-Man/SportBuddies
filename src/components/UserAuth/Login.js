@@ -91,7 +91,18 @@ const Login = () => {
           </Form>
           <br></br>
           <Link to="/">
-            <Button onClick={signInWithGoogle}>Sign in with Google</Button>
+            <Button
+              variant="outline-dark"
+              className="mt-4 pr-3"
+              onClick={signInWithGoogle}
+            >
+              <img
+                className="google"
+                alt=""
+                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg "
+              />{" "}
+              Sign in with Google{" "}
+            </Button>
           </Link>
         </Card.Body>
       </Card>
