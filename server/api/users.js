@@ -12,9 +12,10 @@ dotenv.config();
 // POST api/users/
 router.post("/", async (req, res, next) => {
   try {
-    const { name, email, state, zipcode, uid } = req.body;
+    const { firstName, lastName, email, state, zipcode, uid } = req.body;
     const user = await User.create({
-      name: name,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       state: state,
       zipcode: zipcode,

@@ -3,6 +3,7 @@ import { storage, auth } from "../../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { editUserAsync, selectUser } from "../../reducers/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import {Form, Button} from "react-bootstrap"
 
 export const UploadPfp = (props) => {
   const [uploadFile, setUploadFile] = useState(null);
@@ -22,9 +23,10 @@ export const UploadPfp = (props) => {
   };
 
   return (
-    <>
-      <input type="file" onChange={(e) => setUploadFile(e.target.files[0])} />
-      <button onClick={handleUpload}>Upload image</button>
-    </>
+    <Form.Group className="mb-3" controlId="image">
+      <Form.Label>Image</Form.Label>
+      <Form.Control type="file" onChange={(e) => setUploadFile(e.target.files[0])} />
+      <Button onClick={handleUpload}>Upload image</Button>
+    </Form.Group>
   );
 };

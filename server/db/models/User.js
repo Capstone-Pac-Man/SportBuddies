@@ -10,7 +10,11 @@ const SALT_ROUNDS = 7;
 const User = db.define(
   "user",
   {
-    name: {
+    firstName: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    lastName: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -70,6 +74,12 @@ const User = db.define(
     },
     latitude: {
       type: Sequelize.FLOAT,
+    },
+    fullName: {
+      type: Sequelize.VIRTUAL,
+      get() {
+        return `${this.firstName} ${this.lastName}`;
+      },
     },
   },
   { timestamps: false }

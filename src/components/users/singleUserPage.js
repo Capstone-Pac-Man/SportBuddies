@@ -25,7 +25,7 @@ export const SingleUserPage = () => {
     dispatch(fetchSingleUserAysnc(id));
   }, [dispatch]);
 
-  if (!player.name) return <h1>Loading...</h1>;
+  if (!player.fullName) return <h1>Loading...</h1>;
 
   return (
     <Container>
@@ -33,7 +33,7 @@ export const SingleUserPage = () => {
         <Col md={4} className="mb-5">
           <Card>
             <Card.Header className="d-flex mb-2 justify-content-between">
-              <p>{player.name}</p>
+              <p>{player.fullName}</p>
               <p>{player.distance}</p>
             </Card.Header>
             <Card.Img
