@@ -5,9 +5,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { Logout } from "./UserAuth/LogOut";
 import { SearchBar } from "../components/searchBarSports";
+import { fetchOneUserAsync } from "../reducers/userSlice";
 
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { auth } from "../../config/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { Form, Button, Container, Card, Row, Col } from "react-bootstrap";
 import { signUpThunk } from "../../reducers/userSlice";
 import { useDispatch } from "react-redux";
@@ -27,11 +30,15 @@ const SignUp = () => {
       );
 
       const uid = userCredential.user.uid;
-
-      dispatch(signUpThunk({ firstName, lastName, email, state, zipcode, uid }));
+      if (firstName !== "" && lastName !== "") {
+        dispatch(
+          signUpThunk({ firstName, lastName, email, state, zipcode, uid })
+        );
+      }
+      await signInWithEmailAndPassword(auth, email, password);
 
       console.log("SIGN UP SUCCESS");
-
+      navigate("/");
       toast.success(
         auth.currentUser.displayName
           ? `Welcome ${auth.currentUser.displayName}!`
@@ -63,7 +70,7 @@ const SignUp = () => {
 
   return (
     <Container className="d-flex align-items-center justify-content-center">
-      <Card style={{ width: "50%", marginTop:"20%"}}>
+      <Card style={{ width: "50%", marginTop: "20%" }}>
         <Card.Body>
           <Card.Title className="title">Sign Up</Card.Title>
           <Form onSubmit={handleSignUp} name="signup" className="form">

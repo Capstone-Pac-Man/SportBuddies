@@ -40,9 +40,7 @@ export default function Players() {
             <Card key={e.id} className="player-card">
               <Card.Img variant="top" src={e.imageUrl} />
               <Card.Body>
-                <Card.Title>
-                  {e.firstName} {e.lastName}
-                </Card.Title>
+                <Card.Title>{e.fullName}</Card.Title>
                 <Card.Subtitle className="text-muted">
                   {e.distance.toFixed(1)} miles away
                 </Card.Subtitle>
