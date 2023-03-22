@@ -40,7 +40,7 @@ router.post("/login", async (req, res, next) => {
       console.log(name);
       if (!googleUser) {
         user = await User.create({
-          name: name,
+          fullName: name,
           email: email,
           uid: uid,
           imageUrl: photoUrl,

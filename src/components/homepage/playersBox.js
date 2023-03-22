@@ -44,37 +44,6 @@ export const PlayersBox = () => {
     ));
   };
 
-  // return (
-  //   <div>
-  //     <h1 className="homeHeader">Players Near You</h1>
-  //     <Carousel style={{height: "500px", marginTop:"40px"}} >
-  //       {[0, 4].map((startIndex) => (
-  //         <Carousel.Item key={startIndex} className="carouselHome">
-  //           <div className="d-flex justify-content-evenly">
-  //             {users.slice(startIndex, startIndex + 4).map((user) => (
-  //               <div key={user.id} >
-  //                 <Card.Body className="homeCard">
-  //                   <Card.Img
-  //                     src={user.imageUrl}
-  //                     style={{ width: "300px", height: "480px", objectFit: "cover",borderRadius: "10%" }}
-  //                     alt="Image"
-  //                     className="homeImg"
-
-  //                   />
-  //                   <div className="homeTextBox">
-  //                   <Card.Title>{user.name}</Card.Title>
-  //                   <Card.Text>{user.userType}</Card.Text>
-  //                   <Card.Text>Available from {user.availableFrom} to {user.availableTo}</Card.Text>
-  //                   </div>
-  //                 </Card.Body>
-  //               </div>
-  //             ))}
-  //           </div>
-  //         </Carousel.Item>
-  //       ))}
-  //     </Carousel>
-  //   </div>
-  // );
   return (
     <>
       <Row>
