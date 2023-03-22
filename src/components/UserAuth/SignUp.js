@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { auth } from "../../config/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { Form, Button, Container, Card, Row, Col } from "react-bootstrap";
 import { signUpThunk } from "../../reducers/userSlice";
 import { useDispatch } from "react-redux";
@@ -32,6 +35,7 @@ const SignUp = () => {
           signUpThunk({ firstName, lastName, email, state, zipcode, uid })
         );
       }
+      await signInWithEmailAndPassword(auth, email, password);
 
       console.log("SIGN UP SUCCESS");
       navigate("/");
