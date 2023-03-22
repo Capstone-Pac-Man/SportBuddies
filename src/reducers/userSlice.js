@@ -1,6 +1,8 @@
 // ## JW
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 /* user model has: name, email, imageUrl, mobile, availableFrom, 
 availableTo,address, city, country and userType. */
@@ -16,12 +18,10 @@ export const fetchOneUserAsync = createAsyncThunk(
     // does the above async need a parameter....?
     try {
       console.log("THUNK VAL", val);
-      const { data } = await instance.get(`/api/users/me`, {
-        params: { uid: val },
-      });
+      const { data } = await instance.get(`/api/users/me`);
       return data;
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 );
@@ -89,9 +89,15 @@ const userSlice = createSlice({
   initialState: {},
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchOneUserAsync.fulfilled, (state, { payload }) => {
-      return payload;
-    });
+    builder
+      .addCase(fetchOneUserAsync.fulfilled, (state, { payload }) => {
+        return payload;
+      })
+      .addCase(fetchOneUserAsync.rejected, (state, { payload }) => {
+        localStorage.removeItem("auth");
+        signOut(auth);
+        return { error: "error" };
+      });
     builder.addCase(editUserAsync.fulfilled, (state, action) => {
       return action.payload;
     });

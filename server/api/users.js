@@ -5,7 +5,9 @@ const express = require("express");
 const router = express.Router();
 const Sequelize = require("sequelize");
 const { User, UserSport, Sport } = require("../db/index");
-const axios = require("axios");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
 
 // POST api/users/
 router.post("/", async (req, res, next) => {
@@ -25,17 +27,50 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.post("/login", async (req, res, next) => {
+  try {
+    let user;
+    let token;
+    if (req.body.providerId === "google.com") {
+      const { name, email, uid, photoUrl } = req.body;
+      const googleUser = await User.findOne({
+        where: { email: email },
+      });
+      if (!googleUser) {
+        user = await User.create({
+          name: name,
+          email: email,
+          uid: uid,
+          imageUrl: photoUrl,
+        });
+        token = await User.authenticate({ email: email, uid: uid });
+      } else {
+        token = await User.authenticate({ email: email, uid: uid });
+      }
+    } else {
+      token = await User.authenticate({
+        email: req.body.email,
+        uid: req.body.uid,
+      });
+    }
+    user = await User.findByToken(token);
+    console.log(token, user);
+    res.cookie("token", token, { httpOnly: true });
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // api/users/me
 router.get("/me", async (req, res, next) => {
   try {
     console.log("REQ query", req.query);
-
-    const user = await User.findOne({
-      where: {
-        uid: req.query.uid,
-      },
-      include: Sport,
-    });
+    if (!req.cookies.token) {
+      next();
+    }
+    const user = await User.findByToken(req.cookies.token);
+    console.log(user);
     res.json(user);
   } catch (error) {
     next(error);
@@ -49,14 +84,7 @@ router.put("/me", async (req, res, next) => {
     console.log("UID", uid);
     console.log("REQ BODY ==>", req.body);
     // Use authentication class Function
-    const user = await User.findOne({
-      where: {
-        uid: uid,
-      },
-      include: {
-        model: Sport,
-      },
-    });
+    const user = await User.findByToken(req.cookies.token);
 
     console.log("USERS ID", user.id);
     if (sportId) {
@@ -119,6 +147,7 @@ router.get("/", async (req, res, next) => {
   try {
     // Take in address and convert it to coordinates. Save address state.
     let users = [];
+    // axios.get("/api/users", {params: {}})
     const { filters, longitude, latitude, distance } = req.query;
     const dist = parseInt(distance);
     const lat = latitude ? parseFloat(latitude) : 40.77193565657;

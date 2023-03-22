@@ -17,12 +17,11 @@ export const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const user = useSelector(selectUser);
-  
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
-        console.log("UID!!!", uid);
         dispatch(fetchOneUserAsync(uid));
       }
     });
@@ -62,7 +61,8 @@ export const UserProfile = () => {
           </Card>      
         </Col>
       </Container>
-      
     </>
   );
 };
+
+export default UserProfile;

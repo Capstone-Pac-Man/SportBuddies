@@ -1,9 +1,20 @@
-import React, {useEffect, useState} from "react";
-import { Container, Row, Figure, Col, Card, Carousel, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Row,
+  Figure,
+  Col,
+  Card,
+  Carousel,
+  Button,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import {fetchAllRelatedToSportAsync, selectSport} from "../reducers/sportSlice"
+import {
+  fetchAllRelatedToSportAsync,
+  selectSport,
+} from "../reducers/sportSlice";
 
 export const SelectedSport = () => {
     const dispatch = useDispatch()
@@ -80,6 +91,3 @@ export const SelectedSport = () => {
         </Container>
     )
 }
-
-
-

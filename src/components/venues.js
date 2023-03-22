@@ -26,7 +26,6 @@ export const Venues = () => {
                   <br></br>
                   <Link
                     to={`/venues/${venue.id}`}
-                    target="_blank"
                     rel="noreferrer"
                   >
                     <img
