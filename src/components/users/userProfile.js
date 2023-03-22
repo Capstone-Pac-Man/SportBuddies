@@ -78,6 +78,7 @@ export const UserProfile = () => {
       if (user) {
         const uid = user.uid;
         console.log("in useEffect, UID========", uid);
+        console.log("in useEffect, user=======", user);
         dispatch(fetchOneUserAsync(uid));
       }
     });
@@ -169,7 +170,7 @@ export const UserProfile = () => {
               onChange={(e) => setCity(e.target.value)}
             />
             <div>
-              <br></br> 
+              <br></br>
               <select onChange={(e) => setState(e.target.value)}>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -266,7 +267,24 @@ export const UserProfile = () => {
             <p>
               <i>This button will remain frozen if any fields are empty.</i>
             </p>
-            <button type="submit">Update my info.</button>
+            <button
+              type="submit"
+              disabled={
+                name === "" ||
+                email === "" ||
+                mobile === "" ||
+                address === "" ||
+                country === "" ||
+                city === "" ||
+                availableFrom === "" ||
+                availableTo === "" ||
+                zipcode.length < 5 ||
+                email.includes("@") === false ||
+                email.includes(".") === false
+              }
+            >
+              Update my info.
+            </button>
           </ListGroup.Item>
         </form>
       </ListGroup>
