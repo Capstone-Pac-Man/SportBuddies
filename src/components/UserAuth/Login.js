@@ -35,7 +35,7 @@ const Login = () => {
 
   return (
     <Container className="d-flex align-items-center justify-content-center">
-      <Card style={{ width: "50%", marginTop:"20%" }}>
+      <Card style={{ width: "50%", marginTop: "20%" }}>
         <Card.Body>
           <Card.Title>Log in</Card.Title>
           <Form onSubmit={handleSignIn} name="login" className="form">
@@ -68,7 +68,18 @@ const Login = () => {
           </Form>
           <br></br>
           <Link to="/">
-            <Button onClick={signInWithGoogle}>Sign in with Google</Button>
+            <Button
+              variant="outline-dark"
+              className="mt-4 pr-3"
+              onClick={signInWithGoogle}
+            >
+              <img
+                className="google"
+                alt=""
+                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg "
+              />{" "}
+              Sign in with Google{" "}
+            </Button>
           </Link>
         </Card.Body>
       </Card>
