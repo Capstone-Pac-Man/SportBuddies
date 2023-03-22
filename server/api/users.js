@@ -36,6 +36,8 @@ router.post("/login", async (req, res, next) => {
       const googleUser = await User.findOne({
         where: { email: email },
       });
+      console.log(googleUser);
+      console.log(name);
       if (!googleUser) {
         user = await User.create({
           name: name,
@@ -45,6 +47,9 @@ router.post("/login", async (req, res, next) => {
         });
         token = await User.authenticate({ email: email, uid: uid });
       } else {
+        if (googleUser.name !== name) {
+          await googleUser.update({ name: name });
+        }
         token = await User.authenticate({ email: email, uid: uid });
       }
     } else {
@@ -149,7 +154,8 @@ router.get("/", async (req, res, next) => {
     let users = [];
     // axios.get("/api/users", {params: {}})
     const { filters, longitude, latitude, distance } = req.query;
-    const dist = parseInt(distance);
+    // const dist = parseInt(distance);
+    const dist = 5000;
     const lat = latitude ? parseFloat(latitude) : 40.77193565657;
     const long = longitude ? parseFloat(longitude) : -73.974863;
     let filter = [];
@@ -161,16 +167,16 @@ router.get("/", async (req, res, next) => {
     }
     if (filter.length === 0) {
       users = await User.findAll({
-        where: {
-          [Sequelize.Op.and]: {
-            longitude: {
-              [Sequelize.Op.between]: [long - longOffset, long + longOffset],
-            },
-            latitude: {
-              [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
-            },
-          },
-        },
+        // where: {
+        //   [Sequelize.Op.and]: {
+        //     longitude: {
+        //       [Sequelize.Op.between]: [long - longOffset, long + longOffset],
+        //     },
+        //     latitude: {
+        //       [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+        //     },
+        //   },
+        // },
         include: {
           model: Sport,
         },
@@ -191,14 +197,14 @@ router.get("/", async (req, res, next) => {
       users = await User.findAll({
         where: {
           id,
-          [Sequelize.Op.and]: {
-            longitude: {
-              [Sequelize.Op.between]: [long - longOffset, long + longOffset],
-            },
-            latitude: {
-              [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
-            },
-          },
+          // [Sequelize.Op.and]: {
+          //   longitude: {
+          //     [Sequelize.Op.between]: [long - longOffset, long + longOffset],
+          //   },
+          //   latitude: {
+          //     [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+          //   },
+          // },
         },
         include: {
           model: Sport,
