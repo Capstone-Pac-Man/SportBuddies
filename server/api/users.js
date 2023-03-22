@@ -29,10 +29,11 @@ router.post("/", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     let user;
+    let token;
     if (req.body.providerId === "google.com") {
       const { name, email, uid, photoUrl } = req.body;
       const googleUser = await User.findOne({
-        where: { email: email, uid: uid },
+        where: { email: email },
       });
       if (!googleUser) {
         user = await User.create({
@@ -41,21 +42,20 @@ router.post("/login", async (req, res, next) => {
           uid: uid,
           imageUrl: photoUrl,
         });
+        token = await User.authenticate({ email: email, uid: uid });
       } else {
-        user = googleUser;
+        token = await User.authenticate({ email: email, uid: uid });
       }
     } else {
-      user = await User.findOne({ where: { email: req.body.email } });
-    }
-    if (Object.keys(user).length > 0) {
-      const token = jwt.sign({ id: user.id }, process.env.JWT);
-      res.cookie("token", token, {
-        httpOnly: true,
+      token = await User.authenticate({
+        email: req.body.email,
+        uid: req.body.uid,
       });
-      res.json(user);
-    } else {
-      res.send("User not found");
     }
+    user = await User.findByToken(token);
+    console.log(token, user);
+    res.cookie("token", token, { httpOnly: true });
+    res.json(user);
   } catch (error) {
     next(error);
   }
@@ -83,14 +83,7 @@ router.put("/me", async (req, res, next) => {
     console.log("UID", uid);
     console.log("REQ BODY ==>", req.body);
     // Use authentication class Function
-    const user = await User.findOne({
-      where: {
-        uid: uid,
-      },
-      include: {
-        model: Sport,
-      },
-    });
+    const user = await User.findByToken(req.cookies.token);
 
     console.log("USERS ID", user.id);
     if (sportId) {

@@ -18,6 +18,7 @@ const Login = () => {
         "http://localhost:5000/api/users/login",
         {
           email: auth.currentUser.email,
+          uid: auth.currentUser.uid,
         },
         { withCredentials: true }
       );
@@ -57,7 +58,7 @@ const Login = () => {
 
   return (
     <Container className="d-flex align-items-center justify-content-center">
-      <Card style={{ width: "50%", marginTop:"20%" }}>
+      <Card style={{ width: "50%", marginTop: "20%" }}>
         <Card.Body>
           <Card.Title>Log in</Card.Title>
           <Form onSubmit={handleSignIn} name="login" className="form">
