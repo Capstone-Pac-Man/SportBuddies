@@ -26,7 +26,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/venues" element={<Venues />} />
         <Route path="/venues/:id" element={<Venue />} />
-        <Route path="/:sport" element={<SelectedSport />} />
+        <Route path="/search/:sport" element={<SelectedSport />} />
       </Routes>
     </div>
   );
