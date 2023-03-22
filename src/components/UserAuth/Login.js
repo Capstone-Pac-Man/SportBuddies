@@ -22,7 +22,7 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      if (data.name) {
+      if (data.firstName) {
         localStorage.setItem("auth", true);
       }
       setEmail("");
@@ -48,7 +48,7 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      if (data.name) {
+      if (data.firstName) {
         localStorage.setItem("auth", true);
       }
     } catch (err) {
