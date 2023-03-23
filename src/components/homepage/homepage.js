@@ -66,18 +66,10 @@ export const HomePage = ({ location, setLocation }) => {
             </Form>
           )}
         </Row>
-        <Row
-          style={{
-            height: "50vh",
-          }}
-        >
-          <VenuesBox />
+        <Row>
+          <VenuesBox location={location} />
         </Row>
-        <Row
-          style={{
-            height: "50vh",
-          }}
-        >
+        <Row>
           <PlayersBox location={location} />
         </Row>
         {/* <EquipmentsBox /> */}
