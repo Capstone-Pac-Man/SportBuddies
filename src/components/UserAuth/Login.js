@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { auth, googleProvider } from "../../config/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { Form, Button, Container, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   const handleSignIn = async (e) => {
     try {
@@ -27,6 +28,7 @@ const Login = () => {
       }
       setEmail("");
       setPassword("");
+      navigate("/me")
     } catch (err) {
       console.log("ERROR!!", err);
     }

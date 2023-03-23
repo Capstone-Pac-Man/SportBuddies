@@ -2,17 +2,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { auth } from "../../config/firebase";
 import { useEffect } from "react";
 import {
+  deleteUserSportAsync,
   fetchOneUserAsync,
   selectUser,
 } from "../../reducers/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { UpdateUser } from "./updateUserProfile";
 
-import { Container, Accordion, Col, Card, Button, Table } from "react-bootstrap";
+import { Container, Accordion, Col, Card, Button, Table, Badge } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AddUserSport } from "./addUserSport";
 import { signOut } from "firebase/auth";
+import { EditUserSport } from "./editUserSport";
 
 
 export const UserProfile = () => {
@@ -20,7 +22,7 @@ export const UserProfile = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
 
-  console.log(user)
+  console.log("USER PROFILE",user)
 
   const isAuth = localStorage.getItem("auth");
   
@@ -31,7 +33,7 @@ export const UserProfile = () => {
         dispatch(fetchOneUserAsync(uid));
       }
     });
-  }, []);
+  }, [dispatch, user.uid]);
   useEffect(() => {
     if (isAuth) {
       dispatch(fetchOneUserAsync());
@@ -111,7 +113,25 @@ export const UserProfile = () => {
                           <tr key={elem.id}>
                             <td>{elem.name}</td>
                             <td>{elem.userSport.skillLevel}</td>
-                            <td>{elem.userSport.status}</td>
+                            <td>{elem.userSport.status === 'active' ? 
+                              <Badge pill bg="success">
+                                {elem.userSport.status}
+                              </Badge> : 
+                              <Badge pill bg="danger">
+                                {elem.userSport.status}
+                              </Badge> 
+                            }</td>
+                            <td>
+                              <EditUserSport 
+                              currentSkill={elem.userSport.skillLevel} 
+                              currentStatus={elem.userSport.status}
+                              sportId={elem.userSport.sportId}
+                              userId={elem.userSport.userId}
+                              />
+                              <Button variant="danger" onClick={()=>
+                                dispatch(deleteUserSportAsync({sportId:elem.userSport.sportId}))
+                              }>Delete</Button>
+                            </td>
                           </tr>
                         )
                       }) : (

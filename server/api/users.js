@@ -253,16 +253,16 @@ router.post("/me/sports", async (req, res, next) => {
   res.json(updatedUser);
 });
 
-router.delete("/me/sports", async (req, res, next) => {
-  const { sportId, userId } = req.body;
+router.delete("/me/sports/:sportId", async (req, res, next) => {
+  const user = await User.findByToken(req.cookies.token)
   const userSport = await UserSport.findOne({
     where: {
-      userId: userId,
-      sportId: sportId,
+      userId: user.id,
+      sportId: req.params.sportId,
     },
   });
   await userSport.destroy();
-  const updatedUser = await User.findByPk(userId, {
+  const updatedUser = await User.findByPk(user.id, {
     include: {
       model: Sport,
     },
