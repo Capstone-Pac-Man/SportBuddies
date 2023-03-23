@@ -45,6 +45,23 @@ export const signUpThunk = createAsyncThunk(
   }
 );
 
+export const addUserSportAsync = createAsyncThunk(
+  "user/addSport",
+  async ({sportId, skillLevel, userId, status }) =>{
+    try {
+      const {data} = await instance.post("/api/users/me/sports", {
+        sportId: sportId,
+        skillLevel: skillLevel,
+        userId: userId,
+        status: status,
+      })
+      return data
+    } catch (e) {
+      console.log(e)
+    }
+  }
+)
+
 /* user model has name, email, imageUrl, mobile, availableFrom, 
 availableTo,address, city, country and userType. */
 
@@ -86,6 +103,8 @@ export const editUserAsync = createAsyncThunk(
   }
 );
 
+
+
 const userSlice = createSlice({
   name: "user",
   initialState: {},
@@ -105,6 +124,9 @@ const userSlice = createSlice({
     });
     builder.addCase(signUpThunk.fulfilled, (state, action) => {
       localStorage.setItem("auth", true);
+      return action.payload;
+    });
+    builder.addCase(addUserSportAsync.fulfilled, (state, action) => {
       return action.payload;
     });
   },
