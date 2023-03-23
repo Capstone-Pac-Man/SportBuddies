@@ -8,7 +8,6 @@ import Form from "react-bootstrap/Form";
 import Collapse from "react-bootstrap/Collapse";
 import { Squash as Hamburger } from "hamburger-react";
 import { fetchAllSportsAsync } from "../reducers/sportsSlice";
-import { json } from "body-parser";
 
 export default function Players() {
   const [open, setOpen] = useState(false);
@@ -44,14 +43,16 @@ export default function Players() {
       const [id, skillLevel] = checkbox.id.split("-");
       if (skillLevel && id) {
         if (skillLevel === "all") {
-          arr.push({ id: parseInt(id) });
+          arr.push({ sportId: parseInt(id) });
         } else {
-          arr.push({ id: parseInt(id), skillLevel: skillLevel });
+          arr.push({ sportId: parseInt(id), skillLevel: skillLevel });
         }
       }
     });
     if (arr.length > 0) {
       dispatch(fetchAllUsersAsync({ filters: JSON.stringify(arr) }));
+    } else if (arr.length === 0) {
+      dispatch(fetchAllUsersAsync());
     }
 
     console.log(arr);
