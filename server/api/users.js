@@ -169,7 +169,7 @@ router.get("/", async (req, res, next) => {
     // axios.get("/api/users", {params: {}})
     const { filters, longitude, latitude, distance } = req.query;
     // const dist = parseInt(distance);
-    const dist = 5000;
+    const dist = 20;
     const lat = latitude ? parseFloat(latitude) : 40.77193565657;
     const long = longitude ? parseFloat(longitude) : -73.974863;
     let filter = [];
@@ -182,16 +182,16 @@ router.get("/", async (req, res, next) => {
     }
     if (filter.length === 0) {
       users = await User.findAll({
-        // where: {
-        //   [Sequelize.Op.and]: {
-        //     longitude: {
-        //       [Sequelize.Op.between]: [long - longOffset, long + longOffset],
-        //     },
-        //     latitude: {
-        //       [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
-        //     },
-        //   },
-        // },
+        where: {
+          [Sequelize.Op.and]: {
+            longitude: {
+              [Sequelize.Op.between]: [long - longOffset, long + longOffset],
+            },
+            latitude: {
+              [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+            },
+          },
+        },
         include: {
           model: Sport,
         },
@@ -212,14 +212,14 @@ router.get("/", async (req, res, next) => {
       users = await User.findAll({
         where: {
           id,
-          // [Sequelize.Op.and]: {
-          //   longitude: {
-          //     [Sequelize.Op.between]: [long - longOffset, long + longOffset],
-          //   },
-          //   latitude: {
-          //     [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
-          //   },
-          // },
+          [Sequelize.Op.and]: {
+            longitude: {
+              [Sequelize.Op.between]: [long - longOffset, long + longOffset],
+            },
+            latitude: {
+              [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+            },
+          },
         },
         include: {
           model: Sport,
