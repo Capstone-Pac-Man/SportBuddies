@@ -14,6 +14,7 @@ import { SelectedSport } from "./components/selectedSport";
 import { UserProfile } from "./components/users/userProfile";
 import "react-toastify/dist/ReactToastify.css";
 import { SingleUserPage } from "./components/users/singleUserPage";
+import { Chatroom } from "./components/chat/chatroom";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/venues" element={<Venues />} />
         <Route path="/venues/:id" element={<Venue />} />
         <Route path="/search/:sport" element={<SelectedSport />} />
+        <Route path="/chatroom" element={<Chatroom />} />
       </Routes>
     </div>
   );

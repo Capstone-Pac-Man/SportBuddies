@@ -12,6 +12,17 @@ code {
     monospace;
 }
 
+.button{
+  border: 2px solid black;  
+  /* padding: 3px; */
+  color: rgb(0, 0, 0);  
+  background-color: rgb(13, 238, 241);
+}
+
+.button:active{
+  background-color: rgb(231, 215, 37);
+}
+
 .carousel-inner {
   margin: auto;
   text-align: center;
