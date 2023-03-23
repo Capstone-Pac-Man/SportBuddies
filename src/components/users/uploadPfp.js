@@ -3,7 +3,7 @@ import { storage, auth } from "../../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { editUserAsync, selectUser } from "../../reducers/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import {Form, Button} from "react-bootstrap"
+import { Form, Button } from "react-bootstrap";
 
 export const UploadPfp = (props) => {
   const [uploadFile, setUploadFile] = useState(null);
@@ -18,6 +18,7 @@ export const UploadPfp = (props) => {
     await uploadBytes(imageRef, uploadFile);
     const imageUrl = await getDownloadURL(imageRef);
     dispatch(editUserAsync({ imageUrl, uid }));
+    setUploadFile(null);
   };
 
   return (
