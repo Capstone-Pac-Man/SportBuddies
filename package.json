@@ -23,6 +23,7 @@
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.21",
+    "browserify-zlib": "^0.2.0",
     "pg": "^8.10.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
