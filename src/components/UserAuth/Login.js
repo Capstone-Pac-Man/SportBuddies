@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { auth, googleProvider } from "../../config/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { Form, Button, Container, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     try {
@@ -27,6 +28,7 @@ const Login = () => {
       }
       setEmail("");
       setPassword("");
+      navigate("/me");
     } catch (err) {
       console.log("ERROR!!", err);
     }
@@ -51,6 +53,7 @@ const Login = () => {
       if (data.firstName) {
         localStorage.setItem("auth", true);
       }
+      navigate("/me");
     } catch (err) {
       console.error("Error!!", err);
     }
@@ -90,20 +93,18 @@ const Login = () => {
             </Button>
           </Form>
           <br></br>
-          <Link to="/">
-            <Button
-              variant="outline-dark"
-              className="mt-4 pr-3"
-              onClick={signInWithGoogle}
-            >
-              <img
-                className="google"
-                alt=""
-                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg "
-              />{" "}
-              Sign in with Google{" "}
-            </Button>
-          </Link>
+          <Button
+            variant="outline-dark"
+            className="mt-4 pr-3"
+            onClick={signInWithGoogle}
+          >
+            <img
+              className="google"
+              alt=""
+              src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg "
+            />{" "}
+            Sign in with Google{" "}
+          </Button>
         </Card.Body>
       </Card>
     </Container>
