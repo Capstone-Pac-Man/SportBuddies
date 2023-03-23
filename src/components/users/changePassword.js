@@ -63,7 +63,7 @@ export const ChangePassword = ()=>{
 
     return (
         <div>
-            <Button variant="primary" onClick={handleShow}>
+            <Button className='myBtn' onClick={handleShow}>
                 Change Password
             </Button>
             <Modal show={show} onHide={handleClose}>
@@ -76,7 +76,7 @@ export const ChangePassword = ()=>{
                             <Form.Label>Old Password</Form.Label>
                             <Form.Control 
                                 type='password'
-                                placeholder="old password"
+                                placeholder="Old password"
                                 autoFocus
                                 name="oldPassword"
                                 value={oldPassword}
@@ -87,7 +87,7 @@ export const ChangePassword = ()=>{
                             <Form.Label>New Password</Form.Label>
                             <Form.Control 
                                 type='password'
-                                placeholder="new password"
+                                placeholder="New password. Minimum: 8 characters"
                                 autoFocus
                                 name="password"
                                 value={password}
@@ -100,7 +100,7 @@ export const ChangePassword = ()=>{
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" type='submit' onClick={handleSubmit} disabled={!oldPassword || !password}>
+                    <Button className='myBtn' type='submit' onClick={handleSubmit} disabled={!oldPassword || !password}>
                         Change
                     </Button>
                 </Modal.Footer>

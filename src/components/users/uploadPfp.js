@@ -17,7 +17,6 @@ export const UploadPfp = (props) => {
     const imageRef = ref(storage, `image/${uploadFile.name + uid}`);
     await uploadBytes(imageRef, uploadFile);
     const imageUrl = await getDownloadURL(imageRef);
-    console.log("IMAGE URL", imageUrl);
     dispatch(editUserAsync({ imageUrl, uid }));
     setUploadFile(null);
   };
@@ -25,11 +24,8 @@ export const UploadPfp = (props) => {
   return (
     <Form.Group className="mb-3" controlId="image">
       <Form.Label>Image</Form.Label>
-      <Form.Control
-        type="file"
-        onChange={(e) => setUploadFile(e.target.files[0])}
-      />
-      <Button onClick={handleUpload}>Upload image</Button>
+      <Form.Control type="file" onChange={(e) => setUploadFile(e.target.files[0])} />
+      <Button className='myBtn' onClick={handleUpload}>Upload image</Button>
     </Form.Group>
   );
 };

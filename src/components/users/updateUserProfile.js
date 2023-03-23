@@ -58,7 +58,7 @@ export const UpdateUser = () => {
 
   return (
     <>
-        <Button variant="primary" onClick={handleShow}>
+        <Button className='myBtn' onClick={handleShow}>
             Update
         </Button>
       <Modal show={show} onHide={handleClose}>
@@ -186,7 +186,7 @@ export const UpdateUser = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" type='submit' onClick={handleSubmit}>
+          <Button className='myBtn' type='submit' onClick={handleSubmit}>
             Save Changes
           </Button>
         </Modal.Footer>
