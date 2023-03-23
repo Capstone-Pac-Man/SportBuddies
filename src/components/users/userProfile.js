@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { AddUserSport } from "./addUserSport";
 import { signOut } from "firebase/auth";
 import { EditUserSport } from "./editUserSport";
+import { ChangePassword } from "./changePassword";
 
 
 export const UserProfile = () => {
@@ -59,9 +60,7 @@ export const UserProfile = () => {
             <Accordion.Item eventKey="0">
               <Accordion.Header>Personal Information 
                 <UpdateUser />
-                <Button variant="primary" onClick={()=> navigate("/change_password")}>
-                Change Password
-                </Button>
+                <ChangePassword />
               </Accordion.Header>
               <Accordion.Body>
                 <div className="d-flex justify-content-between">
