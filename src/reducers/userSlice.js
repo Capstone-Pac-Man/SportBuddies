@@ -17,7 +17,6 @@ export const fetchOneUserAsync = createAsyncThunk(
   async (val) => {
     // does the above async need a parameter....?
     try {
-      console.log("THUNK VAL", val);
       const { data } = await instance.get(`/api/users/me`);
       return data;
     } catch (e) {
@@ -62,6 +61,15 @@ export const addUserSportAsync = createAsyncThunk(
   }
 )
 
+export const deleteUserSportAsync = createAsyncThunk(
+  "user/deleteSport",
+  async ({sportId}) => {
+    const { data } = await instance.delete(`/api/users/me/sports/${sportId}`);
+    console.log("DELETE THUNK", data)
+    return data;
+  }
+);
+
 /* user model has name, email, imageUrl, mobile, availableFrom, 
 availableTo,address, city, country and userType. */
 
@@ -81,6 +89,9 @@ export const editUserAsync = createAsyncThunk(
     country,
     userType,
     uid,
+    sportId,
+    skillLevel,
+    status,
   }) => {
     console.log("UID IN SLLICE", uid);
 
@@ -98,10 +109,14 @@ export const editUserAsync = createAsyncThunk(
       country,
       userType,
       uid: uid,
+      sportId,
+      skillLevel,
+      status,
     });
     return data;
   }
 );
+
 
 
 
@@ -128,6 +143,9 @@ const userSlice = createSlice({
     });
     builder.addCase(addUserSportAsync.fulfilled, (state, action) => {
       return action.payload;
+    });
+    builder.addCase(deleteUserSportAsync.fulfilled, (state, { payload }) => {
+      return Object.keys(state).filter((sport) => sport.id !== payload.id);
     });
   },
 });

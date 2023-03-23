@@ -11,15 +11,23 @@ export const fetchAllVenuesAsync = createAsyncThunk(
   "venues/getAll",
   async () => {
     try {
-      const { data } = await instance.get("/api/venues");
-      return data;
+      if (sessionStorage.getItem("location")) {
+        const coords = JSON.parse(sessionStorage.getItem("location"));
+        const latitude = coords.latitude;
+        const longitude = coords.longitude;
+        const { data } = await instance.get("/api/venues", {
+          params: { latitude: latitude, longitude: longitude },
+        });
+        return data;
+      } else {
+        const { data } = await instance.get("/api/venues");
+        return data;
+      }
     } catch (e) {
       console.log(e);
     }
   }
 );
-
-
 
 export const venuesSlice = createSlice({
   name: "venues",

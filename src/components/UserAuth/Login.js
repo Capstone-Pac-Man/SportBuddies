@@ -28,7 +28,7 @@ const Login = () => {
       }
       setEmail("");
       setPassword("");
-      navigate("/me");
+      navigate("/me")
     } catch (err) {
       console.log("ERROR!!", err);
     }

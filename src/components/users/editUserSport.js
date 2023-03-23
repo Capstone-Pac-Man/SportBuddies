@@ -1,59 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
-import { Modal, Button, Form} from 'react-bootstrap';
-import { selectUser, addUserSportAsync } from '../../reducers/userSlice';
-import { selectSports } from '../../reducers/sportsSlice';
+import { Modal, Button, Form, Row} from 'react-bootstrap';
+import { editUserAsync, selectUser } from '../../reducers/userSlice';
 
-export const AddUserSport = () => {
+export const EditUserSport = (props) => {
+    // const {currentSkill, currentStatus, sportId } = props
     const [show, setShow] = useState(false);
     const dispatch = useDispatch()
-
-    const [sportId, setSportId] = useState("")
     const [skillLevel, setSkillLevel] = useState("")
+    const [status, setStatus] = useState("")
   
     const handleClose = () => {
         setShow(false);
-        setSportId("")
         setSkillLevel("")
+        setStatus("")
     }
     const handleShow = () => setShow(true);
   
     const user = useSelector(selectUser);
-    const dbSports = useSelector(selectSports);
-  
-    const userId = user.id
-  
+    const uid = user.uid
+    const sportId = props.sportId
 
     const handleSubmit = async (e) => {
       e.preventDefault();
       dispatch(
-        addUserSportAsync( {sportId, skillLevel, userId })
+        editUserAsync( {sportId, skillLevel, status, uid })
       );    
       handleClose()
     };
-  
+    
+
 
     return (
       <>
           <Button variant="primary" onClick={handleShow}>
-              Add Sports
+              Update
           </Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Sports</Modal.Title>
+            <Modal.Title>Update Sport</Modal.Title>
           </Modal.Header>
           <Modal.Body>
               <Form onSubmit={handleSubmit}>
               <Form.Group>
-                  <Form.Select onChange={(e) => setSportId(e.target.value)}>
-                      <option>Choose your sport</option>
-                      {Object.values(dbSports).map((elem) => {
-                        return (
-                      <option key={elem.id} value={elem.id}>{elem.name}</option>
-                      )}
-                    )}
-                  </Form.Select>
+                <Row>
+                    <Form.Label>Skill Level</Form.Label>
+                </Row>
                   <Form.Check
                     inline
                     label="beginner"
@@ -91,14 +84,39 @@ export const AddUserSport = () => {
                     onChange={(e) => setSkillLevel(e.target.value)}
                     />
               </Form.Group>
+              </Form>
+              <Form>
+              <Form.Group>
+                <Row>
+                    <Form.Label>Status</Form.Label>
+                </Row>
+                <Form.Check
+                    inline
+                    label="active"
+                    value={"active"}
+                    name="group1"
+                    type="radio"
+                    id="inline-radio-1"
+                    onChange={(e) => setStatus(e.target.value)}
+                    />
+                  <Form.Check
+                    inline
+                    label="inactive"
+                    value={"inactive"}
+                    name="group1"
+                    type="radio"
+                    id="inline-radio-1"
+                    onChange={(e) => setStatus(e.target.value)}
+                    />
+              </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" type='submit' onClick={handleSubmit} disabled={!skillLevel || !sportId}>
-              Add
+            <Button variant="primary" type='submit' onClick={handleSubmit} disabled={!skillLevel || !status}>
+              Update
             </Button>
           </Modal.Footer>
         </Modal>

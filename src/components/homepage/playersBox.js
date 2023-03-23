@@ -4,7 +4,7 @@ import Carousel from "react-bootstrap/Carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllUsersAsync, selectUsers } from "../../reducers/usersSlice";
 
-export const PlayersBox = () => {
+export const PlayersBox = ({ location }) => {
   const [showMore, setShowMore] = useState(false);
   const dispatch = useDispatch();
 
@@ -13,6 +13,9 @@ export const PlayersBox = () => {
   useEffect(() => {
     dispatch(fetchAllUsersAsync());
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchAllUsersAsync());
+  }, [location]);
 
   if (!users.length) return "Loading. Please wait";
 

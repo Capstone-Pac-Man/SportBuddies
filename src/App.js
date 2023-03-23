@@ -1,5 +1,5 @@
 import "./index.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "./components/UserAuth/Login";
 import SignUp from "./components/UserAuth/SignUp";
@@ -17,11 +17,31 @@ import { SingleUserPage } from "./components/users/singleUserPage";
 import { Chatroom } from "./components/chat/chatroom";
 
 function App() {
+  const [location, setLocation] = useState(false);
+  useEffect(() => {
+    getLocation();
+  }, []);
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(storeLocation);
+    } else {
+      return;
+    }
+  };
+  const storeLocation = (coords) => {
+    const { latitude, longitude } = coords.coords;
+    const location = { latitude, longitude };
+    sessionStorage.setItem("location", JSON.stringify(location));
+    setLocation(true);
+  };
   return (
     <div className="App">
       <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={<HomePage location={location} setLocation={setLocation} />}
+        />
         <Route path="/players/:id" element={<SingleUserPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/me" element={<UserProfile />} />

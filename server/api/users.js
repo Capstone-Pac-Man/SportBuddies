@@ -169,7 +169,7 @@ router.get("/", async (req, res, next) => {
     // axios.get("/api/users", {params: {}})
     const { filters, longitude, latitude, distance } = req.query;
     // const dist = parseInt(distance);
-    const dist = 5000;
+    const dist = 20;
     const lat = latitude ? parseFloat(latitude) : 40.77193565657;
     const long = longitude ? parseFloat(longitude) : -73.974863;
     let filter = [];
@@ -182,16 +182,16 @@ router.get("/", async (req, res, next) => {
     }
     if (filter.length === 0) {
       users = await User.findAll({
-        // where: {
-        //   [Sequelize.Op.and]: {
-        //     longitude: {
-        //       [Sequelize.Op.between]: [long - longOffset, long + longOffset],
-        //     },
-        //     latitude: {
-        //       [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
-        //     },
-        //   },
-        // },
+        where: {
+          [Sequelize.Op.and]: {
+            longitude: {
+              [Sequelize.Op.between]: [long - longOffset, long + longOffset],
+            },
+            latitude: {
+              [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+            },
+          },
+        },
         include: {
           model: Sport,
         },
@@ -212,14 +212,14 @@ router.get("/", async (req, res, next) => {
       users = await User.findAll({
         where: {
           id,
-          // [Sequelize.Op.and]: {
-          //   longitude: {
-          //     [Sequelize.Op.between]: [long - longOffset, long + longOffset],
-          //   },
-          //   latitude: {
-          //     [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
-          //   },
-          // },
+          [Sequelize.Op.and]: {
+            longitude: {
+              [Sequelize.Op.between]: [long - longOffset, long + longOffset],
+            },
+            latitude: {
+              [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+            },
+          },
         },
         include: {
           model: Sport,
@@ -254,16 +254,16 @@ router.post("/me/sports", async (req, res, next) => {
   res.json(updatedUser);
 });
 
-router.delete("/me/sports", async (req, res, next) => {
-  const { sportId, userId } = req.body;
+router.delete("/me/sports/:sportId", async (req, res, next) => {
+  const user = await User.findByToken(req.cookies.token)
   const userSport = await UserSport.findOne({
     where: {
-      userId: userId,
-      sportId: sportId,
+      userId: user.id,
+      sportId: req.params.sportId,
     },
   });
   await userSport.destroy();
-  const updatedUser = await User.findByPk(userId, {
+  const updatedUser = await User.findByPk(user.id, {
     include: {
       model: Sport,
     },

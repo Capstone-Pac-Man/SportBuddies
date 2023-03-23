@@ -53,7 +53,10 @@ export const SearchBar = () => {
               return (
                 <Dropdown.Item
                   key={index}
-                  onClick={() => navigate(`/search/${sport}`)}
+                  onClick={() => {
+                    setQuery("")
+                    navigate(`/search/${sport}`)}
+                  }
                 >
                   {sport}
                 </Dropdown.Item>
