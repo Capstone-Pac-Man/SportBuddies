@@ -8,9 +8,6 @@ export const EditUserSport = (props) => {
     // const {currentSkill, currentStatus, sportId } = props
     const [show, setShow] = useState(false);
     const dispatch = useDispatch()
-
-    console.log("CURRENT SKILL", props.currentSkill)
-
     const [skillLevel, setSkillLevel] = useState("")
     const [status, setStatus] = useState("")
   
