@@ -32,7 +32,7 @@ export const signUpThunk = createAsyncThunk(
     try {
       const { data } = await instance.post(`/api/users/`, {
         firstName: firstName,
-        lastName : lastName,
+        lastName: lastName,
         email: email,
         state: state,
         zipcode: zipcode,
@@ -123,6 +123,7 @@ const userSlice = createSlice({
       return action.payload;
     });
     builder.addCase(signUpThunk.fulfilled, (state, action) => {
+      localStorage.setItem("auth", true);
       return action.payload;
     });
     builder.addCase(addUserSportAsync.fulfilled, (state, action) => {

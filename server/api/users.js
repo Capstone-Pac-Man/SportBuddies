@@ -21,9 +21,20 @@ router.post("/", async (req, res, next) => {
       zipcode: zipcode,
       uid: uid,
     });
-    res.status(201).json(user);
+    const token = await User.authenticate({ email: email, uid: uid });
+    const userNew = await User.findByToken(token);
+    res.cookie("token", token, { httpOnly: true });
+    res.status(201).json(userNew);
   } catch (error) {
     next(error);
+  }
+});
+router.post("/logout", async (req, res, next) => {
+  try {
+    res.cookie("token", "", { expires: new Date(0), httpOnly: true });
+    res.send("logged out");
+  } catch (e) {
+    next(e);
   }
 });
 
@@ -38,18 +49,21 @@ router.post("/login", async (req, res, next) => {
       });
       console.log(googleUser);
       console.log(name);
+      const newName = name.split(" ");
+      const lname = newName.pop();
+      const fname = newName.join();
+      console.log(lname);
+      console.log(fname);
       if (!googleUser) {
         user = await User.create({
-          fullName: name,
+          firstName: fname,
+          lastName: lname,
           email: email,
           uid: uid,
           imageUrl: photoUrl,
         });
         token = await User.authenticate({ email: email, uid: uid });
       } else {
-        if (googleUser.name !== name) {
-          await googleUser.update({ name: name });
-        }
         token = await User.authenticate({ email: email, uid: uid });
       }
     } else {

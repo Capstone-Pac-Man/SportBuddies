@@ -7,17 +7,23 @@ import {
 } from "../../reducers/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { UpdateUser } from "./updateUserProfile";
+
 import { Container, Accordion, Col, Card, Button, Table } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AddUserSport } from "./addUserSport";
+import { signOut } from "firebase/auth";
+
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const user = useSelector(selectUser);
+
   console.log(user)
 
+  const isAuth = localStorage.getItem("auth");
+  
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -26,8 +32,21 @@ export const UserProfile = () => {
       }
     });
   }, []);
-  
-  if (!user) return "Loading" 
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(fetchOneUserAsync());
+    } else {
+      signOut(auth);
+      navigate("/login");
+    }
+  }, []);
+  useEffect(() => {
+    if (user.error === "error") {
+      navigate("/login");
+    }
+  }, [user]);
+
+  if (!user) return "Loading";
 
   return (
     <>
