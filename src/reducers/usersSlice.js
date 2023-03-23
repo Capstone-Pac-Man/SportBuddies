@@ -10,14 +10,40 @@ export const fetchAllUsersAsync = createAsyncThunk(
   "users/fetchAll",
   async (params) => {
     try {
-      if (!params) {
-        const { data } = await instance.get(`/api/users/`);
-        return data;
+      if (sessionStorage.getItem("location")) {
+        const coords = JSON.parse(sessionStorage.getItem("location"));
+        const latitude = coords.latitude;
+        const longitude = coords.longitude;
+        if (!params) {
+          const { data } = await instance.get(`/api/users/`, {
+            params: {
+              latitude: latitude,
+              longitude: longitude,
+            },
+          });
+          return data;
+        } else {
+          const { filters } = params;
+          console.log(filters);
+          const { data } = await instance.get(`/api/users/`, {
+            params: {
+              latitude: latitude,
+              longitude: longitude,
+              filters: filters,
+            },
+          });
+          return data;
+        }
       } else {
-        const { data } = await instance.get(`/api/users/`, {
-          params: params,
-        });
-        return data;
+        if (!params) {
+          const { data } = await instance.get(`/api/users/`);
+          return data;
+        } else {
+          const { data } = await instance.get(`/api/users/`, {
+            params: params,
+          });
+          return data;
+        }
       }
     } catch (e) {
       console.log(e);
