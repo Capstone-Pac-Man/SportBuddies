@@ -38,7 +38,6 @@ const SignUp = () => {
       await signInWithEmailAndPassword(auth, email, password);
 
       console.log("SIGN UP SUCCESS");
-      navigate("/");
       toast.success(
         auth.currentUser.displayName
           ? `Welcome ${auth.currentUser.displayName}!`
@@ -62,7 +61,7 @@ const SignUp = () => {
       setState("");
       setZipcode("");
 
-      navigate("/me");
+      navigate("/");
     } catch (err) {
       console.error("ERROR!!", err);
     }

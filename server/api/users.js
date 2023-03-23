@@ -176,6 +176,7 @@ router.get("/", async (req, res, next) => {
     const { longOffset, latOffset } = Offset(long, lat);
     // Check distance between user coords and all state users coordinates.
     // Return back all users within query distance
+    console.log(filters);
     if (filters) {
       filter = JSON.parse(filters);
     }
