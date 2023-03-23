@@ -34,7 +34,7 @@ export const EditUserSport = (props) => {
 
     return (
       <>
-          <Button variant="primary" onClick={handleShow}>
+          <Button className='myBtn' onClick={handleShow}>
               Update
           </Button>
         <Modal show={show} onHide={handleClose}>
@@ -115,7 +115,7 @@ export const EditUserSport = (props) => {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" type='submit' onClick={handleSubmit} disabled={!skillLevel || !status}>
+            <Button className='myBtn' type='submit' onClick={handleSubmit} disabled={!skillLevel || !status}>
               Update
             </Button>
           </Modal.Footer>
