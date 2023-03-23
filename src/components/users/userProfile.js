@@ -53,8 +53,8 @@ export const UserProfile = () => {
       <Container>
         <Col>
           <h1> Welcome, {user.fullName}!</h1>
-          <Accordion>
-            <Accordion.Item alwaysOpen>
+          <Accordion defaultActiveKey={['0', '1']} alwaysOpen>
+            <Accordion.Item eventKey="0">
               <Accordion.Header>Personal Information 
                 <UpdateUser />
                 <Button variant="primary" onClick={()=> navigate("/change_password")}>
@@ -91,7 +91,7 @@ export const UserProfile = () => {
                 </div>
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item alwaysOpen>
+            <Accordion.Item eventKey="1">
               <Accordion.Header>Sports
                 <AddUserSport/>
               </Accordion.Header>
@@ -105,7 +105,8 @@ export const UserProfile = () => {
                     </tr>
                   </thead>
                     <tbody>
-                      {Object.values(user.sports).map((elem)=>{
+      
+                      {user.sports ? Object.values(user.sports).map((elem)=>{
                         return (
                           <tr key={elem.id}>
                             <td>{elem.name}</td>
@@ -113,7 +114,9 @@ export const UserProfile = () => {
                             <td>{elem.userSport.status}</td>
                           </tr>
                         )
-                      })}
+                      }) : (
+                        <h1>Loading</h1>
+                      )}
                     </tbody>
                   </Table>
               </Accordion.Body>
