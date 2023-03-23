@@ -17,8 +17,7 @@ export const ChangePassword = ()=>{
     const [oldPassword, setOldPassword] = useState("")
     const [password, setPassword] = useState("")
     if (!auth.currentUser) return "Loading"
-    console.log("CHANGE PASS USERs Email", auth.currentUser.email)
-
+ 
     const credential = EmailAuthProvider.credential(
         auth.currentUser.email,
         oldPassword,
