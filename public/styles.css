@@ -17,6 +17,7 @@
   align-items: center;
   object-fit: cover;
   font-family: "Courier New", Courier, monospace;
+  max-height: 40vh;
   /* aspect-ratio: 3/2; */
   /* width: 100%; */
 }
@@ -114,13 +115,14 @@
 }
 
 .homeHeader {
-  color: black;
-  margin-left: 10%;
+  margin-left: 30px;
+  color: #212529;
   font-family: "Courier New", Courier, monospace;
   font-weight: bold;
 }
 .link {
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .myBtn {
