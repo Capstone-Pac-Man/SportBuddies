@@ -24,24 +24,22 @@ const NavBar = () => {
     });
   }, []);
   // if (!auth.currentUser) return "Loading"
-  if (!user) return "Loading"
-  console.log(user)
+  if (!user) return "Loading";
+  console.log(user);
   return (
     <Navbar className="navbar" sticky="top" bg="dark" variant="dark">
       {isLoggedIn ? (
         <Container className="justify-content-around" fluid>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Nav>
-              <Nav.Link href="/me" className="link">
-                Hi, {user.firstName}
-              </Nav.Link>
-              <Nav.Item>
-                <Logout />
-              </Nav.Item>
-            </Nav>
-            <Navbar.Brand href="/">
-            Sport Buddies
-          </Navbar.Brand>
+          <Nav>
+            <Nav.Link href="/me" className="link">
+              Hi, {user.firstName}
+            </Nav.Link>
+            <Nav.Item>
+              <Logout />
+            </Nav.Item>
+          </Nav>
+          <Navbar.Brand href="/">Sport Buddies</Navbar.Brand>
           <Nav.Item>
             <SearchBar />
           </Nav.Item>
@@ -49,20 +47,18 @@ const NavBar = () => {
       ) : (
         <Container className="justify-content-around" fluid>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Nav>
-              <Nav.Link href="/login" className="link">
-                Login
-              </Nav.Link>
-              <Nav.Link href="/signup" className="link">
-                Sign Up
-              </Nav.Link>
-              <Nav.Link href="/venues" className="link">
-                Venues
-              </Nav.Link>
-            </Nav>
-            <Navbar.Brand href="/" >
-            Sport Buddies
-          </Navbar.Brand>
+          <Nav>
+            <Nav.Link href="/login" className="link">
+              Login
+            </Nav.Link>
+            <Nav.Link href="/signup" className="link">
+              Sign Up
+            </Nav.Link>
+            <Nav.Link href="/venues" className="link">
+              Venues
+            </Nav.Link>
+          </Nav>
+          <Navbar.Brand href="/">Sport Buddies</Navbar.Brand>
           <Nav.Item>
             <SearchBar />
           </Nav.Item>
