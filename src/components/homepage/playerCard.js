@@ -1,4 +1,6 @@
 import Card from "react-bootstrap/Card";
+import { SingleUserPage } from "../users/singleUserPage";
+import Venue from "../venue";
 
 export default function PlayerCard({ player }) {
   console.log(player);
@@ -15,7 +17,8 @@ export default function PlayerCard({ player }) {
             ? `${player.distance.toFixed(1)} miles away`
             : player.description}
         </Card.Subtitle>
-      </Card.Body>
+        </Card.Body>
+        {player.description ? <Venue venueId={player.id}/> : <SingleUserPage playerId={player.id} />}
     </Card>
   );
 }

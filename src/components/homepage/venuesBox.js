@@ -5,6 +5,7 @@ import MultiCarousel from "./multiCarousel";
 import PlayerCard from "./playerCard";
 
 import { fetchAllVenuesAsync, selectVenues } from "../../reducers/venuesSlice";
+import Venue from "../venue";
 
 export const VenuesBox = ({ location }) => {
   const [showMore, setShowMore] = useState(false);
