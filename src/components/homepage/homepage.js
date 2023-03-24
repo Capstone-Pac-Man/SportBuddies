@@ -7,6 +7,8 @@ import { EquipmentsBox } from "./equipmentBox";
 import axios from "axios";
 import { fetchOneUserAsync } from "../../reducers/userSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchAllUsersAsync } from "../../reducers/usersSlice";
+import { fetchAllVenuesAsync } from "../../reducers/venuesSlice";
 
 export const HomePage = ({ location, setLocation }) => {
   const dispatch = useDispatch();
@@ -47,7 +49,7 @@ export const HomePage = ({ location, setLocation }) => {
             limit: 1,
           };
           const { data } = await axios.get(base, { params });
-          const location = {
+          const zipLocation = {
             latitude: data.features[0].center[1],
             longitude: data.features[0].center[0],
           };
@@ -57,8 +59,8 @@ export const HomePage = ({ location, setLocation }) => {
               .put(
                 "http://localhost:5000/api/users/me",
                 {
-                  latitude: location.latitude,
-                  longitude: location.longitude,
+                  latitude: zipLocation.latitude,
+                  longitude: zipLocation.longitude,
                 },
                 { withCredentials: true }
               )
@@ -69,8 +71,9 @@ export const HomePage = ({ location, setLocation }) => {
                 );
               });
           }
+          sessionStorage.setItem("location", JSON.stringify(zipLocation));
         }
-        sessionStorage.setItem("location", JSON.stringify(location));
+
         setZip("");
         setLocation(true);
       }
