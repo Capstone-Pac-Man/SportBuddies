@@ -136,7 +136,8 @@ router.put("/me", async (req, res, next) => {
       next();
     }
     await user.update(rest);
-    res.json(user);
+    const updated = await User.findByToken(req.cookies.token);
+    res.json(updated);
   } catch (e) {
     next(e);
   }

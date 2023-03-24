@@ -14,7 +14,7 @@ const instance = axios.create({
 
 export const fetchOneUserAsync = createAsyncThunk(
   "users/fetchOne",
-  async (val) => {
+  async () => {
     // does the above async need a parameter....?
     try {
       const { data } = await instance.get(`/api/users/me`);

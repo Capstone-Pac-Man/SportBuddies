@@ -21,8 +21,8 @@ export const Logout = () => {
     }
   };
   return (
-    <Button className="myBtn" onClick={logout}>
+    <button className="pill-button" style={{ marginTop: 5 }} onClick={logout}>
       Logout
-    </Button>
+    </button>
   );
 };
