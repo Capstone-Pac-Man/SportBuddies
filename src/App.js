@@ -46,13 +46,13 @@ function App() {
           path="/"
           element={<HomePage location={location} setLocation={setLocation} />}
         />
-        <Route path="/players/:id" element={<SingleUserPage />} />
+        {/* <Route path="/players/:id" element={<SingleUserPage />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/me" element={<UserProfile />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/players" element={<Players />} />
         <Route path="/venues" element={<Venues />} />
-        <Route path="/venues/:id" element={<Venue />} />
+        {/* <Route path="/venues/:id" element={<Venue />} /> */}
         <Route path="/search/:sport" element={<SelectedSport />} />
         <Route path="/chatroom" element={<Chatroom />} />
       </Routes>
