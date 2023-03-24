@@ -28,7 +28,7 @@ const Login = () => {
       }
       setEmail("");
       setPassword("");
-      navigate("/me")
+      navigate("/me");
     } catch (err) {
       console.log("ERROR!!", err);
     }
@@ -39,7 +39,6 @@ const Login = () => {
       const userCredential = await signInWithPopup(auth, googleProvider);
       //**FOR NOW** console.log userCredential.user to see information offered
       console.log("SIGN IN SUCCESS");
-      console.log(userCredential.user);
       const { data } = await axios.post(
         "http://localhost:5000/api/users/login",
         {
@@ -52,6 +51,13 @@ const Login = () => {
       );
       if (data.firstName) {
         localStorage.setItem("auth", true);
+      }
+      if (data.latitude && data.longitude) {
+        const location = JSON.stringify({
+          latitude: data.latitude,
+          longitude: data.longitude,
+        });
+        sessionStorage.setItem("location", location);
       }
       navigate("/me");
     } catch (err) {

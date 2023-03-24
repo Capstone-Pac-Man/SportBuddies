@@ -47,13 +47,10 @@ router.post("/login", async (req, res, next) => {
       const googleUser = await User.findOne({
         where: { email: email },
       });
-      console.log(googleUser);
-      console.log(name);
       const newName = name.split(" ");
       const lname = newName.pop();
       const fname = newName.join();
-      console.log(lname);
-      console.log(fname);
+
       if (!googleUser) {
         user = await User.create({
           firstName: fname,
@@ -73,7 +70,6 @@ router.post("/login", async (req, res, next) => {
       });
     }
     user = await User.findByToken(token);
-    console.log(token, user);
     res.cookie("token", token, { httpOnly: true });
     res.json(user);
   } catch (error) {
@@ -84,38 +80,45 @@ router.post("/login", async (req, res, next) => {
 // api/users/me
 router.get("/me", async (req, res, next) => {
   try {
-    console.log("REQ query", req.query);
     if (!req.cookies.token) {
       next();
     }
     const user = await User.findByToken(req.cookies.token);
-    console.log(user);
     res.json(user);
   } catch (error) {
     next(error);
   }
 });
+router.put("/me/location", async (req, res, next) => {
+  try {
+    const { latitude, longitude } = req.body;
+    const user = await User.findByToken(req.cookies.token);
+    if (!user) {
+      console.log("User not found");
+    }
+    await user.update({
+      latitude: latitude,
+      longitude: longitude,
+    });
+  } catch (e) {
+    next(e);
+  }
+});
 
 router.put("/me", async (req, res, next) => {
   try {
-    const { uid, sportId, skillLevel, status, imageUrl, ...rest } = req.body;
-    console.log("IMAGE =>", imageUrl);
-    console.log("UID", uid);
-    console.log("REQ BODY ==>", req.body);
+    const { sportId, skillLevel, status, imageUrl, ...rest } = req.body;
     // Use authentication class Function
     const user = await User.findByToken(req.cookies.token);
 
-    console.log("USERS ID", user.id);
     if (sportId) {
       if (skillLevel) {
-        console.log("came here");
         await UserSport.update(
           { skillLevel: skillLevel },
           { where: { userId: user.id, sportId: sportId } }
         );
       }
       if (status) {
-        console.log("came here");
         await UserSport.update(
           { status: status },
           { where: { userId: user.id, sportId: sportId } }
@@ -133,15 +136,7 @@ router.put("/me", async (req, res, next) => {
       next();
     }
     await user.update(rest);
-    const final = await User.findOne({
-      where: {
-        uid: uid,
-      },
-      include: {
-        model: Sport,
-      },
-    });
-    res.json(final);
+    res.json(user);
   } catch (e) {
     next(e);
   }
@@ -150,13 +145,15 @@ router.put("/me", async (req, res, next) => {
 //GET api/users/:id
 router.get("/:id", async (req, res, next) => {
   try {
-    const singleUser = await User.findByPk(req.params.id, {
-      include: {
-        model: Sport,
-      },
-    });
+    if (req.params.id !== "me") {
+      const singleUser = await User.findByPk(req.params.id, {
+        include: {
+          model: Sport,
+        },
+      });
 
-    res.json(singleUser);
+      res.json(singleUser);
+    }
   } catch (e) {
     next(e);
   }
@@ -165,6 +162,7 @@ router.get("/:id", async (req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     // Take in address and convert it to coordinates. Save address state.
+    const reqUser = await User.findByToken(req.cookies.token);
     let users = [];
     // axios.get("/api/users", {params: {}})
     const { filters, longitude, latitude, distance } = req.query;
@@ -176,7 +174,6 @@ router.get("/", async (req, res, next) => {
     const { longOffset, latOffset } = Offset(long, lat);
     // Check distance between user coords and all state users coordinates.
     // Return back all users within query distance
-    console.log(filters);
     if (filters) {
       filter = JSON.parse(filters);
     }
@@ -229,7 +226,10 @@ router.get("/", async (req, res, next) => {
         next();
       }
     }
-    const newUsers = distanceFilter({ lat, long }, users, dist);
+    let newUsers = distanceFilter({ lat, long }, users, dist);
+    if (reqUser) {
+      newUsers = newUsers.filter((user) => user.id !== reqUser.id);
+    }
     res.json(newUsers);
   } catch (e) {
     next(e);
@@ -255,7 +255,7 @@ router.post("/me/sports", async (req, res, next) => {
 });
 
 router.delete("/me/sports/:sportId", async (req, res, next) => {
-  const user = await User.findByToken(req.cookies.token)
+  const user = await User.findByToken(req.cookies.token);
   const userSport = await UserSport.findOne({
     where: {
       userId: user.id,
