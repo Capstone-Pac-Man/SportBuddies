@@ -92,3 +92,26 @@ code {
     justify-content: center;
   }
 }
+.pill-button {
+  display: inline-block;
+  min-width: 15%;
+  font-size: 13px;
+  font-weight: 500;
+  background-color: white;
+  outline: none;
+  border: 1px solid #212529;
+  height: 30px;
+  padding: 0 10px 0 10px;
+  border-radius: 14px;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.pill-button:hover {
+  transform: scale(1.03);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 6px; /* increase the size of the box-shadow */
+}
+

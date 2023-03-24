@@ -6,6 +6,7 @@ import { auth } from "../config/firebase";
 import { Logout } from "./UserAuth/LogOut";
 import { SearchBar } from "../components/searchBarSports";
 import { fetchOneUserAsync, selectUser } from "../reducers/userSlice";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,40 +26,53 @@ const NavBar = () => {
   }, []);
   // if (!auth.currentUser) return "Loading"
   // if (!user) return "Loading";
-  console.log(user);
+
   return (
     <Navbar className="navbar" sticky="top" bg="dark" variant="dark">
       {isLoggedIn ? (
         <Container className="justify-content-around" fluid>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Nav>
-            <Nav.Link href="/me" className="link">
+          <Nav style={{ width: "33%", whitespace: "nowrap" }}>
+            <Link to="/me" className="link nav-link">
               Hi, {user.firstName}
-            </Nav.Link>
+            </Link>
             <Nav.Item>
               <Logout />
             </Nav.Item>
           </Nav>
-          <Navbar.Brand href="/">Sport Buddies</Navbar.Brand>
-          <Nav.Item>
+          <Link to="/" className="link">
+            <h4 style={{ color: "white" }}>Sport Buddies</h4>
+          </Link>
+          <Nav style={{ width: "33%" }}>
+            <Link to="/venues" className="link nav-link">
+              Venues
+            </Link>
+            <Link to="/players" className="link nav-link">
+              Players
+            </Link>
             <SearchBar />
-          </Nav.Item>
+          </Nav>
         </Container>
       ) : (
         <Container className="justify-content-around" fluid>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Nav>
-            <Nav.Link href="/login" className="link">
+            <Link to="/login" className="link nav-link">
               Login
-            </Nav.Link>
-            <Nav.Link href="/signup" className="link">
+            </Link>
+            <Link to="/signup" className="link nav-link">
               Sign Up
-            </Nav.Link>
-            <Nav.Link href="/venues" className="link">
+            </Link>
+            <Link to="/venues" className="link nav-link">
               Venues
-            </Nav.Link>
+            </Link>
+            <Link to="/players" className="link nav-link">
+              Players
+            </Link>
           </Nav>
-          <Navbar.Brand href="/">Sport Buddies</Navbar.Brand>
+          <Link to="/" className="link">
+            <h4 style={{ color: "white" }}>Sport Buddies</h4>
+          </Link>
           <Nav.Item>
             <SearchBar />
           </Nav.Item>
