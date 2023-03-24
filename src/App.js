@@ -52,6 +52,7 @@ function App() {
         <Route path="/search/:sport" element={<SelectedSport />} />
         <Route path="/chatroom" element={<Chatroom />} />
       </Routes>
+      <div className="footer"></div>
     </div>
   );
 }

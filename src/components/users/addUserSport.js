@@ -36,7 +36,7 @@ export const AddUserSport = () => {
 
     return (
       <>
-          <Button variant="primary" onClick={handleShow}>
+          <Button className='myBtn' onClick={handleShow}>
               Add Sports
           </Button>
         <Modal show={show} onHide={handleClose}>
@@ -97,7 +97,7 @@ export const AddUserSport = () => {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" type='submit' onClick={handleSubmit} disabled={!skillLevel || !sportId}>
+            <Button className='myBtn' type='submit' onClick={handleSubmit} disabled={!skillLevel || !sportId}>
               Add
             </Button>
           </Modal.Footer>

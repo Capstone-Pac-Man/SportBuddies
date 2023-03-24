@@ -50,6 +50,7 @@ export const UserProfile = () => {
   }, [user]);
 
   if (!user) return "Loading";
+  if (!user.sports) return "Loading";
 
   return (
     <>
@@ -58,7 +59,8 @@ export const UserProfile = () => {
           <h1> Welcome, {user.fullName}!</h1>
           <Accordion defaultActiveKey={['0', '1']} alwaysOpen>
             <Accordion.Item eventKey="0">
-              <Accordion.Header>Personal Information 
+              <Accordion.Header>
+                <div>Personal Information</div> 
                 <UpdateUser />
                 <ChangePassword />
               </Accordion.Header>
@@ -93,10 +95,14 @@ export const UserProfile = () => {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
-              <Accordion.Header>Sports
+              <Accordion.Header >
+                <div>Sports</div>
                 <AddUserSport/>
               </Accordion.Header>
               <Accordion.Body>
+                {!user.sports.length ? (
+                      <h1>Please add your first sport</h1>
+                  ) : (
                 <Table striped bordered hover size="lg">
                   <thead>
                     <tr>
@@ -106,7 +112,6 @@ export const UserProfile = () => {
                     </tr>
                   </thead>
                     <tbody>
-      
                       {user.sports ? Object.values(user.sports).map((elem)=>{
                         return (
                           <tr key={elem.id}>
@@ -138,6 +143,7 @@ export const UserProfile = () => {
                       )}
                     </tbody>
                   </Table>
+                  )}
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>     
