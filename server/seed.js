@@ -169,7 +169,7 @@ const users = [
     mobile: 6097995273,
     availableFrom: "5am",
     availableTo: "9pm",
-    address: "55 Melrose Terrace",
+    address: "77 Melrose Terrace",
     city: "Long Branch",
     state: "NJ",
     userType: "trainer",
