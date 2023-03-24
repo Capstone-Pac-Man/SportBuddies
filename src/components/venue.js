@@ -7,21 +7,27 @@ import { Button, Offcanvas, ListGroup} from "react-bootstrap";
 
 export const Venue = (props) => {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const dispatch = useDispatch();
-
   const venue = useSelector(selectVenue);
-
   const id = props.venueId;
 
-  console.log("VENUE", venue)
-  console.log("ID+++", id)
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => {
+    dispatch(fetchVenue(id))
+    setShow(true)
+  }
+  const dispatch = useDispatch();
+
+  
+
+  // console.log("VENUE", venue)
+  // console.log("ID+++", id)
 
   useEffect(() => {
     dispatch(fetchVenue(id));
   }, [dispatch]);
+
+  if (!venue.name) return <h1>Loading...</h1>;
 
   return (
     <>

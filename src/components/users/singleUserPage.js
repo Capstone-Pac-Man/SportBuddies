@@ -11,23 +11,27 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 export const SingleUserPage = (props) => {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const dispatch = useDispatch();
-
   const player = useSelector(SingleUserProfile);
   const id = props.playerId
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    dispatch(fetchSingleUserAysnc(id))
+    setShow(true)
+  }
+  const dispatch = useDispatch();
+
+  
 
 
   useEffect(() => {
     dispatch(fetchSingleUserAysnc(id));
-  }, [dispatch, id]);
+  }, [dispatch]);
 
   if (!player.fullName) return <h1>Loading...</h1>;
 
   return (
-    <Container>
+    <>
       <Button className='myBtn' onClick={handleShow}>
         See details
       </Button>
@@ -48,14 +52,14 @@ export const SingleUserPage = (props) => {
               src={player.imageUrl}
               alt="player"
             />
-            <p>Available from: {player.availableFrom} to {player.availableTo}</p>
             <p>State: {player.state}</p>
+            <p>Available from: {player.availableFrom} to {player.availableTo}</p>
               <ListGroup className="list-group-flush">
                 {player.sports.map((sport) => {
                   return (
                     <ListGroup.Item key={sport.id}>
                       <div>
-                        <h4>{sport.name}</h4>
+                        <h4></h4>{sport.name}
                         <div className="d-flex justify-content-between">Skill Level:
                         <Badge pill className="mb-1" bg="primary">
                            {sport.userSport.skillLevel}
@@ -77,6 +81,6 @@ export const SingleUserPage = (props) => {
               </ListGroup>
       </Offcanvas.Body>
       </Offcanvas>
-    </Container>
+    </>
   );
 };
