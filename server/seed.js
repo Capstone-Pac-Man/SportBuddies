@@ -105,6 +105,82 @@ const users = [
     longitude: -73.95549,
     latitude: 40.76697,
   },
+  
+  
+    {
+    //08724 ,
+    firstName: "Guinevere",
+    lastName: "Beck",
+    email: "g@beck.com",
+    imageUrl:
+      "https://www.gannett-cdn.com/-mm-/8a6e606e8bf30067c6052e97f5b6b39c6d055570/c=0-0-3497-1976/local/-/media/2016/10/12/USATODAY/USATODAY/636118830553229435-2SLINE-RONDA-ROUSEY-74885118.JPG",
+    mobile: 9485068392,
+    availableFrom: "11am",
+    availableTo: "6pm",
+    address: "191 Van Zile Road",
+    city: "Brick",
+    state: "NJ",
+    userType: "trainer",
+    uid: "037d8aa57d67",
+    longitude: -74.11697782807603,
+    latitude: 40.077055904050646,
+  },
+  {
+    //08724 ,
+    firstName: "Hillary",
+    lastName: "Banks",
+    email: "h@banks.com",
+    imageUrl:
+      "https://imgix.bustle.com/rehost/2016/9/13/9e2a4982-bb3a-4d1a-abce-7729bd0349bd.jpg",
+    mobile: 2124494838,
+    availableFrom: "10am",
+    availableTo: "4pm",
+    address: "23 Ocean Avenue North",
+    city: "Brick",
+    state: "NJ",
+    userType: "player",
+    uid: "594b2883f247k",
+    longitude: -73.9783579045623,
+    latitude: 40.30120169813845,
+  },
+  {
+    //08724 ,
+    firstName: "Inigo",
+    lastName: "Montoya",
+    email: "i@montoya.com",
+    imageUrl:
+      "https://www.rethinkcare.com/wp-content/uploads/2022/04/Be-Like-Inigo-Montoya.jpg",
+    mobile: 6097995873,
+    availableFrom: "8am",
+    availableTo: "8pm",
+    address: "55 Melrose Terrace",
+    city: "Long Branch",
+    state: "NJ",
+    userType: "trainer",
+    uid: "f90e4jgkj23j99##7",
+    longitude: -73.98045358326493,
+    latitude: 40.3018578829103,
+  },
+  {
+    //08724 ,
+    firstName: "Jason",
+    lastName: "Bourne",
+    email: "j@bourne.com",
+    imageUrl:
+      "https://hips.hearstapps.com/digitalspyuk.cdnds.net/16/16/1461218409-matt-damon-jason-bourne-5-trailer.JPG",
+    mobile: 6097995273,
+    availableFrom: "8am",
+    availableTo: "8pm",
+    address: "55 Melrose Terrace",
+    city: "Long Branch",
+    state: "NJ",
+    userType: "trainer",
+    uid: "f90e4jgkj23j99##7",
+    longitude: -73.98045358326493,
+    latitude: 40.3018578829103,
+  },
+
+  
 ];
 
 const venues = [
@@ -145,7 +221,7 @@ const venues = [
     longitude: -111.8339069,
   },
   {
-    name: "Courtney Fields' Courts & Fields",
+    name: "Courtney Fields's Courts & Fields",
     address: "105 west 28",
     city: "NY",
     state: "NY",
