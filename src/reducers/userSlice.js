@@ -46,26 +46,26 @@ export const signUpThunk = createAsyncThunk(
 
 export const addUserSportAsync = createAsyncThunk(
   "user/addSport",
-  async ({sportId, skillLevel, userId, status }) =>{
+  async ({ sportId, skillLevel, userId, status }) => {
     try {
-      const {data} = await instance.post("/api/users/me/sports", {
+      const { data } = await instance.post("/api/users/me/sports", {
         sportId: sportId,
         skillLevel: skillLevel,
         userId: userId,
         status: status,
-      })
-      return data
+      });
+      return data;
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
-)
+);
 
 export const deleteUserSportAsync = createAsyncThunk(
   "user/deleteSport",
-  async ({sportId}) => {
+  async ({ sportId }) => {
     const { data } = await instance.delete(`/api/users/me/sports/${sportId}`);
-    console.log("DELETE THUNK", data)
+    console.log("DELETE THUNK", data);
     return data;
   }
 );
@@ -116,9 +116,6 @@ export const editUserAsync = createAsyncThunk(
     return data;
   }
 );
-
-
-
 
 const userSlice = createSlice({
   name: "user",

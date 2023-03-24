@@ -1,8 +1,6 @@
 import Card from "react-bootstrap/Card";
 
 export default function PlayerCard({ player }) {
-  console.log(player);
-
   return (
     <Card key={player.id} className="multi-card" style={{ margin: "1rem" }}>
       <Card.Img variant="top" src={player.imageUrl} />

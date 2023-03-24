@@ -90,9 +90,10 @@ User.beforeCreate(async (user) => {
 User.findByToken = async (token) => {
   try {
     if (!token) {
-      throw new Error("No token");
+      return;
     }
     const { id } = jwt.verify(token, process.env.JWT);
+
     const user = await User.findByPk(id, {
       include: {
         model: Sport,

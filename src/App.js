@@ -15,8 +15,12 @@ import { UserProfile } from "./components/users/userProfile";
 import "react-toastify/dist/ReactToastify.css";
 import { SingleUserPage } from "./components/users/singleUserPage";
 import { Chatroom } from "./components/chat/chatroom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchOneUserAsync } from "./reducers/userSlice";
+import axios from "axios";
 
 function App() {
+  const dispatch = useDispatch();
   const [location, setLocation] = useState(false);
   useEffect(() => {
     getLocation();
@@ -28,7 +32,7 @@ function App() {
       return;
     }
   };
-  const storeLocation = (coords) => {
+  const storeLocation = async (coords) => {
     const { latitude, longitude } = coords.coords;
     const location = { latitude, longitude };
     sessionStorage.setItem("location", JSON.stringify(location));
