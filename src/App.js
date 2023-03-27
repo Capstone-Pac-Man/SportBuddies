@@ -24,20 +24,19 @@ import VenueProfile from "./components/venues/venueProfile";
 import PageNotFound from "./components/PageNotFound";
 import { fetchOneVenueAsync, selectVenueAuth } from "./reducers/venueAuthSlice";
 
-
 function App() {
   const dispatch = useDispatch();
-  const isVenueLoggedIn = useSelector((state) => !!state.auth.id)
-	const navigate = useNavigate()
-  console.log("isLOGGEDIN",isVenueLoggedIn)
+  const isVenueLoggedIn = useSelector((state) => !!state.auth.id);
+  const navigate = useNavigate();
+  console.log("isLOGGEDIN", isVenueLoggedIn);
 
   const [location, setLocation] = useState(false);
   useEffect(() => {
     getLocation();
   }, []);
   useEffect(() => {
-    dispatch(fetchOneVenueAsync())
-    }, [])
+    dispatch(fetchOneVenueAsync());
+  }, []);
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(storeLocation);
@@ -55,7 +54,7 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      {isVenueLoggedIn ? (
+      {/* {isVenueLoggedIn ? (
         <Routes>
           <Route
             path="/"
@@ -67,28 +66,29 @@ function App() {
           <Route path="/chatroom" element={<Chatroom />} />
           <Route path="venue/dashboard" element={<VenueProfile />} />
           <Route path="/*" element={<PageNotFound />} />
-        </Routes>
-      ) : (
-        <Routes>
-          <Route
-            path="/"
-            element={<HomePage location={location} setLocation={setLocation} />}
-          />
-          {/* <Route path="/players/:id" element={<SingleUserPage />} /> */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/me" element={<UserProfile />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/players" element={<Players />} />
-          <Route path="/venues" element={<Venues />} />
-          {/* <Route path="/venues/:id" element={<Venue />} /> */}
-          <Route path="/search/:sport" element={<SelectedSport />} />
-          <Route path="/chatroom" element={<Chatroom />} />
-          <Route path="venue/signup" element={<VenueSignUp />} />
-          <Route path="venue/login" element={<VenueLogin />} />
-          <Route path="/*" element={<PageNotFound />} />
-        </Routes>
-      )}
-      
+        </Routes> */}
+      {/* ) : ( */}
+      <Routes>
+        <Route
+          path="/"
+          element={<HomePage location={location} setLocation={setLocation} />}
+        />
+        {/* <Route path="/players/:id" element={<SingleUserPage />} /> */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/me" element={<UserProfile />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/players" element={<Players />} />
+        <Route path="/venues" element={<Venues />} />
+        {/* <Route path="/venues/:id" element={<Venue />} /> */}
+        <Route path="venue/dashboard" element={<VenueProfile />} />
+        <Route path="/search/:sport" element={<SelectedSport />} />
+        <Route path="/chatroom" element={<Chatroom />} />
+        <Route path="venue/signup" element={<VenueSignUp />} />
+        <Route path="venue/login" element={<VenueLogin />} />
+        <Route path="/*" element={<PageNotFound />} />
+      </Routes>
+      {/* )} */}
+
       <div className="footer"></div>
     </div>
   );
