@@ -8,6 +8,8 @@ import Form from "react-bootstrap/Form";
 import Collapse from "react-bootstrap/Collapse";
 import { Squash as Hamburger } from "hamburger-react";
 import { fetchAllSportsAsync } from "../reducers/sportsSlice";
+import { SingleUserPage } from "./users/singleUserPage";
+import PlayerCard from "./homepage/playerCard";
 
 export default function Players() {
   const [open, setOpen] = useState(false);
@@ -166,11 +168,21 @@ export default function Players() {
           return (
             <Card key={e.id} className="player-card">
               <Card.Img variant="top" src={e.imageUrl} />
-              <Card.Body>
-                <Card.Title>{e.fullName}</Card.Title>
-                <Card.Subtitle className="text-muted">
-                  {e.distance.toFixed(1)} miles away
-                </Card.Subtitle>
+
+              <Card.Body style={{ minWidth: "100%", display: "flex" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "80%",
+                  }}
+                >
+                  <Card.Title>{e.fullName}</Card.Title>
+                  <Card.Subtitle className="text-muted">
+                    {e.distance.toFixed(1)} miles away
+                  </Card.Subtitle>
+                </div>
+                <SingleUserPage playerId={e.id} />
               </Card.Body>
             </Card>
           );
