@@ -65,7 +65,6 @@ export const deleteUserSportAsync = createAsyncThunk(
   "user/deleteSport",
   async ({ sportId }) => {
     const { data } = await instance.delete(`/api/users/me/sports/${sportId}`);
-    console.log("DELETE THUNK", data);
     return data;
   }
 );
