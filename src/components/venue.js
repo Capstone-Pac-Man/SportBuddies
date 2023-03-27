@@ -32,47 +32,47 @@ export const Venue = (props) => {
       </button>
       <>
         <Offcanvas show={show} onHide={handleClose} backdrop="static">
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>{venue.name}</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-        <div>
-            <p>
-              <strong>Address:</strong> {venue.address}, {venue.city}, {venue.state}
-            </p>{" "}
-            <p>
-              <strong>Hours:</strong> {venue.hours}
-            </p>
-            <img
-              src={venue.imageUrl}
-              className="img-fluid rounded-start" 
-              style={{width:"360px"}}
-              alt="arena"
-            ></img>
-          </div>
-          <br></br>
-          <div>
-            <h4>Sports Offered:</h4>
-            {venue.sports && venue.sports[0] ? (
-              <div>
-                <ListGroup>
-                  {venue.sports.map((sport) => {
-                    return <ListGroup.Item key={sport.name}>{sport.name}</ListGroup.Item>;
-                  })}
-                </ListGroup>
-              </div>
-            ) : (
-              <div>Venue is loading</div>
-            )}
-          </div>
-        </Offcanvas.Body>
-      </Offcanvas>
-        
-        </>
-      ) : (
-        <div>No venue exists with id = {id}</div>
-      )}
-
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>{venue.name}</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <div>
+              <p>
+                <strong>Address:</strong> {venue.address}, {venue.city},{" "}
+                {venue.state}
+              </p>{" "}
+              <p>
+                <strong>Hours:</strong> {venue.hours}
+              </p>
+              <img
+                src={venue.imageUrl}
+                className="img-fluid rounded-start"
+                style={{ width: "360px" }}
+                alt="arena"
+              ></img>
+            </div>
+            <br></br>
+            <div>
+              <h4>Sports Offered:</h4>
+              {venue.sports && venue.sports[0] ? (
+                <div>
+                  <ListGroup>
+                    {venue.sports.map((sport) => {
+                      return (
+                        <ListGroup.Item key={sport.name}>
+                          {sport.name}
+                        </ListGroup.Item>
+                      );
+                    })}
+                  </ListGroup>
+                </div>
+              ) : (
+                <div>Venue is loading</div>
+              )}
+            </div>
+          </Offcanvas.Body>
+        </Offcanvas>
+      </>
     </>
   );
 };

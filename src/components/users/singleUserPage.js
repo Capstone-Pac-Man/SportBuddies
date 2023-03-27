@@ -49,17 +49,19 @@ export const SingleUserPage = (props) => {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-            <img
-              className="img-fluid rounded-start" 
-              style={{width:"360px"}}
-              src={player.imageUrl}
-              alt="player"
-            />
-            <p>State: {player.state}</p>
-            <p>Available from: {player.availableFrom} to {player.availableTo}</p>
-              <ListGroup className="list-group-flush">
-                {player.sports.map((sport) => {
-
+          <img
+            className="img-fluid rounded-start"
+            style={{ width: "360px" }}
+            src={player.imageUrl}
+            alt="player"
+          />
+          <p>State: {player.state}</p>
+          <p>
+            Available from: {player.availableFrom} to {player.availableTo}
+          </p>
+          <ListGroup className="list-group-flush">
+            {player.sports
+              ? player.sports.map((sport) => {
                   return (
                     <ListGroup.Item key={sport.id}>
                       <div>
