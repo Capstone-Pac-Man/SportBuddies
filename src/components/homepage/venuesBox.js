@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Card, Button, Col } from "react-bootstrap";
 import MultiCarousel from "./multiCarousel";
 import PlayerCard from "./playerCard";
-
+import { Link } from "react-router-dom";
 import { fetchAllVenuesAsync, selectVenues } from "../../reducers/venuesSlice";
 import Venue from "../venue";
 

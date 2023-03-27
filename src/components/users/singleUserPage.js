@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {Button, Card, Container, Row, Col, Badge, Offcanvas} from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Container,
+  Row,
+  Col,
+  Badge,
+  Offcanvas,
+} from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -11,37 +19,33 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 export const SingleUserPage = (props) => {
   const [show, setShow] = useState(false);
-  const player = useSelector(SingleUserProfile);
-  const id = props.playerId
-
+  const player = useSelector((state) => state.singleUser);
+  const id = props.playerId;
+  const dispatch = useDispatch();
   const handleClose = () => setShow(false);
   const handleShow = () => {
-    dispatch(fetchSingleUserAysnc(id))
-    setShow(true)
-  }
-  const dispatch = useDispatch();
-
-  
-
-
-  useEffect(() => {
     dispatch(fetchSingleUserAysnc(id));
-  }, [dispatch]);
+    setShow(true);
+  };
 
-  if (!player.fullName) return <h1>Loading...</h1>;
+  // useEffect(() => {
+  //   dispatch(fetchSingleUserAysnc(id));
+  // }, [dispatch]);
+
+  // if (!player.fullName) return <h1>Loading...</h1>;
 
   return (
     <>
-      <Button className='myBtn' onClick={handleShow}>
+      <button className="pill-button" onClick={() => handleShow()}>
         See details
-      </Button>
+      </button>
       <Offcanvas show={show} onHide={handleClose} backdrop="static">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>
-            {player.fullName} {" "}
-              <Badge pill className="mb-1" bg="warning">
-                {player.userType}
-              </Badge>
+            {player.fullName}{" "}
+            <Badge pill className="mb-1" bg="warning">
+              {player.userType}
+            </Badge>
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
@@ -55,30 +59,37 @@ export const SingleUserPage = (props) => {
             <p>Available from: {player.availableFrom} to {player.availableTo}</p>
               <ListGroup className="list-group-flush">
                 {player.sports.map((sport) => {
+
                   return (
                     <ListGroup.Item key={sport.id}>
                       <div>
-                        <h4></h4>{sport.name}
-                        <div className="d-flex justify-content-between">Skill Level:
-                        <Badge pill className="mb-1" bg="primary">
-                           {sport.userSport.skillLevel}
-                        </Badge>
+                        <h4></h4>
+                        {sport.name}
+                        <div className="d-flex justify-content-between">
+                          Skill Level:
+                          <Badge pill className="mb-1" bg="primary">
+                            {sport.userSport.skillLevel}
+                          </Badge>
                         </div>
                       </div>
-                      <div className="d-flex justify-content-between">Status: {sport.userSport.status === 'active' ? 
-                        <Badge pill bg="success">
-                          {sport.userSport.status}
-                        </Badge> : 
-                        <Badge pill bg="danger">
-                          {sport.userSport.status}
-                        </Badge> 
-                      }
-                    </div>
+                      <div className="d-flex justify-content-between">
+                        Status:{" "}
+                        {sport.userSport.status === "active" ? (
+                          <Badge pill bg="success">
+                            {sport.userSport.status}
+                          </Badge>
+                        ) : (
+                          <Badge pill bg="danger">
+                            {sport.userSport.status}
+                          </Badge>
+                        )}
+                      </div>
                     </ListGroup.Item>
                   );
-                })}
-              </ListGroup>
-      </Offcanvas.Body>
+                })
+              : "loading"}
+          </ListGroup>
+        </Offcanvas.Body>
       </Offcanvas>
     </>
   );

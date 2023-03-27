@@ -16,7 +16,7 @@ export const HomePage = ({ location, setLocation }) => {
   const [zip, setZip] = useState("");
   useEffect(() => {
     dispatch(fetchOneUserAsync());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     if (location) {
       if (user.fullName) {

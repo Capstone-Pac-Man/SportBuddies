@@ -2,40 +2,35 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchVenue, selectVenue } from "../reducers/venueSlice";
 import { useParams } from "react-router-dom";
-import { Button, Offcanvas, ListGroup} from "react-bootstrap";
-
+import { Button, Offcanvas, ListGroup } from "react-bootstrap";
 
 export const Venue = (props) => {
   const [show, setShow] = useState(false);
   const venue = useSelector(selectVenue);
   const id = props.venueId;
 
-
-  const handleClose = () => setShow(false)
+  const handleClose = () => setShow(false);
   const handleShow = () => {
-    dispatch(fetchVenue(id))
-    setShow(true)
-  }
+    dispatch(fetchVenue(id));
+    setShow(true);
+  };
   const dispatch = useDispatch();
-
-  
 
   // console.log("VENUE", venue)
   // console.log("ID+++", id)
 
-  useEffect(() => {
-    dispatch(fetchVenue(id));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchVenue(id));
+  // }, [dispatch]);
 
-  if (!venue.name) return <h1>Loading...</h1>;
+  // if (!venue.name) return <h1>Loading...</h1>;
 
   return (
     <>
-      <Button className='myBtn' onClick={handleShow}>
+      <button className="pill-button" onClick={() => handleShow()}>
         See details
-      </Button>
-      {venue && venue.name ? (
-        <>
+      </button>
+      <>
         <Offcanvas show={show} onHide={handleClose} backdrop="static">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>{venue.name}</Offcanvas.Title>
@@ -72,11 +67,12 @@ export const Venue = (props) => {
           </div>
         </Offcanvas.Body>
       </Offcanvas>
-          
+        
         </>
       ) : (
         <div>No venue exists with id = {id}</div>
       )}
+
     </>
   );
 };
