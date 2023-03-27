@@ -2,6 +2,7 @@ import axios from 'axios'
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import history from '../history'
 import { useNavigate } from "react-router-dom";
+import { async } from '@firebase/util';
 
 
 
@@ -99,12 +100,50 @@ export const addVenueSportAsync = createAsyncThunk(
     }
 );
 
+export const updateVenueAsync = createAsyncThunk(
+    "venue/update",
+    async ({venueId, name, email, type, address, city, state, description, hours}) => {
+        try {
+            const {data} = await instance.put("/api/auth/me", {
+                venueId : venueId,
+                name: name,
+                email: email,
+                type: type,
+                address: address,
+                city: city,
+                state: state,
+                description: description,
+                hours: hours
+            }) 
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+
+export const changeVenuePasswordAsync = createAsyncThunk(
+    "venue/changePassword",
+    async ({email, password, newPassword, venueId}) => {
+        try {
+            const {data} = await instance.put("/api/auth/me/password", {
+                email: email,
+                password: password,
+                newPassword: newPassword,
+                venueId: venueId
+            })
+            console.log("DATA", data)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+
 export const deleteVenueSportAsync = createAsyncThunk(
     "venue/deleteSport",
     async ({ venueId, sportId }) => {
         try {
-            console.log("THUNK V ID", venueId)
-            console.log("THUNK Sport ID", sportId)
             const { data } = await instance.put(`/api/auth/me/sports`, {
                 venueId: venueId,
                 sportId: sportId
@@ -134,9 +173,13 @@ const venueAuthSlice = createSlice({
         return payload;
       });
       builder.addCase(deleteVenueSportAsync.fulfilled, (state, { payload }) => {
-        // console.log("PAYLOAD ID", payload)
-        return Object.keys(state).filter((sport) => sport.id !== payload.id);
-        // return payload
+        return payload
+      });
+      builder.addCase(updateVenueAsync.fulfilled, (state, { payload }) => {
+        return payload
+      });
+      builder.addCase(changeVenuePasswordAsync.fulfilled, (state, { payload }) => {
+        return payload
       });
     },
   });
