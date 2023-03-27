@@ -373,6 +373,8 @@ const users = [
 ////////////////////////////////////////////
 const venues = [
   {
+    email: "paul@gmail.com",
+    password: "12345678",
     name: "Paul's Pitches",
     address: "2903 NJ-138",
     city: "Wall Township",
@@ -385,6 +387,8 @@ const venues = [
     longitude: -74.0806924,
   },
   {
+    email: "curt@gmail.com",
+    password: "12345678",
     name: "Curt's Clubs",
     address: "1030 Fulton Street",
     city: "Brooklyn",
@@ -397,6 +401,8 @@ const venues = [
     longitude: -73.9591971,
   },
   {
+    email: "rhonda@gmail.com",
+    password: "12345678",
     name: "Rhonda's Rings & Rinks",
     address: "11475 E Via Linda",
     city: "Scottsdale",
@@ -409,6 +415,8 @@ const venues = [
     longitude: -111.8339069,
   },
   {
+    email: "courtney@gmail.com",
+    password: "12345678", 
     name: "Courtney Fields' Courts & Fields",
     address: "105 West 28th Street",
     city: "NY",
@@ -422,6 +430,8 @@ const venues = [
   },
 
   {
+    email: "drum@gmail.com",
+    password: "12345678",
     name: "Drum Point Sports Complex",
     address: "Brick Boulevard",
     city: "Brick Township",
@@ -435,6 +445,8 @@ const venues = [
   },
 
   {
+    email: "philly@gmail.com",
+    password: "12345678",
     name: "Philadelphia Sports Complex Special Services District",
     address: "3300 South 7th Street Suite #1",
     city: "Philadelphia",

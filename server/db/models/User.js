@@ -27,7 +27,7 @@ const User = db.define(
     imageUrl: {
       type: Sequelize.STRING,
       defaultValue:
-        "https://i.pinimg.com/474x/98/7a/df/987adf097a98ab1b32a953e2c33bba09.jpg",
+        "https://cdn-icons-png.flaticon.com/512/1193/1193243.png",
     },
     mobile: {
       type: Sequelize.STRING,

@@ -6,6 +6,7 @@ import usersSlice from "./reducers/usersSlice";
 import venueSlice from "./reducers/venueSlice";
 import venuesSlice from "./reducers/venuesSlice";
 import singleUserSlice from "./reducers/singleUserSlice";
+import venueAuthSlice from "./reducers/venueAuthSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,7 +17,9 @@ const store = configureStore({
     sport: sportSlice,
     sports: sportsSlice,
     singleUser: singleUserSlice,
+    auth: venueAuthSlice
   },
 });
 
 export default store;
+export * from "./reducers/venueAuthSlice";
