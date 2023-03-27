@@ -4,6 +4,8 @@ import { Container, Button, Col, Card, Table, Accordion} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import {deleteVenueSportAsync, fetchOneVenueAsync, logout, selectVenueAuth} from '../../reducers/venueAuthSlice'
 import { AddVenueSport } from './addVenueSport';
+import { UpdateVenue } from './updateVenueProfile';
+import { ChangeVenuePassword } from './changeVenuePassword';
 
 
 function VenueProfile() {
@@ -16,14 +18,14 @@ function VenueProfile() {
 
     useEffect(() => {
         dispatch(fetchOneVenueAsync());
-    }, [dispatch, id]);
+    }, []);
 
     const handleLogout = ()=>{
         dispatch(logout())
         navigate("/")
     }
-    if (!venue) return "Loadind. Please wait"
-    if (!venue.sports) return "Loadind. Please wait";
+    if (!venue.id) return "Loadind. Please wait"
+    // if (!venue.sports) return "Loadind. Please wait";
 
   return (
     <>
@@ -34,7 +36,12 @@ function VenueProfile() {
             <Accordion.Item eventKey="0">
               <Accordion.Header>
                 <div>Business Information</div> 
-                <Button onClick={handleLogout}>
+                <UpdateVenue />
+                <ChangeVenuePassword />
+                <Button 
+                  className="btn-sm btn-dark"
+                  style={{ marginLeft: 5, marginRight: 5 }}
+                  onClick={handleLogout}>
                     Logout
                 </Button>
               </Accordion.Header>
@@ -49,6 +56,7 @@ function VenueProfile() {
                         <thead>
                           <tr>
                             <th>Name</th>
+                            <th>Type</th>
                             <th>Address</th>
                             <th>Email</th>
                             <th>Hours of operation</th>
@@ -58,10 +66,11 @@ function VenueProfile() {
                         <tbody>
                           <tr>
                             <td>{venue.name}</td>
+                            <td>{venue.type ? venue.type : "Please update to Indoor or Outdoor"}</td>
                             <td>{venue.address}, {venue.city}, {venue.state}</td>
                             <td>{venue.email}</td>
                             <td>{venue.hours}</td>
-                            <td>{venue.description}</td>
+                            <td>{venue.description ? venue.description : "update your description"}</td>
                           </tr>
                         </tbody>
                       </Table>
@@ -91,7 +100,10 @@ function VenueProfile() {
                           <tr key={elem.id}>
                             <td>{elem.name}</td>
                             <td>
-                              <Button variant="danger" onClick={()=>
+                              <Button 
+                                variant="danger" 
+                                className="btn-sm"
+                                onClick={()=>
                                 dispatch(deleteVenueSportAsync({
                                   venueId : elem.venueSports.venueId,
                                   sportId : elem.venueSports.sportId
