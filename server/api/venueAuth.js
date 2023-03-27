@@ -4,6 +4,7 @@ const Sport = require("../db/models/Sport")
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { token } = require("morgan");
+const { wait } = require("@testing-library/user-event/dist/utils");
 
 // POST api/auth
 router.post("/login", async (req, res, next) => {
@@ -45,6 +46,39 @@ router.get("/me", async (req, res, next) => {
 	}
 });
 
+router.put("/me", async (req,res, next)=>{
+	try {
+		const {venueId, ...rest} = req.body
+		const venue = await Venue.findByPk(venueId)
+		await venue.update(rest)
+		const updated = await Venue.findByPk(venueId, {
+			include: { model: Sport },
+		  });
+		res.send(updated)
+	} catch (error) {
+		next(error);
+	}
+})
+
+router.put("/me/password", async (req, res, next)=>{
+	try {
+		const {email, password, newPassword, venueId} = req.body
+		console.log("OLD ROUTE",password)
+        console.log("NEW ROUTE",newPassword)
+		const venue = await Venue.findByPk(venueId)
+		if (await venue.correctPassword(password)) {
+			await venue.update({password:newPassword})
+		}
+		console.log("VENUE", venue)
+		const updated = await Venue.findByPk(venueId, {
+			include: { model: Sport },
+		  });
+		res.send(updated)
+	} catch (error) {
+		next(error)
+	}
+})
+
   // POST api/auth
 router.post("/me/sports", async (req, res, next) => {
 	try {
@@ -68,8 +102,6 @@ router.post("/me/sports", async (req, res, next) => {
 		const { venueId, sportId } = req.body; 
 		const venue = await Venue.findByPk(venueId);
 		const sport = await Sport.findByPk(sportId);
-		console.log("SPORT", sport)
-		console.log("VENUE", venue)
     	await venue.removeSport(sport);
     	const updated = await Venue.findByPk(venueId, {
       		include: { model: Sport },

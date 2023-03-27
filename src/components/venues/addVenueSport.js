@@ -33,7 +33,10 @@ export const AddVenueSport = () => {
 
     return (
       <>
-          <Button className='myBtn' onClick={handleShow}>
+          <Button 
+            className="btn-sm btn-dark"
+            style={{ marginLeft: 5, marginRight: 5 }} 
+            onClick={handleShow}>
               Add Sports
           </Button>
         <Modal show={show} onHide={handleClose}>

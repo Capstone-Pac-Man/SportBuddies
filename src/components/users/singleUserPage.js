@@ -78,8 +78,7 @@ export const SingleUserPage = (props) => {
                   return (
                     <ListGroup.Item key={sport.id}>
                       <div>
-                        <h4></h4>
-                        {sport.name}
+                        <h4>{sport.name}</h4>
                         <div className="d-flex justify-content-between">
                           Skill Level:
                           <Badge pill className="mb-1" bg="primary">
