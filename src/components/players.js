@@ -177,7 +177,7 @@ export default function Players() {
                     width: "80%",
                   }}
                 >
-                  <Card.Title>{e.fullName}</Card.Title>
+                  <Card.Title>{e.firstName}</Card.Title>
                   <Card.Subtitle className="text-muted">
                     {e.distance.toFixed(1)} miles away
                   </Card.Subtitle>
