@@ -105,10 +105,8 @@ const users = [
     longitude: -73.95549,
     latitude: 40.76697,
   },
-  
-  
-    {
-    //08724 ,
+  {
+    //08724 BRICK, NJ BRICK, NJ BRICK, NJ BRICK, NJ BRICK, NJ BRICK, NJ
     firstName: "Guinevere",
     lastName: "Beck",
     email: "g@beck.com",
@@ -169,9 +167,9 @@ const users = [
     imageUrl:
       "https://hips.hearstapps.com/digitalspyuk.cdnds.net/16/16/1461218409-matt-damon-jason-bourne-5-trailer.JPG",
     mobile: 6097995273,
-    availableFrom: "8am",
-    availableTo: "8pm",
-    address: "55 Melrose Terrace",
+    availableFrom: "5am",
+    availableTo: "9pm",
+    address: "77 Melrose Terrace",
     city: "Long Branch",
     state: "NJ",
     userType: "trainer",
@@ -180,9 +178,199 @@ const users = [
     latitude: 40.3018578829103,
   },
 
-  
-];
+  // 19149 19149 19149 19149 19149 19149 PHILLY
+  {
+    //19149
+    firstName: "Kim",
+    lastName: "Kardashian",
+    email: "k@kardashian.com",
+    imageUrl:
+      "https://www.stewarthaasracing.com/wp-content/uploads/SHR-Danica-Code-3-1200x1208.jpg",
+    mobile: 2156468294,
+    availableFrom: "4pm",
+    availableTo: "9pm",
+    address: "6501 Castor Avenue",
+    city: "Philaldephia",
+    state: "PA",
+    userType: "trainer",
+    uid: "b5@080b9!#cc30",
+    longitude: -75.0758079665264,
+    latitude: 40.04068385875287,
+  },
 
+  {
+    //19149
+    firstName: "Lance",
+    lastName: "Armstrong",
+    email: "l@armstrong.com",
+    imageUrl:
+      "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/rockcms/2023-03/230317-Lance-Reddick-mjf-1517-55423b.jpg",
+    mobile: 2158084030,
+    availableFrom: "1pm",
+    availableTo: "8pm",
+    address: "1300 Hellerman Street",
+    city: "Philaldephia",
+    state: "PA",
+    userType: "player",
+    uid: "b5@080098j349gIOUSJDFAIOqcpmJfiojb9!#cc30",
+    longitude: -75.0776360806086,
+    latitude: 40.0388498032552,
+  },
+
+  {
+    //19149
+    firstName: "Michael",
+    lastName: "Sorrentino",
+    email: "m@sorrentino.com",
+    imageUrl:
+      "https://s.abcnews.com/images/Entertainment/SPL_mike_black_eye_mar_140618_16x9_992.jpg",
+    mobile: 2156464101,
+    availableFrom: "6am",
+    availableTo: "8pm",
+    address: "924 Levick Street",
+    city: "Philaldephia",
+    state: "PA",
+    userType: "player",
+    uid: "b5@0foimsc4voiae65fiojweOIAJFoijaZPL#Sc30",
+    longitude: -75.0857357170117,
+    latitude: 40.04394463276886,
+  },
+
+  //85259 SCOTTSDALE 85259 SCOTTSDALE 85259 SCOTTSDALE 85259 SCOTTSDALE 85259 SCOTTSDALE
+  //85259 SCOTTSDALE 85259 SCOTTSDALE 85259 SCOTTSDALE 85259 SCOTTSDALE 85259 SCOTTSDALE
+
+  {
+    firstName: "Novak",
+    lastName: "Djokovic",
+    email: "n@djokovic.com",
+    imageUrl:
+      "https://media.npr.org/assets/img/2021/09/21/gettyimages-927254864_wide-a978ec346ea3add6c594f1d554b516ad55c59cce.jpg",
+    mobile: 4806142747,
+    availableFrom: "12pm",
+    availableTo: "12am",
+    address: "10767 North 116th Street",
+    city: "Scottsdale",
+    state: "AZ",
+    userType: "trainer",
+    uid: "b5@0foimsc4voiae65ffk2ijaZPL#Sc24",
+    longitude: -111.83035428074537,
+    latitude: 33.58395923524062,
+  },
+
+  {
+    firstName: "Oscar",
+    lastName: "de la Hoya",
+    email: "o@delahoya.com",
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Oscar_De_La_Hoya%2C_Feb_2011.jpg/800px-Oscar_De_La_Hoya%2C_Feb_2011.jpg",
+    mobile: 4805517000,
+    availableFrom: "7am",
+    availableTo: "12pm",
+    address: "10855 North 116th Street",
+    city: "Scottsdale",
+    state: "AZ",
+    userType: "player",
+    uid: "d6@0foimsc$4voiae65ffk2ijaZPL#Sc24",
+    longitude: -111.83014433938388,
+    latitude: 33.58476130671783,
+  },
+
+  {
+    firstName: "Perez",
+    lastName: "Sergio",
+    email: "p@sergio.com",
+    imageUrl:
+      "https://media.formula1.com/content/dam/fom-website/drivers/2023Drivers/perez.jpg.img.1536.high.jpg",
+    mobile: 4804434656,
+    availableFrom: "8am",
+    availableTo: "2pm",
+    address: "10769 North Frank Lloyd Wright Blvd #A-100",
+    city: "Scottsdale",
+    state: "AZ",
+    userType: "player",
+    uid: "j226@0fofoimsc$4voIae65ffk2ijaZPL#Sc24",
+    longitude: -111.8333189726488,
+    latitude: 33.5840093740919,
+  },
+
+  {
+    firstName: "Quinton",
+    lastName: "Jackson",
+    email: "q@jackson.com",
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/8/89/02-09JUL2019_CNGB_USO_Tour_2019_190705-F-WH816-1016_%2848531457487%29_%28cropped%29.jpg",
+    mobile: 4803331900,
+    availableFrom: "9am",
+    availableTo: "8pm",
+    address: "13255 North Eagle Ridge Drive",
+    city: "Scottsdale",
+    state: "AZ",
+    userType: "trainer",
+    uid: "#k3126@0fofoimsc$4voIae65ffk2ijaZPL#Sc24",
+    longitude: -111.76304815805902,
+    latitude: 33.60525392599031,
+  },
+
+  /// 10019 NYC 10019 NYC 10019 NYC 10019 NYC 10019 NYC 10019 NYC 10019 NYC
+  /// 10019 NYC 10019 NYC 10019 NYC 10019 NYC 10019 NYC 10019 NYC 10019 NYC
+
+  {
+    firstName: "Romain",
+    lastName: "Grosjean",
+    email: "r@grosjean.com",
+    imageUrl:
+      "https://www.thepaddockmagazine.com/wp-content/uploads/2019/05/romain-grosjean-1050x591.jpg",
+    mobile: 6462751491,
+    availableFrom: "11am",
+    availableTo: "6pm",
+    address: "230 5th Avenue",
+    city: "New York",
+    state: "NY",
+    userType: "player",
+    uid: "@d311aK126@0fofoimsc$4voIae65ffk2ijaZPL#Sc24",
+    longitude: -73.98811301156721,
+    latitude: 40.74397424727543,
+  },
+
+  {
+    firstName: "Steph",
+    lastName: "Curry",
+    email: "s@curry.com",
+    imageUrl:
+      "https://cdn.vox-cdn.com/thumbor/YQLM135mS6silnUhtR8hWJX1yEk=/0x0:2636x3955/1400x933/filters:focal(1119x855:1539x1275):no_upscale()/cdn.vox-cdn.com/uploads/chorus_image/image/66566857/1205394911.jpg.0.jpg",
+    mobile: 6469171493,
+    availableFrom: "6am",
+    availableTo: "6pm",
+    address: "838 Brook Avenue",
+    city: "New York",
+    state: "NY",
+    userType: "player",
+    uid: "zEk111aK126@0fofoimsc$4voIae65ffk2ijaZPL#Sc24",
+    longitude: -73.91059408031542,
+    latitude: 40.82179181339087,
+  },
+
+  {
+    firstName: "Thierry",
+    lastName: "Henry",
+    email: "t@henry.com",
+    imageUrl:
+      "https://tmssl.akamaized.net/images/foto/galerie/thierry-henry-arsenal-jubel-2012-1592828479-41984.jpg",
+    mobile: 9171234563,
+    availableFrom: "3am",
+    availableTo: "3pm",
+    address: "928 8th Avenue",
+    city: "New York",
+    state: "NY",
+    userType: "player",
+    uid: "0ofoimsc$4voIae65ffk2ijaZPL#SD93",
+    longitude: -73.98373599671615,
+    latitude: 40.76525212347352,
+  },
+];
+////////////////////////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
 const venues = [
   {
     name: "Paul's Pitches",
@@ -221,18 +409,44 @@ const venues = [
     longitude: -111.8339069,
   },
   {
-    name: "Courtney Fields's Courts & Fields",
-    address: "105 west 28",
+    name: "Courtney Fields' Courts & Fields",
+    address: "105 West 28th Street",
     city: "NY",
     state: "NY",
     description: "football fields and basketball courts. Volleyball too!",
-    hours: "11a to 11p",
+    hours: "6a to 11p",
     imageUrl:
       "https://images.unsplash.com/photo-1443029433954-f508cb9936b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
     latitude: 40.746472,
     longitude: -73.990957,
   },
+
+  {
+    name: "Drum Point Sports Complex",
+    address: "Brick Boulevard",
+    city: "Brick Township",
+    state: "NJ",
+    description: "Skate park, dog parks, baseball & basketball",
+    hours: "730a to 4p",
+    imageUrl:
+      "https://fastly.4sqi.net/img/general/600x600/36698354_qN0gwHHd-8jryGYJMkI8i1oW7B469u8E2cXHf7Mrsyw.jpg",
+    latitude: 40.04160778453462,
+    longitude: -74.13783195868344,
+  },
+
+  {
+    name: "Philadelphia Sports Complex Special Services District",
+    address: "3300 South 7th Street Suite #1",
+    city: "Philadelphia",
+    state: "PA",
+    description: "PSCSSD offers every known sport.",
+    hours: "730a to 4p",
+    imageUrl: "https://storage.googleapis.com/clio-images/12981.22386.jpg",
+    latitude: 39.906594516524855,
+    longitude: -75.16318365087093,
+  },
 ];
+
 
 const userSport = [
   {

@@ -1,9 +1,13 @@
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Badge from "react-bootstrap/Badge";
+import React, { useState, useEffect } from "react";
+import {
+  Button,
+  Card,
+  Container,
+  Row,
+  Col,
+  Badge,
+  Offcanvas,
+} from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -11,70 +15,85 @@ import {
   fetchSingleUserAysnc,
   SingleUserProfile,
 } from "../../reducers/singleUserSlice";
-import React, { useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 
-export const SingleUserPage = () => {
+export const SingleUserPage = (props) => {
+  const [show, setShow] = useState(false);
+  const player = useSelector((state) => state.singleUser);
+  const id = props.playerId;
   const dispatch = useDispatch();
-  const params = useParams();
-  const id = params.id;
-  const player = useSelector(SingleUserProfile);
-  console.log("PLAYER", player);
-
-  useEffect(() => {
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
     dispatch(fetchSingleUserAysnc(id));
-  }, [dispatch]);
+    setShow(true);
+  };
 
-  if (!player.fullName) return <h1>Loading...</h1>;
+  // useEffect(() => {
+  //   dispatch(fetchSingleUserAysnc(id));
+  // }, [dispatch]);
+
+  // if (!player.fullName) return <h1>Loading...</h1>;
 
   return (
-    <Container>
-      <Row>
-        <Col md={4} className="mb-5">
-          <Card>
-            <Card.Header className="d-flex mb-2 justify-content-between">
-              <p>{player.fullName}</p>
-              <p>{player.distance}</p>
-            </Card.Header>
-            <Card.Img
-              style={{
-                width: "50%",
-                height: "50%",
-                borderRadius: "10%",
-              }}
-              src={player.imageUrl}
-            />
-          </Card>
-        </Col>
-        <Col md={8} className="mb-5">
-          <Card>
-            <Card.Header>State: {player.state}</Card.Header>
-            <Card.Body>
-              <Card.Text className="d-flex mb-2 justify-content-between">
-                Available from: {player.availableFrom} to {player.availableTo}
-                <Badge pill className="mb-1" bg="warning">
-                  {player.userType}
-                </Badge>
-              </Card.Text>
-              <ListGroup className="list-group-flush">
-                {player.sports.map((sport) => {
+    <>
+      <button className="pill-button" onClick={() => handleShow()}>
+        See details
+      </button>
+      <Offcanvas show={show} onHide={handleClose} backdrop="static">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>
+            {player.fullName}{" "}
+            <Badge pill className="mb-1" bg="warning">
+              {player.userType}
+            </Badge>
+          </Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <img
+            width="360"
+            height="480"
+            borderRadius="10%"
+            src={player.imageUrl}
+            alt="player"
+          />
+          <p>State: {player.state}</p>
+          <p>
+            Available from: {player.availableFrom} to {player.availableTo}
+          </p>
+          <ListGroup className="list-group-flush">
+            {player.fullName
+              ? player.sports.map((sport) => {
                   return (
                     <ListGroup.Item key={sport.id}>
-                      <div className="d-flex mb-2 justify-content-between">
+                      <div>
+                        <h4></h4>
                         {sport.name}
-                        <Badge pill className="mb-1" bg="primary">
-                          <div>Skill Level: {sport.userSport.skillLevel}</div>
-                        </Badge>
+                        <div className="d-flex justify-content-between">
+                          Skill Level:
+                          <Badge pill className="mb-1" bg="primary">
+                            {sport.userSport.skillLevel}
+                          </Badge>
+                        </div>
                       </div>
-                      <div>Status: {sport.userSport.status}</div>
+                      <div className="d-flex justify-content-between">
+                        Status:{" "}
+                        {sport.userSport.status === "active" ? (
+                          <Badge pill bg="success">
+                            {sport.userSport.status}
+                          </Badge>
+                        ) : (
+                          <Badge pill bg="danger">
+                            {sport.userSport.status}
+                          </Badge>
+                        )}
+                      </div>
                     </ListGroup.Item>
                   );
-                })}
-              </ListGroup>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+                })
+              : "loading"}
+          </ListGroup>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
   );
 };

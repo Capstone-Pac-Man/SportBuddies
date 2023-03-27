@@ -35,7 +35,7 @@ export const SelectedSport = () => {
                 {sportObj.venues ? (
                     sportObj.venues.map((venue) => 
                         <Col key={venue.id} style={{margin : "auto"}}>
-                            <Card>
+                            {/* <Card> */}
                             <Card.Body className="homeCard">
                             <Card.Img 
                             alt="Sport arena"
@@ -52,7 +52,7 @@ export const SelectedSport = () => {
                             {venue.hours}
                             </Card.Text>
                     </Card.Body>
-                    </Card>
+                    {/* </Card> */}
                     </Col>
                         )) : (
                             <h1>Loading Please wait</h1>
@@ -66,7 +66,7 @@ export const SelectedSport = () => {
                 {sportObj.users ? (
                         sportObj.users.map((user) => (
                             <Col key={user.id}>
-                                <Card className="homeCard">
+                                {/* <Card className="homeCard"> */}
                             <Card.Body >
                                 <Card.Img 
                                 src={user.imageUrl}
@@ -80,7 +80,7 @@ export const SelectedSport = () => {
                                 <Card.Text>Available from {user.availableFrom} to {user.availableTo}</Card.Text>
                                 </div>
                             </Card.Body>
-                            </Card>
+                            {/* </Card> */}
                             </Col>
                         ))      
                 ) : (

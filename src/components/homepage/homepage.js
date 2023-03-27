@@ -5,9 +5,38 @@ import { VenuesBox } from "./venuesBox";
 import { PlayersBox } from "./playersBox";
 import { EquipmentsBox } from "./equipmentBox";
 import axios from "axios";
+import { fetchOneUserAsync } from "../../reducers/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAllUsersAsync } from "../../reducers/usersSlice";
+import { fetchAllVenuesAsync } from "../../reducers/venuesSlice";
 
 export const HomePage = ({ location, setLocation }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const [zip, setZip] = useState("");
+  useEffect(() => {
+    dispatch(fetchOneUserAsync());
+  }, [dispatch]);
+  useEffect(() => {
+    if (location) {
+      if (user.fullName) {
+        console.log("auto set location of " + user.fullName);
+        const location = JSON.parse(sessionStorage.getItem("location"));
+        axios
+          .put(
+            "http://localhost:5000/api/users/me",
+            {
+              latitude: location.latitude,
+              longitude: location.longitude,
+            },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log(res.data);
+          });
+      }
+    }
+  }, [location]);
   const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -20,17 +49,37 @@ export const HomePage = ({ location, setLocation }) => {
             limit: 1,
           };
           const { data } = await axios.get(base, { params });
-          const location = {
+          const zipLocation = {
             latitude: data.features[0].center[1],
             longitude: data.features[0].center[0],
           };
-          sessionStorage.setItem("location", JSON.stringify(location));
-          setZip("");
-          setLocation(true);
+          console.log(location);
+          if (user.fullName && data.features[0]) {
+            axios
+              .put(
+                "http://localhost:5000/api/users/me",
+                {
+                  latitude: zipLocation.latitude,
+                  longitude: zipLocation.longitude,
+                },
+                { withCredentials: true }
+              )
+              .then((res) => {
+                console.log(res.data);
+                console.log(
+                  `Set location of ${user.fullName} based on provided zip code`
+                );
+              });
+          }
+          sessionStorage.setItem("location", JSON.stringify(zipLocation));
         }
+
+        setZip("");
+        setLocation(true);
       }
     }
   };
+
   return (
     <div>
       <Container fluid>
