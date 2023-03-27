@@ -23,21 +23,21 @@ import VenueLogin from "./components/VenueAuth/Login";
 import VenueProfile from "./components/venues/venueProfile";
 import PageNotFound from "./components/PageNotFound";
 import { fetchOneVenueAsync, selectVenueAuth } from "./reducers/venueAuthSlice";
-
+import ChatPage from "./components/chat/ChatPage";
 
 function App() {
   const dispatch = useDispatch();
-  const isVenueLoggedIn = useSelector((state) => !!state.auth.id)
-	const navigate = useNavigate()
-  console.log("isLOGGEDIN",isVenueLoggedIn)
+  const isVenueLoggedIn = useSelector((state) => !!state.auth.id);
+  const navigate = useNavigate();
+  console.log("isLOGGEDIN", isVenueLoggedIn);
 
   const [location, setLocation] = useState(false);
   useEffect(() => {
     getLocation();
   }, []);
   useEffect(() => {
-    dispatch(fetchOneVenueAsync())
-    }, [])
+    dispatch(fetchOneVenueAsync());
+  }, []);
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(storeLocation);
@@ -82,13 +82,13 @@ function App() {
           <Route path="/venues" element={<Venues />} />
           {/* <Route path="/venues/:id" element={<Venue />} /> */}
           <Route path="/search/:sport" element={<SelectedSport />} />
-          <Route path="/chatroom" element={<Chatroom />} />
+          <Route path="/chatroom" element={<ChatPage />} />
           <Route path="venue/signup" element={<VenueSignUp />} />
           <Route path="venue/login" element={<VenueLogin />} />
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
       )}
-      
+
       <div className="footer"></div>
     </div>
   );
