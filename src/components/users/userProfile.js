@@ -43,6 +43,7 @@ export const UserProfile = () => {
       navigate("/login");
     }
   }, []);
+
   useEffect(() => {
     if (user.error === "error") {
       navigate("/login");

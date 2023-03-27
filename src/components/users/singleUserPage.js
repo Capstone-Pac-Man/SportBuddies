@@ -46,9 +46,8 @@ export const SingleUserPage = (props) => {
         </Offcanvas.Header>
         <Offcanvas.Body>
             <img
-              width ="360"
-              height= "480"
-              borderRadius= "10%"
+              className="img-fluid rounded-start" 
+              style={{width:"360px"}}
               src={player.imageUrl}
               alt="player"
             />

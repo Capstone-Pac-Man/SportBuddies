@@ -50,8 +50,8 @@ export const Venue = (props) => {
             </p>
             <img
               src={venue.imageUrl}
-              height="240"
-              width="360"
+              className="img-fluid rounded-start" 
+              style={{width:"360px"}}
               alt="arena"
             ></img>
           </div>
