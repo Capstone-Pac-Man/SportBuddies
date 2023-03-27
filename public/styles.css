@@ -124,7 +124,7 @@
 }
 .link {
   text-decoration: none;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .myBtn {
