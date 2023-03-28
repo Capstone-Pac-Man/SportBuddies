@@ -1,17 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticateLogin } from "../../reducers/venueAuthSlice";
 import { Form, Button, Container, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { fetchOneVenueAsync } from "../../reducers/venueAuthSlice";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState("");
-  const { error } = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
+  const { error } = auth;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      dispatch(fetchOneVenueAsync());
+    }
+  }, []);
+  useEffect(() => {
+    if (auth.email) {
+      navigate("/venue/dashboard");
+    }
+  }, [auth]);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();

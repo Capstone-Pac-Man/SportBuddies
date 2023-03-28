@@ -56,9 +56,13 @@ const usersSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAllUsersAsync.fulfilled, (state, { payload }) => {
-      return payload;
-    });
+    builder
+      .addCase(fetchAllUsersAsync.fulfilled, (state, { payload }) => {
+        return payload;
+      })
+      .addCase(fetchAllUsersAsync.pending, (state, { payload }) => {
+        return { loading: "loading" };
+      });
   },
 });
 
