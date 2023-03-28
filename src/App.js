@@ -7,7 +7,7 @@ import NavBar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { HomePage } from "./components/homepage/homepage";
 import { SearchBar } from "./components/searchBarSports";
-import { Venues } from "./components/venues";
+import Venues from "./components/venues";
 import { Venue } from "./components/venue";
 import Players from "./components/players";
 import { SelectedSport } from "./components/selectedSport";
