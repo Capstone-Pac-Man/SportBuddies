@@ -41,7 +41,7 @@ export const SingleUserPage = (props) => {
     navigate("/chatroom");
   };
 
-  if (!user) return "Loading..";
+  // if (!user) return "Loading..";
 
   // useEffect(() => {
   //   dispatch(fetchSingleUserAysnc(id));

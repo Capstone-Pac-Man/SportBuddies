@@ -5,6 +5,7 @@ import { fetchAllUsersAsync, selectUsers } from "../../reducers/usersSlice";
 import MultiCarousel from "./multiCarousel";
 import PlayerCard from "./playerCard";
 import "react-multi-carousel/lib/styles.css";
+import Loading from "../../assets/Loading";
 
 export const PlayersBox = ({ location }) => {
   const [showMore, setShowMore] = useState(false);
@@ -14,12 +15,9 @@ export const PlayersBox = ({ location }) => {
 
   useEffect(() => {
     dispatch(fetchAllUsersAsync());
-  }, [dispatch]);
-  useEffect(() => {
-    dispatch(fetchAllUsersAsync());
-  }, [location]);
+  }, [dispatch, location]);
 
-  if (!users.length) return "Loading. Please wait";
+  if (users.loading) return <Loading />;
   const items = users.map((e) => {
     return <PlayerCard key={e.id} player={e} />;
   });
@@ -27,9 +25,21 @@ export const PlayersBox = ({ location }) => {
   return (
     <>
       <h1 className="homeHeader">Players Near You</h1>
-      <div style={{ width: "100%", paddingBottom: 50 }} className="multi-list">
-        <MultiCarousel style={{ display: "flex" }} items={items} />
-      </div>
+      {users.length === 0 ? (
+        <div>
+          <h3 style={{ marginTop: 50 }} className="text-center">
+            No available players near you.
+          </h3>
+          <p className="text-center text-muted">(Try changing your location)</p>
+        </div>
+      ) : (
+        <div
+          style={{ width: "100%", paddingBottom: 50 }}
+          className="multi-list"
+        >
+          <MultiCarousel style={{ display: "flex" }} items={items} />
+        </div>
+      )}
     </>
   );
 };

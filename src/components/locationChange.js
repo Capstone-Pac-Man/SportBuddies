@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchOneUserAsync } from "../reducers/userSlice";
 import { fetchAllUsersAsync } from "../reducers/usersSlice";
 import { fetchAllVenuesAsync } from "../reducers/venuesSlice";
+import { fetchAllRelatedToSportAsync } from "../reducers/sportSlice";
 
 const ZipInput = ({ location, setLocation }) => {
   const [editing, setEditing] = useState(false);
@@ -16,6 +17,23 @@ const ZipInput = ({ location, setLocation }) => {
   useEffect(() => {
     dispatch(fetchOneUserAsync());
   }, [dispatch]);
+  useEffect(() => {
+    if (location) {
+      const coords = JSON.parse(sessionStorage.getItem("location"));
+      const getZip = async () => {
+        const base = `${process.env.REACT_APP_GEOCODING}/${coords.longitude},${coords.latitude}.json`;
+        const params = {
+          access_token: process.env.REACT_APP_TOKEN,
+          types: "postcode",
+          limit: 1,
+        };
+        const { data } = await axios.get(base, { params });
+        setZip(data.features[0].text);
+      };
+      getZip();
+    }
+  }, [location]);
+
   const handleSubmit = async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -53,6 +71,8 @@ const ZipInput = ({ location, setLocation }) => {
         if (zipLocation.latitude) {
           dispatch(fetchAllUsersAsync());
           dispatch(fetchAllVenuesAsync());
+          dispatch(fetchAllRelatedToSportAsync());
+          setZip(val);
         }
         setVal("");
         setLocation(true);
@@ -106,7 +126,7 @@ const ZipInput = ({ location, setLocation }) => {
               whiteSpace: "nowrap",
             }}
           >
-            Change Location
+            {zip ? zip : "Enter Location"}{" "}
           </div>
         ) : (
           <Form.Control

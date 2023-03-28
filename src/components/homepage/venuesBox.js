@@ -6,6 +6,7 @@ import PlayerCard from "./playerCard";
 import { Link } from "react-router-dom";
 import { fetchAllVenuesAsync, selectVenues } from "../../reducers/venuesSlice";
 import Venue from "../venue";
+import Loading from "../../assets/Loading";
 
 export const VenuesBox = ({ location }) => {
   const [showMore, setShowMore] = useState(false);
@@ -14,12 +15,9 @@ export const VenuesBox = ({ location }) => {
 
   useEffect(() => {
     dispatch(fetchAllVenuesAsync());
-  }, [dispatch]);
-  useEffect(() => {
-    dispatch(fetchAllVenuesAsync());
-  }, [location]);
+  }, [dispatch, location]);
 
-  if (!venues.length) return "Loading. Please wait";
+  if (venues.loading) return <Loading />;
   const items = venues.map((e) => {
     return <PlayerCard key={e.id} player={e} />;
   });
@@ -29,9 +27,18 @@ export const VenuesBox = ({ location }) => {
       <h1 className="homeHeader" style={{ marginTop: 10 }}>
         Venues Near You
       </h1>
-      <div style={{ width: "100%" }} className="multi-list">
-        <MultiCarousel style={{ display: "flex" }} items={items} />
-      </div>
+      {venues.length === 0 ? (
+        <div>
+          <h3 style={{ marginTop: 50 }} className="text-center">
+            No registered venues near you.
+          </h3>
+          <p className="text-center text-muted">(Try changing your location)</p>
+        </div>
+      ) : (
+        <div style={{ width: "100%" }} className="multi-list">
+          <MultiCarousel style={{ display: "flex" }} items={items} />
+        </div>
+      )}
     </>
   );
 };
