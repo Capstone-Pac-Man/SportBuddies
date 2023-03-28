@@ -23,8 +23,7 @@ import VenueLogin from "./components/VenueAuth/Login";
 import VenueProfile from "./components/venues/venueProfile";
 import PageNotFound from "./components/PageNotFound";
 import { fetchOneVenueAsync, selectVenueAuth } from "./reducers/venueAuthSlice";
-
-import ChatPage from "./components/chat/ChatPage";
+import Dashboard from "./components/chat/Dashboard";
 
 function App() {
   const dispatch = useDispatch();
@@ -84,7 +83,7 @@ function App() {
         {/* <Route path="/venues/:id" element={<Venue />} /> */}
         <Route path="venue/dashboard" element={<VenueProfile />} />
         <Route path="/search/:sport" element={<SelectedSport />} />
-        <Route path="/chatroom" element={<ChatPage />} />
+        <Route path="/chatroom" element={<Dashboard />} />
         <Route path="venue/signup" element={<VenueSignUp />} />
         <Route path="venue/login" element={<VenueLogin />} />
         <Route path="/*" element={<PageNotFound />} />

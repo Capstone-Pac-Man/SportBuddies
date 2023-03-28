@@ -37,11 +37,10 @@ export const UserProfile = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const uid = user.uid;
         dispatch(fetchOneUserAsync());
       }
     });
-  }, [dispatch, user.uid]);
+  }, [dispatch]);
   useEffect(() => {
     if (isAuth) {
       dispatch(fetchOneUserAsync());
@@ -52,7 +51,7 @@ export const UserProfile = () => {
   }, []);
 
   useEffect(() => {
-    if (user.error === "error") {
+    if (user?.error) {
       navigate("/login");
     }
   }, [user]);

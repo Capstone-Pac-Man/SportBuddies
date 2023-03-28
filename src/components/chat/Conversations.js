@@ -1,21 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
-import { useConversations } from "./contexts/ConversationsProvider";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectConversations,
+  fetchAllUserConversations,
+} from "../../reducers/conversationSlice";
+import { selectUser } from "../../reducers/userSlice";
 
-export default function Conversations() {
-  const { conversations, selectConversationIndex } = useConversations();
-  console.log("CONVERSATIONS MAP", conversations);
+export default function Conversations(props) {
+  const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
+  const dispatch = useDispatch();
+  const id = props.id;
+  const conversations = useSelector((state) => state.conversations);
+  console.log(id);
+
+  useEffect(() => {
+    dispatch(fetchAllUserConversations(id));
+  });
+
+  if (!conversations) return "Loading....";
+  console.log(conversations);
 
   return (
     <ListGroup variant="flush">
-      {conversations.map((conversation, index) => (
+      {conversations.map((conversation) => (
         <ListGroup.Item
-          key={index}
+          key={conversation.id}
           action
-          onClick={() => selectConversationIndex(index)}
-          active={conversation.selected}
+          onClick={() => setSelectedConversationIndex(conversation.id)}
+          active={conversation.id === selectedConversationIndex}
         >
-          {conversation.recipients.map((r) => r.name).join(", ")}
+          {conversation.userConversation.recipients
+            .map((r) => r.user.fullName)
+            .join(", ")}
         </ListGroup.Item>
       ))}
     </ListGroup>
