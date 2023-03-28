@@ -34,9 +34,13 @@ export const venuesSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAllVenuesAsync.fulfilled, (state, { payload }) => {
-      return payload;
-    });
+    builder
+      .addCase(fetchAllVenuesAsync.fulfilled, (state, { payload }) => {
+        return payload;
+      })
+      .addCase(fetchAllVenuesAsync.pending, (state, { payload }) => {
+        return { loading: "loading" };
+      });
   },
 });
 export const selectVenues = (state) => state.venues;

@@ -1,38 +1,61 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Container, Card, Row, Col } from "react-bootstrap";
 import { authenticateRegister } from "../../reducers/venueAuthSlice";
-
-
+import { fetchOneVenueAsync } from "../../reducers/venueAuthSlice";
 
 const VenueSignUp = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [name, setName] = useState("")
-    const [type, setType] = useState("")
-    const [address, setAddress] = useState("")
-    const [city, setCity] = useState("")
-    const [state, setState] = useState("");
-    const [hours, setHours] = useState("")
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [hours, setHours] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
 
-    const handleSignUp = async (e)=>{
-        e.preventDefault();
-        dispatch(authenticateRegister({name, type, address, city, state, hours, email, password}))
-        setName("");
-		setType("");
-		setAddress("")
-        setCity("")
-        setState("")
-        setHours("")
-		setEmail("");
-		setPassword("");
-        navigate("/venue/dashboard")
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      dispatch(fetchOneVenueAsync());
     }
+  }, []);
+  useEffect(() => {
+    if (auth.email) {
+      navigate("/venue/dashboard");
+    }
+  }, [auth]);
 
-    return(
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    dispatch(
+      authenticateRegister({
+        name,
+        type,
+        address,
+        city,
+        state,
+        hours,
+        email,
+        password,
+      })
+    );
+    setName("");
+    setType("");
+    setAddress("");
+    setCity("");
+    setState("");
+    setHours("");
+    setEmail("");
+    setPassword("");
+    navigate("/venue/dashboard");
+  };
+
+  return (
     <Container className="d-flex align-items-center justify-content-center">
       <Card style={{ width: "50%", marginTop: "20%" }}>
         <Card.Body>
@@ -52,29 +75,29 @@ const VenueSignUp = () => {
               </Row>
             </Form.Group>
             <Form.Group>
-                <Row>
-                    <Col>
-                        <Form.Label>Street</Form.Label>
-                        <Form.Control
-                            className="formInput"
-                            type="text"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                        />
-                    </Col>
-                </Row>
+              <Row>
+                <Col>
+                  <Form.Label>Street</Form.Label>
+                  <Form.Control
+                    className="formInput"
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </Col>
+              </Row>
             </Form.Group>
             <Form.Group controlId="state-zipcode">
               <Row>
-                    <Col>
-                        <Form.Label>City</Form.Label>
-                        <Form.Control
-                            className="formInput"
-                            type="text"
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                        />
-                    </Col>
+                <Col>
+                  <Form.Label>City</Form.Label>
+                  <Form.Control
+                    className="formInput"
+                    type="text"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </Col>
                 <Col>
                   <Form.Label>State</Form.Label>
                   <Form.Select onChange={(e) => setState(e.target.value)}>
@@ -130,30 +153,30 @@ const VenueSignUp = () => {
                     <option value="WV">West Virginia</option>
                     <option value="WI">Wisconsin</option>
                     <option value="WY">Wyoming</option>
-                </Form.Select>
+                  </Form.Select>
                 </Col>
               </Row>
             </Form.Group>
             <Form.Group>
-                <Row>
-                    <Col>
-                        <Form.Label>Type</Form.Label>
-                        <Form.Select onChange={(e) => setType(e.target.value)}>
-                            <option>Choose type</option>
-                            <option value="Indoor">Indoor</option>
-                            <option value="Outdoor">Outdoor</option>
-                        </Form.Select>
-                    </Col>
-                    <Col>
-                        <Form.Label>Hours</Form.Label>
-                        <Form.Control
-                            className="formInput"
-                            type="text"
-                            value={hours}
-                            onChange={(e) => setHours(e.target.value)}
-                        />
-                    </Col>
-                </Row>
+              <Row>
+                <Col>
+                  <Form.Label>Type</Form.Label>
+                  <Form.Select onChange={(e) => setType(e.target.value)}>
+                    <option>Choose type</option>
+                    <option value="Indoor">Indoor</option>
+                    <option value="Outdoor">Outdoor</option>
+                  </Form.Select>
+                </Col>
+                <Col>
+                  <Form.Label>Hours</Form.Label>
+                  <Form.Control
+                    className="formInput"
+                    type="text"
+                    value={hours}
+                    onChange={(e) => setHours(e.target.value)}
+                  />
+                </Col>
+              </Row>
             </Form.Group>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
@@ -191,12 +214,14 @@ const VenueSignUp = () => {
               Sign Up
             </Button>
             <br></br>
-            <Link to="/venue/login" className="link">Already have an account? Please, Log in</Link>
+            <Link to="/venue/login" className="link">
+              Already have an account? Please, Log in
+            </Link>
           </Form>
         </Card.Body>
       </Card>
     </Container>
-    )
-}
+  );
+};
 
-export default VenueSignUp
+export default VenueSignUp;

@@ -57,15 +57,16 @@ export const fetchAllRelatedToSportAsync = createAsyncThunk(
 
 const sportSlice = createSlice({
   name: "sport",
-  initialState: [],
+  initialState: { venues: [], users: [] },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(
-      fetchAllRelatedToSportAsync.fulfilled,
-      (state, { payload }) => {
+    builder
+      .addCase(fetchAllRelatedToSportAsync.fulfilled, (state, { payload }) => {
         return payload;
-      }
-    );
+      })
+      .addCase(fetchAllRelatedToSportAsync.pending, (state, { payload }) => {
+        return { loading: "loading" };
+      });
   },
 });
 
