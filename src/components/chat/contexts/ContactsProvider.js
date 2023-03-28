@@ -18,7 +18,6 @@ export function ContactsProvider({ children }) {
 
   return (
     <ContactsContext.Provider value={{ contacts, createContact }}>
-      <SingleUserPage />
       {children}
     </ContactsContext.Provider>
   );

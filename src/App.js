@@ -26,7 +26,6 @@ import { fetchOneVenueAsync, selectVenueAuth } from "./reducers/venueAuthSlice";
 
 import ChatPage from "./components/chat/ChatPage";
 
-
 function App() {
   const dispatch = useDispatch();
   const isVenueLoggedIn = useSelector((state) => !!state.auth.id);
@@ -85,7 +84,7 @@ function App() {
         {/* <Route path="/venues/:id" element={<Venue />} /> */}
         <Route path="venue/dashboard" element={<VenueProfile />} />
         <Route path="/search/:sport" element={<SelectedSport />} />
-        <Route path="/chatroom" element={<Chatroom />} />
+        <Route path="/chatroom" element={<ChatPage />} />
         <Route path="venue/signup" element={<VenueSignUp />} />
         <Route path="venue/login" element={<VenueLogin />} />
         <Route path="/*" element={<PageNotFound />} />

@@ -7,6 +7,7 @@ export default function NewConversationModal({ closeModal }) {
   const [selectedContactIds, setSelectedContactIds] = useState([]);
   const { contacts } = useContacts();
   const { createConversation } = useConversations();
+  console.log("contacts", contacts);
 
   function handleSubmit(e) {
     e.preventDefault();
