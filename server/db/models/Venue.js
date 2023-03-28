@@ -3,6 +3,9 @@ const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const Sport = require("./Sport");
+const axios = require("axios");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const Venue = db.define(
   "venue",
@@ -120,6 +123,25 @@ const hashPassword = async (venue) => {
   }
 };
 
+const createCoordinates = async (venue) => {
+  if (venue.address && venue.city) {
+    const address = encodeURIComponent(`${venue.address},${venue.city}`);
+    const url = `${process.env.REACT_APP_GEOCODING}/${address}.json?access_token=${process.env.REACT_APP_TOKEN}&limit=1`;
+    try {
+      const { data } = await axios.get(url);
+      if (data.features.length > 0) {
+        const [longitude, latitude] = data.features[0].center;
+        venue.latitude = latitude;
+        venue.longitude = longitude;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+};
+
+Venue.beforeCreate(createCoordinates);
+Venue.beforeUpdate(createCoordinates);
 Venue.beforeCreate(hashPassword);
 Venue.beforeUpdate(hashPassword);
 Venue.beforeBulkCreate((venues) => Promise.all(venues.map(hashPassword)));

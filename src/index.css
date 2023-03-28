@@ -156,6 +156,7 @@ code {
   /* margin-top: 40px; */
   margin: auto;
   font-family: "Courier New", Courier, monospace;
+  z-index: 96;
 }
 
 .homeImg {

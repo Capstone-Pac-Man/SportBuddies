@@ -16,18 +16,22 @@ export const HomePage = ({ location, setLocation }) => {
   const [zip, setZip] = useState("");
   useEffect(() => {
     dispatch(fetchOneUserAsync());
+    const data = JSON.parse(sessionStorage.getItem("location"));
+    if (data) {
+      setLocation(true);
+    }
   }, [dispatch]);
   useEffect(() => {
     if (location) {
       if (user.fullName) {
         console.log("auto set location of " + user.fullName);
-        const location = JSON.parse(sessionStorage.getItem("location"));
+        const locationParse = JSON.parse(sessionStorage.getItem("location"));
         axios
           .put(
             "http://localhost:5000/api/users/me",
             {
-              latitude: location.latitude,
-              longitude: location.longitude,
+              latitude: locationParse.latitude,
+              longitude: locationParse.longitude,
             },
             { withCredentials: true }
           )
@@ -37,6 +41,7 @@ export const HomePage = ({ location, setLocation }) => {
       }
     }
   }, [location]);
+
   const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
