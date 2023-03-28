@@ -7,7 +7,7 @@ import NavBar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { HomePage } from "./components/homepage/homepage";
 import { SearchBar } from "./components/searchBarSports";
-import { Venues } from "./components/venues";
+import Venues from "./components/venues";
 import { Venue } from "./components/venue";
 import Players from "./components/players";
 import { SelectedSport } from "./components/selectedSport";
@@ -24,6 +24,7 @@ import VenueProfile from "./components/venues/venueProfile";
 import PageNotFound from "./components/PageNotFound";
 import { fetchOneVenueAsync, selectVenueAuth } from "./reducers/venueAuthSlice";
 import Dashboard from "./components/chat/Dashboard";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar location={location} setLocation={setLocation} />
       {/* {isVenueLoggedIn ? (
         <Routes>
           <Route

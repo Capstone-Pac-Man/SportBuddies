@@ -18,7 +18,7 @@ export default function PlayerCard({ player }) {
               : player.description}
           </Card.Subtitle>
         </div>
-        {player.description ? (
+        {player.password ? (
           <Venue venueId={player.id} />
         ) : (
           <SingleUserPage playerId={player.id} />
