@@ -10,8 +10,9 @@ import { Logout } from "./UserAuth/LogOut";
 import { SearchBar } from "../components/searchBarSports";
 import { fetchOneUserAsync, selectUser } from "../reducers/userSlice";
 import { Link } from "react-router-dom";
+import LocationChange from "./locationChange";
 
-const NavBar = () => {
+const NavBar = ({ location, setLocation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
@@ -110,6 +111,7 @@ const NavBar = () => {
             <Nav.Link as={Link} className="link nav-link" to="/venues">
               Venues
             </Nav.Link>
+
             <NavDropdown title="Profile" id="basic-nav-dropdown" variant="dark">
               {isLoggedIn ? (
                 <>
@@ -132,8 +134,14 @@ const NavBar = () => {
               )}
             </NavDropdown>
           </Nav>
-          <div className="d-flex">
+          <div className="d-flex" style={{ minWidth: "50%" }}>
             <SearchBar />
+            <Nav.Item
+              style={{ display: "flex", alignItems: "center", paddingLeft: 20 }}
+              className="link nav-link d-flex"
+            >
+              <LocationChange location={location} setLocation={setLocation} />
+            </Nav.Item>
           </div>
         </Navbar.Collapse>
       </Container>
