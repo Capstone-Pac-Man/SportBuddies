@@ -26,7 +26,6 @@ import { fetchOneVenueAsync, selectVenueAuth } from "./reducers/venueAuthSlice";
 
 import ChatPage from "./components/chat/ChatPage";
 
-
 function App() {
   const dispatch = useDispatch();
   const isVenueLoggedIn = useSelector((state) => !!state.auth.id);
@@ -56,7 +55,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar location={location} setLocation={setLocation} />
       {/* {isVenueLoggedIn ? (
         <Routes>
           <Route
