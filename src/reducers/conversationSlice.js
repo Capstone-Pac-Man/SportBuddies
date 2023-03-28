@@ -36,18 +36,6 @@ export const addUserConversation = createAsyncThunk(
   }
 );
 
-// export const updateSelectedConversation = createAsyncThunk(
-//     "conversations/update",
-//     async ({id, }) => {
-//       try {
-//         const { data } = await instance.put(`/api/conversation/${id}`);
-//         return data;
-//       } catch (e) {
-//         console.error(e);
-//       }
-//     }
-//   );
-
 export const conversationSlice = createSlice({
   name: "conversation",
   initialState: [],
@@ -56,14 +44,14 @@ export const conversationSlice = createSlice({
     builder.addCase(
       fetchAllUserConversations.fulfilled,
       (state, { payload }) => {
-        console.log("INSIDE PAYLOAD", payload);
-        state.conversation = [...payload];
+        state.push(...payload);
       }
     );
     builder.addCase(addUserConversation.fulfilled, (state, { payload }) => {
       console.log(payload);
 
       state.push(payload);
+      return state;
     });
   },
 });

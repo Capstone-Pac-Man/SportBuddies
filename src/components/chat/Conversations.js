@@ -11,12 +11,12 @@ export default function Conversations(props) {
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
   const dispatch = useDispatch();
   const id = props.id;
-  const conversations = useSelector((state) => state.conversations);
+  const conversations = useSelector((state) => state.conversation);
   console.log(id);
 
   useEffect(() => {
     dispatch(fetchAllUserConversations(id));
-  });
+  }, []);
 
   if (!conversations) return "Loading....";
   console.log(conversations);
@@ -30,7 +30,7 @@ export default function Conversations(props) {
           onClick={() => setSelectedConversationIndex(conversation.id)}
           active={conversation.id === selectedConversationIndex}
         >
-          {conversation.userConversation.recipients
+          {conversation.userConversations[0].recipients
             .map((r) => r.user.fullName)
             .join(", ")}
         </ListGroup.Item>
