@@ -10,16 +10,15 @@ import { selectUser } from "../../reducers/userSlice";
 export default function Conversations(props) {
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
   const dispatch = useDispatch();
-  const id = props.id;
-  const conversations = useSelector((state) => state.conversation);
-  console.log(id);
+  const conversations = useSelector(selectConversations);
+  const user = useSelector(selectUser);
 
   useEffect(() => {
-    dispatch(fetchAllUserConversations(id));
-  }, []);
+    dispatch(fetchAllUserConversations(user.id));
+  }, [user]);
 
-  if (!conversations) return "Loading....";
-  console.log(conversations);
+  if (!conversations) return "No Conversations";
+  console.log("inside convo", conversations);
 
   return (
     <ListGroup variant="flush">
@@ -31,7 +30,7 @@ export default function Conversations(props) {
           active={conversation.id === selectedConversationIndex}
         >
           {conversation.userConversations[0].recipients
-            .map((r) => r.user.fullName)
+            .map((r) => r.name)
             .join(", ")}
         </ListGroup.Item>
       ))}

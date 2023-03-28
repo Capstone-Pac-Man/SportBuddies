@@ -113,6 +113,9 @@ const NavBar = () => {
             <NavDropdown title="Profile" id="basic-nav-dropdown" variant="dark">
               {isLoggedIn ? (
                 <>
+                  <NavDropdown.Item as={Link} to="/chatroom">
+                    Messages
+                  </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/me">
                     View Profile
                   </NavDropdown.Item>
