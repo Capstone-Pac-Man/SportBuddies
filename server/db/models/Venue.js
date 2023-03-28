@@ -139,6 +139,7 @@ const createCoordinates = async (venue) => {
     }
   }
 };
+
 Venue.beforeCreate(createCoordinates);
 Venue.beforeUpdate(createCoordinates);
 Venue.beforeCreate(hashPassword);
