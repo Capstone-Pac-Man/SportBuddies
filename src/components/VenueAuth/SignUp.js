@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Container, Card, Row, Col } from "react-bootstrap";
 import { authenticateRegister } from "../../reducers/venueAuthSlice";
+
 import { fetchOneVenueAsync } from "../../reducers/venueAuthSlice";
 
 const VenueSignUp = () => {
@@ -214,14 +215,23 @@ const VenueSignUp = () => {
               Sign Up
             </Button>
             <br></br>
-            <Link to="/venue/login" className="link">
-              Already have an account? Please, Log in
-            </Link>
+            <br></br>
+						<Form.Group className="d-flex justify-content-start align-items-center">
+							<Row>
+								<Form.Label>Already have an account?</Form.Label>
+								<Link
+									to="/venue/login"
+									style={{ color: "black" }}>
+									Sign In
+								</Link>
+							</Row>
+						</Form.Group>
           </Form>
         </Card.Body>
       </Card>
     </Container>
   );
+
 };
 
 export default VenueSignUp;
