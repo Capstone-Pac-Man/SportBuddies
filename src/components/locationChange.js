@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchOneUserAsync } from "../reducers/userSlice";
 import { fetchAllUsersAsync } from "../reducers/usersSlice";
 import { fetchAllVenuesAsync } from "../reducers/venuesSlice";
+import { fetchAllRelatedToSportAsync } from "../reducers/sportSlice";
 
 const ZipInput = ({ location, setLocation }) => {
   const [editing, setEditing] = useState(false);
@@ -53,6 +54,7 @@ const ZipInput = ({ location, setLocation }) => {
         if (zipLocation.latitude) {
           dispatch(fetchAllUsersAsync());
           dispatch(fetchAllVenuesAsync());
+          dispatch(fetchAllRelatedToSportAsync());
         }
         setVal("");
         setLocation(true);
