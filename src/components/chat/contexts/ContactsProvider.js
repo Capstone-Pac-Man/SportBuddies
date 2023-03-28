@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { SingleUserPage } from "../../users/singleUserPage";
 const ContactsContext = React.createContext();
 
 export function useContacts() {
@@ -18,7 +17,6 @@ export function ContactsProvider({ children }) {
 
   return (
     <ContactsContext.Provider value={{ contacts, createContact }}>
-      <SingleUserPage />
       {children}
     </ContactsContext.Provider>
   );

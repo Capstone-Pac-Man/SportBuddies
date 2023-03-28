@@ -18,6 +18,8 @@ import {
 import ListGroup from "react-bootstrap/ListGroup";
 import useLocalStorage from "../chat/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
+import { addUserConversation } from "../../reducers/conversationSlice";
+import { selectUser } from "../../reducers/userSlice";
 
 export const SingleUserPage = (props) => {
   const [show, setShow] = useState(false);
@@ -29,17 +31,17 @@ export const SingleUserPage = (props) => {
     dispatch(fetchSingleUserAysnc(id));
     setShow(true);
   };
-  const [contacts, setContacts] = useLocalStorage("contacts", []);
+  const user = useSelector(selectUser);
 
   const navigate = useNavigate();
 
-  const handleMessage = (id, name) => {
-    setContacts((prevContacts) => {
-      return [...prevContacts, { id, name }];
-    });
-
+  const handleMessage = (id) => {
+    const userId = user.id;
+    dispatch(addUserConversation({ userId, id }));
     navigate("/chatroom");
   };
+
+  if (!user) return "Loading..";
 
   // useEffect(() => {
   //   dispatch(fetchSingleUserAysnc(id));
@@ -105,7 +107,7 @@ export const SingleUserPage = (props) => {
           </ListGroup>
           <Button
             onClick={() => {
-              handleMessage(player.id, player.fullName);
+              handleMessage(player.id);
             }}
           >
             Message This Player
