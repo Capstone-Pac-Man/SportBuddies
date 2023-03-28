@@ -7,7 +7,7 @@ const instance = axios.create({
 });
 
 export const fetchAllUserConversations = createAsyncThunk(
-  "conversation/fetchAll",
+  "conversations/fetchAll",
   async (id) => {
     try {
       console.log("INSIDE fetch", id);
@@ -21,7 +21,7 @@ export const fetchAllUserConversations = createAsyncThunk(
 );
 
 export const addUserConversation = createAsyncThunk(
-  "conversation/addUserConvo",
+  "conversations/addUserConvo",
   async ({ userId, id }) => {
     try {
       const { data } = await instance.post(`/api/conversation/${userId}`, {
@@ -36,34 +36,19 @@ export const addUserConversation = createAsyncThunk(
   }
 );
 
-// export const updateSelectedConversation = createAsyncThunk(
-//     "conversations/update",
-//     async ({id, }) => {
-//       try {
-//         const { data } = await instance.put(`/api/conversation/${id}`);
-//         return data;
-//       } catch (e) {
-//         console.error(e);
-//       }
-//     }
-//   );
-
 export const conversationSlice = createSlice({
-  name: "conversation",
+  name: "conversations",
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
       fetchAllUserConversations.fulfilled,
       (state, { payload }) => {
-        console.log("INSIDE PAYLOAD", payload);
-        state.conversation = [...payload];
+        return payload;
       }
     );
     builder.addCase(addUserConversation.fulfilled, (state, { payload }) => {
-      console.log(payload);
-
-      state.push(payload);
+      return payload;
     });
   },
 });

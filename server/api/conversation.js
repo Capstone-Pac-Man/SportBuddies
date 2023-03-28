@@ -20,7 +20,6 @@ router.get("/:id", async (req, res, next) => {
         },
         include: {
           model: Recipient,
-          include: [User, Message],
         },
       },
     });
@@ -40,21 +39,21 @@ router.post("/:id", async (req, res, next) => {
     const createConvo = await Conversation.create();
 
     const user = await User.findByPk(+id);
+    const recipient = await User.findByPk(+recipientId);
     await user.addConversation(createConvo);
 
     const newUserConvo = await UserConversation.findOne({
       where: {
         conversationId: createConvo.id,
       },
-      include: [Recipient, Message],
     });
     const newRecipient = await Recipient.create({
       userConversationId: newUserConvo.id,
-      userId: recipientId,
+      userId: recipient.id,
+      name: recipient.fullName,
     });
 
     await newUserConvo.addRecipient(newRecipient);
-
     const allConversations = await Conversation.findAll({
       include: {
         model: UserConversation,
@@ -63,11 +62,9 @@ router.post("/:id", async (req, res, next) => {
         },
         include: {
           model: Recipient,
-          include: [User, Message],
         },
       },
     });
-
     res.json(allConversations);
   } catch (e) {
     next(e);

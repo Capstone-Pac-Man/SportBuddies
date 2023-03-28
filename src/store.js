@@ -18,7 +18,7 @@ const store = configureStore({
     sports: sportsSlice,
     singleUser: singleUserSlice,
     auth: venueAuthSlice,
-    conversation: conversationSlice,
+    conversations: conversationSlice,
   },
 });
 
