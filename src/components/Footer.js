@@ -23,7 +23,13 @@ function Footer() {
 				<Col className="col-md-4 mx-auto">
 					<div className="text-center">
 						<h4>About Us</h4>
-						<p>Awesome guys</p>
+						<p>            
+              {" "}
+              <Link to="/about" className="link">
+                The Four Gentlemen
+              </Link>
+            
+</p>
 					</div>
 				</Col>
 				<Col className="col-md-4 mx-auto">
