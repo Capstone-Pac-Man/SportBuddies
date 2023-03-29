@@ -17,7 +17,11 @@ function Footer() {
     <Container expand="lg" className="bg-dark text-white" id="footer" fluid>
       <Row>
         <Col className="col-md-4 text-align-center">
-          <h4>About Us</h4>
+          <h4>
+            <Link to="/about" className="link">
+              About us
+            </Link>
+          </h4>
           <p>Awesome guys</p>
         </Col>
         <Col className="col-md-4">
@@ -45,16 +49,14 @@ function Footer() {
           <Row>
             <Link
               to="https://github.com/Capstone-Pac-Man/Capstone.git"
-              className="link"
-            >
+              className="link">
               <AiFillGithub /> Our Github Project
             </Link>
           </Row>
           <Row>
             <Link
               to="https://fullstackacademy.slack.com/archives/C04TT9NMZ6G"
-              className="link"
-            >
+              className="link">
               <FaSlack /> Our Slack
             </Link>
           </Row>
