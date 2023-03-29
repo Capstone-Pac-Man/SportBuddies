@@ -70,16 +70,22 @@ function VenueProfile() {
 								</Button>
 							</Accordion.Header>
 							<Accordion.Body>
-								<div className="d-flex justify-content-start text-align-center">
-									<div>
-										<div className="ml-auto">
+								<div
+									xs
+									m>
+									<div
+										className="d-flex justify-content-between"
+										style={{ flexWrap: "wrap" }}>
+										<div>
 											<Card.Img
 												src={venue.imageUrl}
 												className="img-fluid rounded-start "
-												style={{ width: "512px" }}
+												style={{ width: "512px", minWidth: "120px" }}
 												alt="avatar"></Card.Img>
 										</div>
-										<div className="justify-self-stretch">
+										<div
+										// className="justify-self-stretch"
+										>
 											<Table
 												striped
 												bordered

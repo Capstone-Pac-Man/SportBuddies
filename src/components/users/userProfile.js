@@ -74,39 +74,43 @@ export const UserProfile = () => {
 								<ChangePassword />
 							</Accordion.Header>
 							<Accordion.Body>
-								<div className="d-flex justify-content-between">
-									<div className="ml-auto">
-										<Card.Img
-											src={user.imageUrl}
-											className="img-fluid rounded-start "
-											style={{ width: "240px" }}
-											alt="avatar"></Card.Img>
-									</div>
-									<div className="justify-self-stretch">
-										<Table
-											striped
-											bordered
-											hover
-											size="lg">
-											<thead>
-												<tr>
-													<th>Full Name</th>
-													<th>Email</th>
-													<th>Phone Number</th>
-													<th>Zip Code</th>
-													<th>State</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>{user.fullName}</td>
-													<td>{user.email}</td>
-													<td>{user.mobile}</td>
-													<td>{user.zipcode}</td>
-													<td>{user.state}</td>
-												</tr>
-											</tbody>
-										</Table>
+								<div xs>
+									<div
+										className="d-flex justify-content-between"
+										style={{ flexWrap: "wrap" }}>
+										<div>
+											<Card.Img
+												src={user.imageUrl}
+												className="img-fluid rounded-start "
+												style={{ width: "240px", minWidth: "120px" }}
+												alt="avatar"></Card.Img>
+										</div>
+										<div className="justify-self-stretch">
+											<Table
+												striped
+												bordered
+												hover
+												size="lg">
+												<thead>
+													<tr>
+														<th>Full Name</th>
+														<th>Email</th>
+														<th>Phone Number</th>
+														<th>Zip Code</th>
+														<th>State</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>{user.fullName}</td>
+														<td>{user.email}</td>
+														<td>{user.mobile}</td>
+														<td>{user.zipcode}</td>
+														<td>{user.state}</td>
+													</tr>
+												</tbody>
+											</Table>
+										</div>
 									</div>
 								</div>
 							</Accordion.Body>
