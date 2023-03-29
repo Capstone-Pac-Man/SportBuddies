@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  min-height: 100%;
 }
 
 code {
@@ -19,6 +21,18 @@ code {
   background-color: rgb(13, 238, 241);
 }
 
+.wrapper {
+  min-height: 100vh;
+  position: relative;
+  /* padding-bottom: 20vh; */
+}
+#footer {
+  font-family: "Courier New", Courier, monospace;
+  clear: both;
+  position: relative;
+  padding: 1rem;
+  margin-top: 50px;
+}
 .button:active {
   background-color: rgb(231, 215, 37);
 }

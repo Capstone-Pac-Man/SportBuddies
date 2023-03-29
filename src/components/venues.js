@@ -14,66 +14,68 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchAllVenuesAsync, selectVenues } from "../reducers/venuesSlice";
 import { Link } from "react-router-dom";
 import Venue from "./venue";
+import Loading from "../assets/Loading";
 
 export default function Venues() {
-	const [open, setOpen] = useState(false);
-	const [filters, setFilters] = useState([]);
-	const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [filters, setFilters] = useState([]);
+  const dispatch = useDispatch();
 
-	const venues = useSelector((state) => state.venues);
+  const venues = useSelector((state) => state.venues);
 
-	useEffect(() => {
-		dispatch(fetchAllVenuesAsync());
-	}, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchAllVenuesAsync());
+  }, [dispatch]);
 
-	// If there are no venues, then say so!
-	if (venues.length === 0) {
-		return (
-			<h1
-				className="text-center"
-				style={{ marginTop: "20vh" }}>
-				No venues found!
-			</h1>
-		);
-	} else {
-		// If there are venues, map them out into cards
-		return (
-			<div className="players-container">
-				{/* Perhaps we can reuse this container? */}
-				<h1 style={{ width: "100%", marginLeft: "1rem", fontWeight: 700 }}>
-					Venues
-				</h1>
+  // If there are no venues, then say so!
+  if (venues.loading) {
+    return <Loading />;
+  } else {
+    // If there are venues, map them out into cards
+    return (
+      <div className="players-container">
+        {/* Perhaps we can reuse this container? */}
+        <h1 style={{ width: "100%", marginLeft: "1rem", fontWeight: 700 }}>
+          Venues
+        </h1>
 
-				{venues.map((e) => {
-					return (
-						<Card
-							key={e.id}
-							className="player-card">
-							<Card.Img
-								variant="top"
-								src={e.imageUrl}
-							/>
+        {venues.length === 0 ? (
+          <div>
+            <h3 style={{ marginTop: 50 }} className="text-center">
+              No registered venues near you.
+            </h3>
+            <p className="text-center text-muted">
+              (Try changing your location)
+            </p>
+          </div>
+        ) : (
+          venues.map((e) => {
+            return (
+              <Card key={e.id} className="player-card">
+                <Card.Img variant="top" src={e.imageUrl} />
 
-							<Card.Body style={{ minWidth: "100%", display: "flex" }}>
-								<div
-									style={{
-										display: "flex",
-										flexDirection: "column",
-										width: "80%",
-									}}>
-									<Card.Title>{e.name}</Card.Title>
-									<Card.Subtitle className="text-muted">
-										{e.description}
-									</Card.Subtitle>
-								</div>
-								<Venue venueId={e.id} />
-							</Card.Body>
-						</Card>
-					);
-				})}
-			</div>
-		);
-	}
+                <Card.Body style={{ minWidth: "100%", display: "flex" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "80%",
+                    }}
+                  >
+                    <Card.Title>{e.name}</Card.Title>
+                    <Card.Subtitle className="text-muted">
+                      {e.description}
+                    </Card.Subtitle>
+                  </div>
+                  <Venue venueId={e.id} />
+                </Card.Body>
+              </Card>
+            );
+          })
+        )}
+      </div>
+    );
+  }
 }
 
 //////////////////////////////////

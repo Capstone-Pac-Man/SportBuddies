@@ -10,6 +10,9 @@ const Recipient = db.define(
       autoIncrement: true,
       allowNull: false,
     },
+    name: {
+      type: Sequelize.STRING,
+    },
   },
   { timestamps: false }
 );

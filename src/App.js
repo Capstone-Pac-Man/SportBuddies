@@ -25,6 +25,7 @@ import VenueProfile from "./components/venues/venueProfile";
 import PageNotFound from "./components/PageNotFound";
 import { fetchOneVenueAsync, selectVenueAuth } from "./reducers/venueAuthSlice";
 import Dashboard from "./components/chat/Dashboard";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,9 +55,10 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <NavBar location={location} setLocation={setLocation} />
-      {/* {isVenueLoggedIn ? (
+    <>
+      <div className="wrapper">
+        <NavBar location={location} setLocation={setLocation} />
+        {/* {isVenueLoggedIn ? (
         <Routes>
           <Route
             path="/"
@@ -93,6 +95,10 @@ function App() {
       {/* )} */}
       <div className="footer"></div>
     </div>
+          <Footer />
+    </>
+
+ 
   );
 }
 

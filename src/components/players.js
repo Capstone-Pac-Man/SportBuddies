@@ -10,6 +10,7 @@ import { Squash as Hamburger } from "hamburger-react";
 import { fetchAllSportsAsync } from "../reducers/sportsSlice";
 import { SingleUserPage } from "./users/singleUserPage";
 import PlayerCard from "./homepage/playerCard";
+import Loading from "../assets/Loading";
 
 export default function Players() {
   const [open, setOpen] = useState(false);
@@ -59,13 +60,8 @@ export default function Players() {
 
     console.log(arr);
   };
-  // If no users, assume they are loading
-  if (users.length === 0) {
-    return (
-      <h1 className="text-center" style={{ marginTop: "20vh" }}>
-        Loading...
-      </h1>
-    );
+  if (users.loading) {
+    return <Loading />;
   } else {
     // If there are users map them out into cards
     return (
@@ -82,13 +78,6 @@ export default function Players() {
                   ? sports.map((e) => {
                       return (
                         <div key={e.id}>
-                          {/* <Form.Check
-                            inline
-                            type="checkbox"
-                            id={e.id}
-                            label={`${e.name}`}
-                            onChange={handleCheck}
-                          ></Form.Check> */}
                           <h5
                             className="text-center"
                             style={{ marginBottom: 0 }}
@@ -164,29 +153,40 @@ export default function Players() {
             </div>
           </Collapse>
         </div>
-        {users.map((e) => {
-          return (
-            <Card key={e.id} className="player-card">
-              <Card.Img variant="top" src={e.imageUrl} />
+        {users.length === 0 ? (
+          <div>
+            <h3 style={{ marginTop: 50 }} className="text-center">
+              No users match your search.
+            </h3>
+            <p className="text-center text-muted">
+              (Try changing your filters or your location)
+            </p>
+          </div>
+        ) : (
+          users.map((e) => {
+            return (
+              <Card key={e.id} className="player-card">
+                <Card.Img variant="top" src={e.imageUrl} />
 
-              <Card.Body style={{ minWidth: "100%", display: "flex" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "80%",
-                  }}
-                >
-                  <Card.Title>{e.firstName}</Card.Title>
-                  <Card.Subtitle className="text-muted">
-                    {e.distance.toFixed(1)} miles away
-                  </Card.Subtitle>
-                </div>
-                <SingleUserPage playerId={e.id} />
-              </Card.Body>
-            </Card>
-          );
-        })}
+                <Card.Body style={{ minWidth: "100%", display: "flex" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "80%",
+                    }}
+                  >
+                    <Card.Title>{e.firstName}</Card.Title>
+                    <Card.Subtitle className="text-muted">
+                      {e.distance.toFixed(1)} miles away
+                    </Card.Subtitle>
+                  </div>
+                  <SingleUserPage playerId={e.id} />
+                </Card.Body>
+              </Card>
+            );
+          })
+        )}
       </div>
     );
   }
