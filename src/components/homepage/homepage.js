@@ -96,8 +96,9 @@ export const HomePage = ({ location, setLocation }) => {
 					}}>
 					{location ? (
 						<h2
-							className="text-center"
-							style={{ color: "white", fontWeight: 600 }}>
+							className="header text-center"
+							// style={{ color: "white", fontWeight: 600 }}
+						>
 							Welcome
 						</h2>
 					) : (
@@ -120,10 +121,10 @@ export const HomePage = ({ location, setLocation }) => {
 					)}
 				</Row>
 				<Row>
-					<VenuesBox location={location} />
+					<PlayersBox location={location} />
 				</Row>
 				<Row>
-					<PlayersBox location={location} />
+					<VenuesBox location={location} />
 				</Row>
 				{/* <EquipmentsBox /> */}
 			</Container>

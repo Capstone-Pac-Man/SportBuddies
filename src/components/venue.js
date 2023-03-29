@@ -49,6 +49,13 @@ export const Venue = (props) => {
 							<p>
 								<strong>Hours:</strong> {venue.hours}
 							</p>
+							{venue.description ? (
+								<p>
+									<strong>Description:</strong> {venue.description}
+								</p>
+							) : (
+								<p></p>
+							)}
 							<img
 								src={venue.imageUrl}
 								className="img-fluid rounded-start"

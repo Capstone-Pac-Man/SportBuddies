@@ -78,7 +78,7 @@ export const logout = createAsyncThunk("venues/logout", async () => {
 	try {
 		window.localStorage.removeItem(TOKEN);
 		history.push("/venue/login");
-		// return {}
+		return {};
 	} catch (error) {
 		console.log(error);
 	}
@@ -199,6 +199,9 @@ const venueAuthSlice = createSlice({
 				return payload;
 			}
 		);
+		builder.addCase(logout.fulfilled, (state, { payload }) => {
+			return payload;
+		});
 	},
 });
 
