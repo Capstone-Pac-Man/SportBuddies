@@ -34,31 +34,14 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  // console.log(`Pacman user is connected: ${socket.id}`);
+  socket.on("join_room", (data) => {
+    socket.join(data);
+  });
 
-  // socket.on("join_room", (data) => {
-  //   socket.join(data);
-  // });
-
-  // socket.on("send_message", (data) => {
-  //   /* BROADCAST is for all rooms; otherwise, u gotta specify WHICH room.
-  //   socket.broadcast.emit("receive_message", data); */
-  //   socket.to(data.room).emit("receive_message", data);
-  // });
-
-  const id = socket.handshake.query.id;
-  socket.join(id);
-
-  socket.on("send-message", ({ recipients, text }) => {
-    recipients.forEach((recipient) => {
-      const newRecipients = recipients.filter((r) => r !== recipient);
-      newRecipients.push(id);
-      socket.broadcast.to(recipient).emit("receive-message", {
-        recipients: newRecipients,
-        sender: id,
-        text,
-      });
-    });
+  socket.on("send_message", (data) => {
+    /* BROADCAST is for all rooms; otherwise, u gotta specify WHICH room.
+    socket.broadcast.emit("receive_message", data); */
+    socket.to(data.room).emit("receive_message", data);
   });
 });
 /*server.listen(3001, () => {

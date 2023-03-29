@@ -10,9 +10,7 @@ export const fetchAllUserConversations = createAsyncThunk(
   "conversations/fetchAll",
   async (id) => {
     try {
-      console.log("INSIDE fetch", id);
       const { data } = await instance.get(`/api/conversation/${id}`);
-      console.log("DAT@@@@", data);
       return data;
     } catch (e) {
       console.error(e);
@@ -27,8 +25,19 @@ export const addUserConversation = createAsyncThunk(
       const { data } = await instance.post(`/api/conversation/${userId}`, {
         id,
       });
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+);
 
-      console.log("DATAAA", data);
+export const updateSelectedConvo = createAsyncThunk(
+  "conversations/updateSelectedConvo",
+  async (id) => {
+    try {
+      const { data } = await instance.put(`/api/conversation/${id}`);
+
       return data;
     } catch (e) {
       console.error(e);

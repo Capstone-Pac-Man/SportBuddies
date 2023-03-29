@@ -8,6 +8,7 @@ import venuesSlice from "./reducers/venuesSlice";
 import singleUserSlice from "./reducers/singleUserSlice";
 import venueAuthSlice from "./reducers/venueAuthSlice";
 import conversationSlice from "./reducers/conversationSlice";
+import messageSlice from "./reducers/messageSlice";
 const store = configureStore({
   reducer: {
     user: userSlice,
@@ -19,6 +20,7 @@ const store = configureStore({
     singleUser: singleUserSlice,
     auth: venueAuthSlice,
     conversations: conversationSlice,
+    messages: messageSlice,
   },
 });
 
