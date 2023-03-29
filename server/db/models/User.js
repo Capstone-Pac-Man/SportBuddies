@@ -26,8 +26,7 @@ const User = db.define(
     },
     imageUrl: {
       type: Sequelize.STRING,
-      defaultValue:
-        "https://cdn-icons-png.flaticon.com/512/1193/1193243.png",
+      defaultValue: "https://cdn-icons-png.flaticon.com/512/1193/1193243.png",
     },
     mobile: {
       type: Sequelize.STRING,
@@ -36,11 +35,8 @@ const User = db.define(
         is: /^\+?[0-9]{10,12}$/,
       },
     },
-    availableFrom: {
-      type: Sequelize.STRING,
-    },
     availableTo: {
-      type: Sequelize.STRING,
+      type: Sequelize.BIGINT,
     },
     address: {
       type: Sequelize.STRING,

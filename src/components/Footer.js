@@ -11,7 +11,7 @@ function Footer() {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchOneVenueAsync());
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<Container
@@ -20,20 +20,29 @@ function Footer() {
 			id="footer"
 			fluid>
 			<Row>
-				<Col className="col-md-4 text-align-center">
-					<h4>About Us</h4>
-					<p>Awesome guys</p>
+				<Col className="col-md-4 mx-auto">
+					<div className="text-center">
+						<h4>About Us</h4>
+						<p>            
+              {" "}
+              <Link to="/about" className="link">
+                The Four Gentlemen
+              </Link>
+            
+</p>
+					</div>
 				</Col>
-				<Col className="col-md-4">
-					<h4>Become our business partner</h4>
-					{isVenueLoggedIn ? (
-						<Link
-							to="/venue/dashboard"
-							className="link">
-							Visit your venue account
-						</Link>
-					) : (
-						<div className="d-flex">
+				<Col className="col-md-4 mx-auto">
+					<div className="text-center">
+						<h4>Become our business partner</h4>
+						{isVenueLoggedIn ? (
+							<Link
+								to="/venue/dashboard"
+								className="link">
+								Visit your venue account
+							</Link>
+						) : (
+							// <div className="d-flex">
 							<div>
 								<Link
 									to="/venue/signup"
@@ -47,30 +56,33 @@ function Footer() {
 									Sign in to venue account
 								</Link>
 							</div>
-						</div>
-					)}
+							// </div>
+						)}
+					</div>
 				</Col>
-				<Col className="col-md-4">
-					<h4>Connect With Us</h4>
-					<Row>
-						<Link
-							to="https://github.com/Capstone-Pac-Man/Capstone.git"
-							className="link">
-							<AiFillGithub /> Our Github Project
-						</Link>
-					</Row>
-					<Row>
-						<Link
-							to="https://fullstackacademy.slack.com/archives/C04TT9NMZ6G"
-							className="link">
-							<FaSlack /> Our Slack
-						</Link>
-					</Row>
+				<Col className="col-md-4 mx-auto">
+					<div className="text-center">
+						<h4>Connect With Us</h4>
+						<Row>
+							<Link
+								to="https://github.com/Capstone-Pac-Man/Capstone.git"
+								className="link">
+								<AiFillGithub /> Github
+							</Link>
+						</Row>
+						<Row>
+							<Link
+								to="https://fullstackacademy.slack.com/archives/C04TT9NMZ6G"
+								className="link">
+								<FaSlack /> Slack
+							</Link>
+						</Row>
+					</div>
 				</Col>
 			</Row>
 			<br></br>
 			<Row>
-				<p class="text-center">
+				<p className="text-center">
 					© 2023 All Rights Reserved. By Karsten Fisk, Aliaksei Kalupaila, Jason
 					Wang, Brian Wong.
 				</p>

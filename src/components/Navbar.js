@@ -8,7 +8,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { Logout } from "./UserAuth/LogOut";
 import { SearchBar } from "../components/searchBarSports";
-import { fetchOneUserAsync, selectUser } from "../reducers/userSlice";
+import {
+  fetchOneUserAsync,
+  selectUser,
+  editUserAsync,
+} from "../reducers/userSlice";
 import { Link } from "react-router-dom";
 import LocationChange from "./locationChange";
 
@@ -28,8 +32,20 @@ const NavBar = ({ location, setLocation }) => {
       }
     });
   }, []);
+  const handleAvailable = (e) => {
+    if (e.target.value === "remove") {
+      dispatch(editUserAsync({ availableTo: 0 }));
+    } else if (e.target.value === "add") {
+      const twelveHoursFromNow = new Date(Date.now() + 12 * 60 * 60 * 1000);
+      const obj = { availableTo: twelveHoursFromNow.getTime() };
+      dispatch(editUserAsync(obj));
+    }
+  };
+  const currentTime = Date.now();
+  const availableToTime = user.availableTo;
+  const isAvailableToInFuture = availableToTime > currentTime;
   return (
-    <Navbar bg="dark" expand="lg" variant="dark" style={{ width: "100vw" }}>
+    <Navbar bg="dark" expand="lg" variant="dark" style={{ width: "100%" }}>
       <Container>
         <Navbar.Brand as={Link} to="/">
           Sport Buddies
@@ -54,6 +70,23 @@ const NavBar = ({ location, setLocation }) => {
                   <NavDropdown.Item as={Link} to="/me">
                     View Profile
                   </NavDropdown.Item>
+                  {isAvailableToInFuture ? (
+                    <button
+                      className="btn btn-outline-danger btn-sm"
+                      value="remove"
+                      onClick={handleAvailable}
+                    >
+                      Make Unavailable
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-outline-success btn-sm"
+                      value="add"
+                      onClick={handleAvailable}
+                    >
+                      Make Available
+                    </button>
+                  )}
                   <NavDropdown.Item>
                     <Logout />
                   </NavDropdown.Item>

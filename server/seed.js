@@ -1,5 +1,8 @@
 const { findNonSerializableValue } = require("@reduxjs/toolkit");
 const { db, User, Sport, UserSport, Venue } = require("../server/db/index");
+const now = new Date();
+const futureDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+const futureUTC = futureDate.getTime();
 
 const users = [
   {
@@ -9,8 +12,7 @@ const users = [
     imageUrl:
       "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1349&q=80",
     mobile: 6092439778,
-    availableFrom: "10am",
-    availableTo: "5pm",
+    availableTo: futureUTC,
     address: "12020 E Shea Blvd",
     city: "Scottsdale",
     state: "AZ",
@@ -26,8 +28,7 @@ const users = [
     imageUrl:
       "https://images.unsplash.com/photo-1569241872171-7fbfc33b4b21?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
     mobile: 6097995847,
-    availableFrom: "10am",
-    availableTo: "5pm",
+    availableTo: futureUTC,
     address: "12157 N 138th Way",
     city: "Scottsdale",
     state: "AZ",
@@ -43,8 +44,7 @@ const users = [
     imageUrl:
       "https://images.unsplash.com/photo-1529271765130-29999f125749?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
     mobile: 6097165887,
-    availableFrom: "6pm",
-    availableTo: "8pm",
+    availableTo: futureUTC,
     address: "12121 N 124th St",
     city: "Scottsdale",
     state: "AZ",
@@ -62,7 +62,7 @@ const users = [
       "https://plus.unsplash.com/premium_photo-1676790135048-f74d2a55faab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
     mobile: 6462128888,
     availableFrom: "7am",
-    availableTo: "12pm",
+    availableTo: futureUTC,
     address: "9042 N 126th St",
     city: "Scottsdale",
     state: "AZ",
@@ -78,8 +78,7 @@ const users = [
     imageUrl:
       "https://images.unsplash.com/photo-1602339824201-171804fff052?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
     mobile: 9493420084,
-    availableFrom: "5am",
-    availableTo: "5pm",
+    availableTo: futureUTC,
     address: "1013 E University Blvd",
     city: "Tuscon",
     state: "AZ",
@@ -95,8 +94,7 @@ const users = [
     imageUrl:
       "https://images.unsplash.com/photo-1518614368389-5160c0b0de72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2200&q=80",
     mobile: 2126469449,
-    availableFrom: "noon",
-    availableTo: "8pm",
+    availableTo: futureUTC,
     address: "415 e71st",
     city: "NY",
     state: "NY",
@@ -113,8 +111,7 @@ const users = [
     imageUrl:
       "https://www.gannett-cdn.com/-mm-/8a6e606e8bf30067c6052e97f5b6b39c6d055570/c=0-0-3497-1976/local/-/media/2016/10/12/USATODAY/USATODAY/636118830553229435-2SLINE-RONDA-ROUSEY-74885118.JPG",
     mobile: 9485068392,
-    availableFrom: "11am",
-    availableTo: "6pm",
+    availableTo: futureUTC,
     address: "191 Van Zile Road",
     city: "Brick",
     state: "NJ",
@@ -131,8 +128,7 @@ const users = [
     imageUrl:
       "https://imgix.bustle.com/rehost/2016/9/13/9e2a4982-bb3a-4d1a-abce-7729bd0349bd.jpg",
     mobile: 2124494838,
-    availableFrom: "10am",
-    availableTo: "4pm",
+    availableTo: futureUTC,
     address: "23 Ocean Avenue North",
     city: "Brick",
     state: "NJ",
@@ -149,8 +145,7 @@ const users = [
     imageUrl:
       "https://www.rethinkcare.com/wp-content/uploads/2022/04/Be-Like-Inigo-Montoya.jpg",
     mobile: 6097995873,
-    availableFrom: "8am",
-    availableTo: "8pm",
+    availableTo: futureUTC,
     address: "55 Melrose Terrace",
     city: "Long Branch",
     state: "NJ",
@@ -167,8 +162,7 @@ const users = [
     imageUrl:
       "https://hips.hearstapps.com/digitalspyuk.cdnds.net/16/16/1461218409-matt-damon-jason-bourne-5-trailer.JPG",
     mobile: 6097995273,
-    availableFrom: "5am",
-    availableTo: "9pm",
+    availableTo: futureUTC,
     address: "77 Melrose Terrace",
     city: "Long Branch",
     state: "NJ",
@@ -187,8 +181,7 @@ const users = [
     imageUrl:
       "https://www.stewarthaasracing.com/wp-content/uploads/SHR-Danica-Code-3-1200x1208.jpg",
     mobile: 2156468294,
-    availableFrom: "4pm",
-    availableTo: "9pm",
+    availableTo: futureUTC,
     address: "6501 Castor Avenue",
     city: "Philaldephia",
     state: "PA",
@@ -206,8 +199,7 @@ const users = [
     imageUrl:
       "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/rockcms/2023-03/230317-Lance-Reddick-mjf-1517-55423b.jpg",
     mobile: 2158084030,
-    availableFrom: "1pm",
-    availableTo: "8pm",
+    availableTo: futureUTC,
     address: "1300 Hellerman Street",
     city: "Philaldephia",
     state: "PA",
@@ -225,8 +217,7 @@ const users = [
     imageUrl:
       "https://s.abcnews.com/images/Entertainment/SPL_mike_black_eye_mar_140618_16x9_992.jpg",
     mobile: 2156464101,
-    availableFrom: "6am",
-    availableTo: "8pm",
+    availableTo: futureUTC,
     address: "924 Levick Street",
     city: "Philaldephia",
     state: "PA",
@@ -246,8 +237,7 @@ const users = [
     imageUrl:
       "https://media.npr.org/assets/img/2021/09/21/gettyimages-927254864_wide-a978ec346ea3add6c594f1d554b516ad55c59cce.jpg",
     mobile: 4806142747,
-    availableFrom: "12pm",
-    availableTo: "12am",
+    availableTo: futureUTC,
     address: "10767 North 116th Street",
     city: "Scottsdale",
     state: "AZ",
@@ -264,8 +254,7 @@ const users = [
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Oscar_De_La_Hoya%2C_Feb_2011.jpg/800px-Oscar_De_La_Hoya%2C_Feb_2011.jpg",
     mobile: 4805517000,
-    availableFrom: "7am",
-    availableTo: "12pm",
+    availableTo: futureUTC,
     address: "10855 North 116th Street",
     city: "Scottsdale",
     state: "AZ",
@@ -282,8 +271,7 @@ const users = [
     imageUrl:
       "https://media.formula1.com/content/dam/fom-website/drivers/2023Drivers/perez.jpg.img.1536.high.jpg",
     mobile: 4804434656,
-    availableFrom: "8am",
-    availableTo: "2pm",
+    availableTo: futureUTC,
     address: "10769 North Frank Lloyd Wright Blvd #A-100",
     city: "Scottsdale",
     state: "AZ",
@@ -300,8 +288,7 @@ const users = [
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/8/89/02-09JUL2019_CNGB_USO_Tour_2019_190705-F-WH816-1016_%2848531457487%29_%28cropped%29.jpg",
     mobile: 4803331900,
-    availableFrom: "9am",
-    availableTo: "8pm",
+    availableTo: 0,
     address: "13255 North Eagle Ridge Drive",
     city: "Scottsdale",
     state: "AZ",
@@ -321,8 +308,7 @@ const users = [
     imageUrl:
       "https://www.thepaddockmagazine.com/wp-content/uploads/2019/05/romain-grosjean-1050x591.jpg",
     mobile: 6462751491,
-    availableFrom: "11am",
-    availableTo: "6pm",
+    availableTo: futureUTC,
     address: "230 5th Avenue",
     city: "New York",
     state: "NY",
@@ -339,8 +325,7 @@ const users = [
     imageUrl:
       "https://cdn.vox-cdn.com/thumbor/YQLM135mS6silnUhtR8hWJX1yEk=/0x0:2636x3955/1400x933/filters:focal(1119x855:1539x1275):no_upscale()/cdn.vox-cdn.com/uploads/chorus_image/image/66566857/1205394911.jpg.0.jpg",
     mobile: 6469171493,
-    availableFrom: "6am",
-    availableTo: "6pm",
+    availableTo: futureUTC,
     address: "838 Brook Avenue",
     city: "New York",
     state: "NY",
@@ -357,8 +342,7 @@ const users = [
     imageUrl:
       "https://tmssl.akamaized.net/images/foto/galerie/thierry-henry-arsenal-jubel-2012-1592828479-41984.jpg",
     mobile: 9171234563,
-    availableFrom: "3am",
-    availableTo: "3pm",
+    availableTo: futureUTC,
     address: "928 8th Avenue",
     city: "New York",
     state: "NY",
@@ -416,7 +400,7 @@ const venues = [
   },
   {
     email: "courtney@gmail.com",
-    password: "12345678", 
+    password: "12345678",
     name: "Courtney Fields' Courts & Fields",
     address: "105 West 28th Street",
     city: "NY",
@@ -458,7 +442,6 @@ const venues = [
     longitude: -75.16318365087093,
   },
 ];
-
 
 const userSport = [
   {

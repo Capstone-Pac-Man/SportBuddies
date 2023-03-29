@@ -43,6 +43,7 @@ function VenueProfile() {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(fetchOneVenueAsync());
     navigate("/");
   };
   if (!venue.id) return "Loadind. Please wait";
@@ -74,12 +75,12 @@ function VenueProfile() {
                       <Card.Img
                         src={venue.imageUrl}
                         className="img-fluid rounded-start "
-                        style={{ width: "512px" }}
+                        style={{ maxWidth: "512px" }}
                         alt="avatar"
                       ></Card.Img>
                     </div>
-                    <div className="justify-self-stretch">
-                      <Table striped bordered hover size="lg">
+                    <div>
+                      <Table striped bordered hover size="xs" xs>
                         <thead>
                           <tr>
                             <th>Name</th>
