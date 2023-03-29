@@ -27,17 +27,16 @@ UserConversation.belongsTo(Conversation);
 User.hasMany(UserConversation);
 Conversation.hasMany(UserConversation);
 
-Message.belongsToMany(UserConversation, { through: Recipient });
-UserConversation.belongsToMany(Message, { through: Recipient });
 Recipient.belongsTo(UserConversation);
-Recipient.belongsTo(Message);
-Message.hasMany(Recipient);
 UserConversation.hasMany(Recipient);
+
+UserConversation.hasMany(Message);
+Message.belongsTo(UserConversation);
 
 Recipient.belongsTo(User);
 User.hasMany(Recipient, { foreignKey: "userId" });
 
-User.hasMany(Message, { foreignKey: "senderId" });
+User.hasMany(Message);
 Message.belongsTo(User);
 
 module.exports = {

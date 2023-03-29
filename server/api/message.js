@@ -12,19 +12,40 @@ const {
 router.get("/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
-    const allConversations = await Conversation.findAll({
-      include: {
-        model: UserConversation,
-        where: {
-          userId: id,
-        },
-        include: {
-          model: Recipient,
-          include: [User, Message],
-        },
+    const convo = await UserConversation.findOne({
+      where: {
+        conversationId: id,
+      },
+      include: [Recipient, Message],
+    });
+    res.json(convo);
+  } catch (e) {
+    next(e);
+  }
+});
+
+//POST api/message/:id
+router.post("/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const convo = await UserConversation.findOne({
+      where: {
+        conversationId: id,
       },
     });
-    res.json(allConversations);
+    let message = await Message.create(req.body);
+    console.log(message);
+    console.log("convo ===>", convo);
+
+    await convo.addMessage(message);
+
+    const finalConvo = await UserConversation.findOne({
+      where: {
+        conversationId: id,
+      },
+      include: [Recipient, Message],
+    });
+    res.json(finalConvo);
   } catch (e) {
     next(e);
   }

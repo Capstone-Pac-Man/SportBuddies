@@ -18,9 +18,7 @@ router.get("/:id", async (req, res, next) => {
         where: {
           userId: id,
         },
-        include: {
-          model: Recipient,
-        },
+        include: [Recipient, Message],
       },
     });
     res.json(allConversations);
@@ -54,6 +52,7 @@ router.post("/:id", async (req, res, next) => {
     });
 
     await newUserConvo.addRecipient(newRecipient);
+
     const allConversations = await Conversation.findAll({
       include: {
         model: UserConversation,
@@ -62,6 +61,9 @@ router.post("/:id", async (req, res, next) => {
         },
         include: {
           model: Recipient,
+          where: {
+            userConversationId: newUserConvo.id,
+          },
         },
       },
     });
@@ -72,23 +74,12 @@ router.post("/:id", async (req, res, next) => {
 });
 
 //PUT api/conversation/:id
-
 router.put("/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
-    const allConversations = await Conversation.findAll({
-      include: {
-        model: UserConversation,
-        where: {
-          userId: id,
-        },
-        include: {
-          model: Recipient,
-          include: [User, Message],
-        },
-      },
-    });
-    res.json(allConversations);
+    const selectedConvo = await Conversation.findByPk(id);
+
+    res.json(await selectedConvo.update({ selected: true }));
   } catch (e) {
     next(e);
   }
