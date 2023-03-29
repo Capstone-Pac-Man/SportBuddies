@@ -10,6 +10,7 @@ import { SearchBar } from "./components/searchBarSports";
 import Venues from "./components/venues";
 import { Venue } from "./components/venue";
 import Players from "./components/players";
+import About from "./components/about";
 import { SelectedSport } from "./components/selectedSport";
 import { UserProfile } from "./components/users/userProfile";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,7 +25,6 @@ import VenueProfile from "./components/venues/venueProfile";
 import PageNotFound from "./components/PageNotFound";
 import { fetchOneVenueAsync, selectVenueAuth } from "./reducers/venueAuthSlice";
 import Dashboard from "./components/chat/Dashboard";
-
 
 function App() {
   const dispatch = useDispatch();
@@ -87,6 +87,7 @@ function App() {
         <Route path="/chatroom" element={<Dashboard />} />
         <Route path="venue/signup" element={<VenueSignUp />} />
         <Route path="venue/login" element={<VenueLogin />} />
+        <Route path="/about" element={<About />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
       {/* )} */}
