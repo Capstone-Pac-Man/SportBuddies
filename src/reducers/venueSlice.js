@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000",
+  // baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 
@@ -13,7 +13,7 @@ export const fetchVenue = createAsyncThunk("venues/fetchOne", async (id) => {
 
 export const addVenueAsync = createAsyncThunk(
   "venues/add",
-  async ({ name, type, address, city, state, description, hours, }) => {
+  async ({ name, type, address, city, state, description, hours }) => {
     const { data } = await instance.post("/api/venues", {
       name: name,
       type: type,

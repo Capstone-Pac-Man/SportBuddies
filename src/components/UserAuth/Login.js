@@ -14,14 +14,13 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-
   const handleSignIn = async (e) => {
     try {
       e.preventDefault();
       await signInWithEmailAndPassword(auth, email, password);
       // After successful login, send sign in request to backend api.
       const { data } = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "/api/users/login",
         {
           email: auth.currentUser.email,
           uid: auth.currentUser.uid,
@@ -34,7 +33,6 @@ const Login = () => {
         const twelveHoursFromNow = new Date(Date.now() + 12 * 60 * 60 * 1000);
         const obj = { availableTo: twelveHoursFromNow.getTime() };
         dispatch(editUserAsync(obj));
-
       }
       setEmail("");
       setPassword("");
@@ -52,7 +50,7 @@ const Login = () => {
       console.log("SIGN IN SUCCESS");
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "/api/users/login",
         {
           providerId: userCredential.user.providerData[0].providerId,
           name: userCredential.user.displayName,
@@ -67,7 +65,6 @@ const Login = () => {
         const twelveHoursFromNow = new Date(Date.now() + 12 * 60 * 60 * 1000);
         const obj = { availableTo: twelveHoursFromNow.getTime() };
         dispatch(editUserAsync(obj));
-
       }
       if (data.latitude && data.longitude) {
         const location = JSON.stringify({
@@ -110,20 +107,16 @@ const Login = () => {
             <Button
               type="submit"
               className="myBtn"
-
               disabled={email === "" || password.length === 0}
             >
-
               Log in
             </Button>
             <br></br>
             <Button
               variant="outline-dark"
               className="mt-4 pr-3"
-
               onClick={signInWithGoogle}
             >
-
               <img
                 className="google"
                 alt=""

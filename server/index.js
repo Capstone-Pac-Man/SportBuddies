@@ -7,7 +7,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const { Server } = require("socket.io");
 const api = require("./api");
-const PORT = 5000;
+const PORT = process.env.PORT;
 const app = express();
 
 app.use(morgan("tiny"));
@@ -15,23 +15,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-); // MIGHT need to edit these credentials. possibly.
+app.use(cors()); // MIGHT need to edit these credentials. possibly.
 
 // MAYBE cut this, becase we already HAVE a server listening
 
 const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET, POST"],
-  },
-});
+const io = new Server(server);
 
 io.on("connection", (socket) => {
   socket.on("join_room", (data) => {
@@ -49,8 +39,12 @@ io.on("connection", (socket) => {
 });*/
 
 app.use("/api", api);
-app.use("/", (req, res) => {
-  res.send("API Home page");
+app.get("/css/index.css", (req, res, next) => {
+  const cssPath = path.join(__dirname, "..", "src", "index.css");
+  res.sendFile(cssPath);
+});
+app.get("/", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 app.use((err, req, res, next) => {
   console.error(err);

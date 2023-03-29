@@ -23,6 +23,7 @@ import { selectUser } from "../../reducers/userSlice";
 
 export const SingleUserPage = (props) => {
   const [show, setShow] = useState(false);
+  const [time, setTime] = useState("");
   const player = useSelector((state) => state.singleUser);
   const id = props.playerId;
   const dispatch = useDispatch();
@@ -71,9 +72,7 @@ export const SingleUserPage = (props) => {
             alt="player"
           />
           <p>State: {player.state}</p>
-          <p>
-            Available from: {player.availableFrom} to {player.availableTo}
-          </p>
+          <p>Available until: {time}</p>
           <ListGroup className="list-group-flush">
             {player.sports
               ? player.sports.map((sport) => {

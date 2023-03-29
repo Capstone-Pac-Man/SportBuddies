@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000",
+  // baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 
@@ -18,9 +18,6 @@ export const fetchAllSportsAsync = createAsyncThunk(
   }
 );
 
-
-
-
 export const sportsSlice = createSlice({
   name: "sports",
   initialState: [],
@@ -29,7 +26,6 @@ export const sportsSlice = createSlice({
     builder.addCase(fetchAllSportsAsync.fulfilled, (state, { payload }) => {
       return payload;
     });
-  
   },
 });
 export const selectSports = (state) => state.sports;

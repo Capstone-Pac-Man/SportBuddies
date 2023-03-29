@@ -23,6 +23,7 @@
     "http": "^0.0.1-security",
     "https": "^1.0.0",
     "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.21",
     "pg": "^8.10.0",
@@ -43,10 +44,10 @@
   "scripts": {
     "start": "react-scripts start",
     "start-server": "nodemon server/index.js",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "seed": "node server/seed.js"
+    "seed": "node server/seed.js",
+    "build": "react-scripts build && rm -rf server/build && mv build server"
   },
   "eslintConfig": {
     "extends": [

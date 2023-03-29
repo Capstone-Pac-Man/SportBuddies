@@ -8,7 +8,7 @@ import { auth } from "../config/firebase";
 availableTo,address, city, country and userType. */
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000",
+  // baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 
