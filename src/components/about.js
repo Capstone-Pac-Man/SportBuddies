@@ -11,14 +11,14 @@ export default function About() {
           src="https://media.licdn.com/dms/image/C5612AQEv740lAGjGbg/article-inline_image-shrink_1000_1488/0/1640508067113?e=1684972800&v=beta&t=lbWRkm4MBbvP5WotxMzEWw2d8TFnpgijWT3TyuSzQOo"
           alt="Titans!"></img>
       </div>
-      <div class="centered">
+      <div class="centered" style={{ fontFamily: "Courier New" }}>
         <h1>
           <b>
             <i>HUMBLE ORIGINS</i>
           </b>
         </h1>
         <h4>
-          <p style={{ backgroundColor: "lightblue" }}>
+          <p>
             In early March 2023, four washed-up athletes asked themselves: how
             best to apply our new software skills to target a niche market?
             Missing the irreplaceable high of middle school soccer matches,
