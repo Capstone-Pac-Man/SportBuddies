@@ -27,39 +27,37 @@ import Dashboard from "./components/chat/Dashboard";
 import Footer from "./components/Footer";
 
 function App() {
-	const dispatch = useDispatch();
-	const isVenueLoggedIn = useSelector((state) => !!state.auth.id);
-	const navigate = useNavigate();
-	console.log("isLOGGEDIN", isVenueLoggedIn);
+  const dispatch = useDispatch();
+  const isVenueLoggedIn = useSelector((state) => !!state.auth.id);
+  const navigate = useNavigate();
+  console.log("isLOGGEDIN", isVenueLoggedIn);
 
-	const [location, setLocation] = useState(false);
-	useEffect(() => {
-		getLocation();
-	}, []);
-	useEffect(() => {
-		dispatch(fetchOneVenueAsync());
-	}, []);
-	const getLocation = () => {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(storeLocation);
-		} else {
-			return;
-		}
-	};
-	const storeLocation = async (coords) => {
-		const { latitude, longitude } = coords.coords;
-		const location = { latitude, longitude };
-		sessionStorage.setItem("location", JSON.stringify(location));
-		setLocation(true);
-	};
+  const [location, setLocation] = useState(false);
+  useEffect(() => {
+    getLocation();
+  }, []);
+  useEffect(() => {
+    dispatch(fetchOneVenueAsync());
+  }, []);
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(storeLocation);
+    } else {
+      return;
+    }
+  };
+  const storeLocation = async (coords) => {
+    const { latitude, longitude } = coords.coords;
+    const location = { latitude, longitude };
+    sessionStorage.setItem("location", JSON.stringify(location));
+    setLocation(true);
+  };
 
-	return (
-		<div className="wrapper">
-			<NavBar
-				location={location}
-				setLocation={setLocation}
-			/>
-			{/* {isVenueLoggedIn ? (
+  return (
+    <>
+      <div className="wrapper">
+        <NavBar location={location} setLocation={setLocation} />
+        {/* {isVenueLoggedIn ? (
         <Routes>
           <Route
             path="/"
@@ -72,69 +70,32 @@ function App() {
           <Route path="venue/dashboard" element={<VenueProfile />} />
           <Route path="/*" element={<PageNotFound />} />
         </Routes> */}
-			{/* ) : ( */}
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<HomePage
-							location={location}
-							setLocation={setLocation}
-						/>
-					}
-				/>
-				{/* <Route path="/players/:id" element={<SingleUserPage />} /> */}
-				<Route
-					path="/login"
-					element={<Login />}
-				/>
-				<Route
-					path="/me"
-					element={<UserProfile />}
-				/>
-				<Route
-					path="/signup"
-					element={<SignUp />}
-				/>
-				<Route
-					path="/players"
-					element={<Players />}
-				/>
-				<Route
-					path="/venues"
-					element={<Venues />}
-				/>
-				{/* <Route path="/venues/:id" element={<Venue />} /> */}
-				<Route
-					path="venue/dashboard"
-					element={<VenueProfile />}
-				/>
-				<Route
-					path="/search/:sport"
-					element={<SelectedSport />}
-				/>
-				<Route
-					path="/chatroom"
-					element={<Dashboard />}
-				/>
-				<Route
-					path="venue/signup"
-					element={<VenueSignUp />}
-				/>
-				<Route
-					path="venue/login"
-					element={<VenueLogin />}
-				/>
-				<Route
-					path="/*"
-					element={<PageNotFound />}
-				/>
-			</Routes>
-			{/* )} */}
-			<div className="footer"></div>
-			<Footer />
-		</div>
-	);
+        {/* ) : ( */}
+        <Routes>
+          <Route
+            path="/"
+            element={<HomePage location={location} setLocation={setLocation} />}
+          />
+          {/* <Route path="/players/:id" element={<SingleUserPage />} /> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/me" element={<UserProfile />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/players" element={<Players />} />
+          <Route path="/venues" element={<Venues />} />
+          {/* <Route path="/venues/:id" element={<Venue />} /> */}
+          <Route path="venue/dashboard" element={<VenueProfile />} />
+          <Route path="/search/:sport" element={<SelectedSport />} />
+          <Route path="/chatroom" element={<Dashboard />} />
+          <Route path="venue/signup" element={<VenueSignUp />} />
+          <Route path="venue/login" element={<VenueLogin />} />
+          <Route path="/*" element={<PageNotFound />} />
+        </Routes>
+        {/* )} */}
+        <div className="footer"></div>
+      </div>
+      <Footer />
+    </>
+  );
 }
 
 export default App;
