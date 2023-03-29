@@ -163,6 +163,7 @@ router.get("/:id", async (req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     // Take in address and convert it to coordinates. Save address state.
+    const now = Date.now();
     const reqUser = await User.findByToken(req.cookies.token);
     let users = [];
     // axios.get("/api/users", {params: {}})
@@ -187,6 +188,9 @@ router.get("/", async (req, res, next) => {
             },
             latitude: {
               [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+            },
+            availableTo: {
+              [Sequelize.Op.gt]: now,
             },
           },
         },
@@ -216,6 +220,9 @@ router.get("/", async (req, res, next) => {
             },
             latitude: {
               [Sequelize.Op.between]: [lat - latOffset, lat + latOffset],
+            },
+            availableTo: {
+              [Sequelize.Op.gt]: now,
             },
           },
         },
