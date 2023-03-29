@@ -24,7 +24,7 @@ import VenueLogin from "./components/VenueAuth/Login";
 import VenueProfile from "./components/venues/venueProfile";
 import PageNotFound from "./components/PageNotFound";
 import { fetchOneVenueAsync, selectVenueAuth } from "./reducers/venueAuthSlice";
-import Dashboard from "./components/chat/Dashboard";
+import Sidebar from "./components/chat/Sidebar";
 import Footer from "./components/Footer";
 
 function App() {
@@ -55,10 +55,12 @@ function App() {
   };
 
   return (
+
     <>
       <div className="wrapper">
         <NavBar location={location} setLocation={setLocation} />
         {/* {isVenueLoggedIn ? (
+
         <Routes>
           <Route
             path="/"
@@ -71,34 +73,33 @@ function App() {
           <Route path="venue/dashboard" element={<VenueProfile />} />
           <Route path="/*" element={<PageNotFound />} />
         </Routes> */}
-      {/* ) : ( */}
-      <Routes>
-        <Route
-          path="/"
-          element={<HomePage location={location} setLocation={setLocation} />}
-        />
-        {/* <Route path="/players/:id" element={<SingleUserPage />} /> */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/me" element={<UserProfile />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/players" element={<Players />} />
-        <Route path="/venues" element={<Venues />} />
-        {/* <Route path="/venues/:id" element={<Venue />} /> */}
-        <Route path="venue/dashboard" element={<VenueProfile />} />
-        <Route path="/search/:sport" element={<SelectedSport />} />
-        <Route path="/chatroom" element={<Dashboard />} />
-        <Route path="venue/signup" element={<VenueSignUp />} />
-        <Route path="venue/login" element={<VenueLogin />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/*" element={<PageNotFound />} />
-      </Routes>
-      {/* )} */}
-      <div className="footer"></div>
-    </div>
-          <Footer />
-    </>
 
- 
+        {/* ) : ( */}
+        <Routes>
+          <Route
+            path="/"
+            element={<HomePage location={location} setLocation={setLocation} />}
+          />
+          {/* <Route path="/players/:id" element={<SingleUserPage />} /> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/me" element={<UserProfile />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/players" element={<Players />} />
+          <Route path="/venues" element={<Venues />} />
+          {/* <Route path="/venues/:id" element={<Venue />} /> */}
+          <Route path="venue/dashboard" element={<VenueProfile />} />
+          <Route path="/search/:sport" element={<SelectedSport />} />
+          <Route path="/chatroom" element={<Sidebar />} />
+          <Route path="venue/signup" element={<VenueSignUp />} />
+          <Route path="venue/login" element={<VenueLogin />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/*" element={<PageNotFound />} />
+        </Routes>
+        {/* )} */}
+        <div className="footer"></div>
+      </div>
+      <Footer />
+    </>
   );
 }
 

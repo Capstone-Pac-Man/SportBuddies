@@ -1,54 +1,53 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	Container,
-	Button,
-	Col,
-	Card,
-	Table,
-	Accordion,
+  Container,
+  Button,
+  Col,
+  Card,
+  Table,
+  Accordion,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
-	deleteVenueSportAsync,
-	fetchOneVenueAsync,
-	logout,
-	selectVenueAuth,
+  deleteVenueSportAsync,
+  fetchOneVenueAsync,
+  logout,
+  selectVenueAuth,
 } from "../../reducers/venueAuthSlice";
 import { AddVenueSport } from "./addVenueSport";
 import { UpdateVenue } from "./updateVenueProfile";
 import { ChangeVenuePassword } from "./changeVenuePassword";
 
 function VenueProfile() {
-	const loggedIn = useSelector((state) => state.auth);
-	const venue = useSelector(selectVenueAuth);
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+  const loggedIn = useSelector((state) => state.auth);
+  const venue = useSelector(selectVenueAuth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-	console.log("VENUE PROFILE", venue);
+  console.log("VENUE PROFILE", venue);
 
-	useEffect(() => {
-		const token = localStorage.getItem("token");
-		if (!token) {
-			navigate("/venue/login");
-		} else {
-			dispatch(fetchOneVenueAsync());
-		}
-	}, []);
-	useEffect(() => {
-		if (loggedIn.error) {
-			navigate("/venue/login");
-		}
-	}, [loggedIn]);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/venue/login");
+    } else {
+      dispatch(fetchOneVenueAsync());
+    }
+  }, []);
+  useEffect(() => {
+    if (loggedIn.error) {
+      navigate("/venue/login");
+    }
+  }, [loggedIn]);
 
-	const handleLogout = () => {
-		dispatch(logout());
-		dispatch(fetchOneVenueAsync());
-		navigate("/");
-	};
-	if (!venue.id) return "Loadind. Please wait";
-	if (!venue.sports) return "Loadind. Please wait";
-
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(fetchOneVenueAsync());
+    navigate("/");
+  };
+  if (!venue.id) return "Loadind. Please wait";
+  if (!venue.sports) return "Loadind. Please wait";
 	return (
 		<>
 			<Container>
@@ -183,6 +182,7 @@ function VenueProfile() {
 			</Container>
 		</>
 	);
+
 }
 
 export default VenueProfile;
