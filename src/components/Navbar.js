@@ -29,7 +29,7 @@ const NavBar = ({ location, setLocation }) => {
     });
   }, []);
   return (
-    <Navbar bg="dark" expand="lg" variant="dark" style={{ width: "100vw" }}>
+    <Navbar bg="dark" expand="lg" variant="dark" style={{ width: "100%" }}>
       <Container>
         <Navbar.Brand as={Link} to="/">
           Sport Buddies
@@ -74,8 +74,7 @@ const NavBar = ({ location, setLocation }) => {
             <SearchBar />
             <Nav.Item
               style={{ display: "flex", alignItems: "center", paddingLeft: 20 }}
-              className="link nav-link d-flex"
-            >
+              className="link nav-link d-flex">
               <LocationChange location={location} setLocation={setLocation} />
             </Nav.Item>
           </div>
