@@ -17,7 +17,7 @@ export default function About() {
             <i>HUMBLE ORIGINS</i>
           </b>
         </h1>
-        <h4>
+        <h4><b>
           <p>
             In early March 2023, four washed-up athletes asked themselves: how
             best to apply our new software skills to target a niche market?
@@ -44,7 +44,7 @@ export default function About() {
           <p>
             (Note: none of the SB creators are in this photo. Absolutely zero of
             them.)
-          </p>
+          </p></b>
         </h4>
       </div>
     </div>
