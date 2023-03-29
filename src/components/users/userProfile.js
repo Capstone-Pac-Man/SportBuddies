@@ -91,7 +91,12 @@ export const UserProfile = () => {
                 className="btn btn-outline-danger btn-sm"
                 value="remove"
                 onClick={handleAvailable}
-                style={{ marginTop: 5, width: 130, height: 30 }}
+                style={{
+                  marginTop: 5,
+                  width: 130,
+                  minHeight: 30,
+                  height: "fit-content",
+                }}
               >
                 Make unavailable
               </button>
@@ -100,7 +105,11 @@ export const UserProfile = () => {
                 className="btn btn-outline-success btn-sm"
                 value="add"
                 onClick={handleAvailable}
-                style={{ marginTop: 5, width: 130, height: 30 }}
+                style={{
+                  marginTop: 5,
+                  width: 130,
+                  height: "fit-content",
+                }}
               >
                 Make available
               </button>
