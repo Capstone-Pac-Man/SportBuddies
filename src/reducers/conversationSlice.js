@@ -71,19 +71,35 @@ export const conversationSlice = createSlice({
       fetchAllUserConversations.fulfilled,
       (state, { payload }) => {
         state.userConversations = payload;
+        state.status = null;
       }
     );
     builder.addCase(addUserConversation.fulfilled, (state, { payload }) => {
-      state.userConversations = payload;
+      state.singleConversation = payload;
+      state.status = null;
     });
     builder.addCase(
       fetchConversationMessages.fulfilled,
       (state, { payload }) => {
         state.singleConversation = payload;
+        state.status = null;
       }
     );
     builder.addCase(updateSelectedConvo.fulfilled, (state, { payload }) => {
       state.singleConversation = payload;
+      state.status = null;
+    });
+    builder.addCase(fetchAllUserConversations.pending, (state, { payload }) => {
+      state.status = "loading";
+    });
+    builder.addCase(addUserConversation.pending, (state, { payload }) => {
+      state.status = "loading";
+    });
+    builder.addCase(fetchConversationMessages.pending, (state, { payload }) => {
+      state.status = "loading";
+    });
+    builder.addCase(updateSelectedConvo.pending, (state, { payload }) => {
+      state.status = "loading";
     });
   },
 });

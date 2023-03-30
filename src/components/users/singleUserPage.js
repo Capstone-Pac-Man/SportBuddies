@@ -36,9 +36,9 @@ export const SingleUserPage = (props) => {
 
   const navigate = useNavigate();
 
-  const handleMessage = (id) => {
+  const handleMessage = async (id) => {
     const userId = user.id;
-    dispatch(addUserConversation({ userId, id }));
+    await dispatch(addUserConversation({ userId, id }));
     navigate("/chatroom");
   };
 
@@ -47,6 +47,21 @@ export const SingleUserPage = (props) => {
   // useEffect(() => {
   //   dispatch(fetchSingleUserAysnc(id));
   // }, [dispatch]);
+
+  useEffect(() => {
+    if (player.availableTo) {
+      const ms = parseInt(player.availableTo);
+      const dateObj = new Date(ms);
+      const time = dateObj.toLocaleTimeString("en-US", {
+        hour12: true,
+        hour: "numeric",
+        minute: "numeric",
+      });
+      const day = dateObj.getDate();
+      const month = dateObj.toLocaleString("default", { month: "short" });
+      setTime(`${time} on ${month} ${day} `);
+    }
+  }, [player]);
 
   // if (!player.fullName) return <h1>Loading...</h1>;
 
@@ -72,7 +87,7 @@ export const SingleUserPage = (props) => {
             alt="player"
           />
           <p>State: {player.state}</p>
-          <p>Available until: {time}</p>
+          <p>Available until {time}</p>
           <ListGroup className="list-group-flush">
             {player.sports
               ? player.sports.map((sport) => {

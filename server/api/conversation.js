@@ -86,6 +86,11 @@ router.post("/", async (req, res, next) => {
           include: [
             {
               model: User,
+              where: {
+                id: {
+                  [Sequelize.Op.not]: [user.id],
+                },
+              },
             },
             {
               model: ConversationMessage,
@@ -95,7 +100,24 @@ router.post("/", async (req, res, next) => {
       );
       res.json(conversationWithUsers);
     } else {
-      const finalConvo = filteredConversations;
+      const finalConvo = await Conversation.findByPk(
+        filteredConversations[0].id,
+        {
+          include: [
+            {
+              model: User,
+              where: {
+                id: {
+                  [Sequelize.Op.not]: [user.id],
+                },
+              },
+            },
+            {
+              model: ConversationMessage,
+            },
+          ],
+        }
+      );
       res.json(finalConvo);
     }
   } catch (e) {
