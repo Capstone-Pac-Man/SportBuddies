@@ -26,20 +26,23 @@ import PageNotFound from "./components/PageNotFound";
 import { fetchOneVenueAsync, selectVenueAuth } from "./reducers/venueAuthSlice";
 import Sidebar from "./components/chat/Sidebar";
 import Footer from "./components/Footer";
+import socket from "./socket";
 
 function App() {
   const dispatch = useDispatch();
   const isVenueLoggedIn = useSelector((state) => !!state.auth.id);
   const navigate = useNavigate();
-  console.log("isLOGGEDIN", isVenueLoggedIn);
+  const user = useSelector((state) => state.user);
 
   const [location, setLocation] = useState(false);
   useEffect(() => {
     getLocation();
-  }, []);
-  useEffect(() => {
     dispatch(fetchOneVenueAsync());
+    if (user.id) {
+      socket.emit("makeRoom", { id: user.id });
+    }
   }, []);
+  useEffect(() => {}, [user]);
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(storeLocation);
@@ -55,7 +58,6 @@ function App() {
   };
 
   return (
-
     <>
       <div className="wrapper">
         <NavBar location={location} setLocation={setLocation} />

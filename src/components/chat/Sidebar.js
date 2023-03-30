@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../reducers/userSlice";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Tab, Nav } from "react-bootstrap";
 import {
   selectConversations,
@@ -14,6 +14,7 @@ import io from "socket.io-client";
 import { fetchAllMessagesInConvo } from "../../reducers/messageSlice";
 import { fetchOneUserAsync } from "../../reducers/userSlice";
 import Loading from "../../assets/Loading";
+import socket from "../../socket";
 // const socket = io.connect("http://localhost:5000");
 
 // const CONVERSATIONS_KEY = "conversations";
@@ -24,6 +25,7 @@ export default function Sidebar() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const conversations = useSelector((state) => state.conversations);
+  const selectedConversationIdRef = useRef(null);
   useEffect(() => {
     dispatch(fetchOneUserAsync());
     dispatch(fetchAllUserConversations());
@@ -31,7 +33,31 @@ export default function Sidebar() {
       setSelected(conversations.singleConversation.id);
     }
   }, [dispatch]);
-  if (conversations.status === "loading") {
+  useEffect(() => {
+    if (user.id) {
+      socket.emit("makeRoom", { id: user.id });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    selectedConversationIdRef.current = selected;
+  }, [selected]);
+
+  useEffect(() => {
+    socket.on("newMessage", (data) => {
+      if (selectedConversationIdRef.current) {
+        dispatch(
+          fetchConversationMessages(parseInt(selectedConversationIdRef.current))
+        );
+      }
+      dispatch(fetchAllUserConversations());
+    });
+  }, [socket]);
+
+  if (
+    conversations.status === "loading" &&
+    conversations.userConversations.length === 0
+  ) {
     return <Loading />;
   }
   if (
@@ -50,6 +76,7 @@ export default function Sidebar() {
       const obj = {
         id: selected,
         content: e.target.value,
+        otherId: conversations.singleConversation.users[0].id,
       };
       dispatch(updateSelectedConvo(obj));
       setContent("");

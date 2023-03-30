@@ -46,10 +46,11 @@ export const fetchConversationMessages = createAsyncThunk(
 
 export const updateSelectedConvo = createAsyncThunk(
   "conversations/updateSelectedConvo",
-  async ({ id, content }) => {
+  async ({ id, content, otherId }) => {
     try {
       const { data } = await instance.post(`/api/conversation/${id}`, {
         content: content,
+        otherId: otherId,
       });
       return data;
     } catch (e) {
@@ -90,12 +91,26 @@ export const conversationSlice = createSlice({
       state.status = null;
     });
     builder.addCase(fetchAllUserConversations.pending, (state, { payload }) => {
+      // const str = JSON.stringify(state);
+      // const obj = JSON.parse(str);
+      // if (obj.useConversations.length === 0) {
+      //   state.status = "loading";
+      // } else {
+      //   state.status = null;
+      // }
       state.status = "loading";
     });
     builder.addCase(addUserConversation.pending, (state, { payload }) => {
       state.status = "loading";
     });
     builder.addCase(fetchConversationMessages.pending, (state, { payload }) => {
+      //   const str = JSON.stringify(state);
+      //   const obj = JSON.parse(str);
+      //   if (Object.keys(obj.singleConversation).length === 0) {
+      //     state.status = "loading";
+      //   } else {
+      //     return;
+      //   }
       state.status = "loading";
     });
     builder.addCase(updateSelectedConvo.pending, (state, { payload }) => {
