@@ -29,7 +29,7 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
-router.post("/logout", async (req, res, next) => {
+router.get("/logout", async (req, res, next) => {
   try {
     res.cookie("token", "", { expires: new Date(0), httpOnly: true });
     res.send("logged out");
