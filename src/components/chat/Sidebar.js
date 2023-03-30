@@ -13,6 +13,7 @@ import OpenConversation from "./OpenConversation";
 import io from "socket.io-client";
 import { fetchAllMessagesInConvo } from "../../reducers/messageSlice";
 import { fetchOneUserAsync } from "../../reducers/userSlice";
+import Loading from "../../assets/Loading";
 // const socket = io.connect("http://localhost:5000");
 
 // const CONVERSATIONS_KEY = "conversations";
@@ -26,7 +27,13 @@ export default function Sidebar() {
   useEffect(() => {
     dispatch(fetchOneUserAsync());
     dispatch(fetchAllUserConversations());
+    if (conversations.singleConversation) {
+      setSelected(conversations.singleConversation.id);
+    }
   }, [dispatch]);
+  if (conversations.status === "loading") {
+    return <Loading />;
+  }
   if (
     !conversations.userConversations ||
     conversations.userConversations.length === 0
