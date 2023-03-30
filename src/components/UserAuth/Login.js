@@ -14,7 +14,6 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-
   const handleSignIn = async (e) => {
     try {
       e.preventDefault();
@@ -34,7 +33,6 @@ const Login = () => {
         const twelveHoursFromNow = new Date(Date.now() + 12 * 60 * 60 * 1000);
         const obj = { availableTo: twelveHoursFromNow.getTime() };
         dispatch(editUserAsync(obj));
-
       }
       setEmail("");
       setPassword("");
@@ -67,7 +65,6 @@ const Login = () => {
         const twelveHoursFromNow = new Date(Date.now() + 12 * 60 * 60 * 1000);
         const obj = { availableTo: twelveHoursFromNow.getTime() };
         dispatch(editUserAsync(obj));
-
       }
       if (data.latitude && data.longitude) {
         const location = JSON.stringify({
@@ -110,20 +107,16 @@ const Login = () => {
             <Button
               type="submit"
               className="myBtn"
-
               disabled={email === "" || password.length === 0}
             >
-
               Log in
             </Button>
             <br></br>
             <Button
               variant="outline-dark"
               className="mt-4 pr-3"
-
               onClick={signInWithGoogle}
             >
-
               <img
                 className="google"
                 alt=""

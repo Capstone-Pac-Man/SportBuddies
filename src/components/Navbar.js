@@ -41,9 +41,9 @@ const NavBar = ({ location, setLocation }) => {
       dispatch(editUserAsync(obj));
     }
   };
-  const currentTime = Date.now();
-  const availableToTime = user.availableTo;
-  const isAvailableToInFuture = availableToTime > currentTime;
+  // const currentTime = Date.now();
+  // const availableToTime = user.availableTo;
+  // const isAvailableToInFuture = availableToTime > currentTime;
   return (
     <Navbar bg="dark" expand="lg" variant="dark" style={{ width: "100%" }}>
       <Container>
@@ -70,7 +70,7 @@ const NavBar = ({ location, setLocation }) => {
                   <NavDropdown.Item as={Link} to="/me">
                     View Profile
                   </NavDropdown.Item>
-                  {isAvailableToInFuture ? (
+                  {/* {isAvailableToInFuture ? (
                     <button
                       className="btn btn-outline-danger btn-sm"
                       value="remove"
@@ -86,7 +86,7 @@ const NavBar = ({ location, setLocation }) => {
                     >
                       Make Available
                     </button>
-                  )}
+                  )} */}
                   <NavDropdown.Item>
                     <Logout />
                   </NavDropdown.Item>
@@ -107,7 +107,8 @@ const NavBar = ({ location, setLocation }) => {
             <SearchBar />
             <Nav.Item
               style={{ display: "flex", alignItems: "center", paddingLeft: 20 }}
-              className="link nav-link d-flex">
+              className="link nav-link d-flex"
+            >
               <LocationChange location={location} setLocation={setLocation} />
             </Nav.Item>
           </div>

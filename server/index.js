@@ -49,9 +49,13 @@ io.on("connection", (socket) => {
 });*/
 
 app.use("/api", api);
-app.use("/", (req, res) => {
-  res.send("API Home page");
-});
+// app.get("/css/index.css", (req, res, next) => {
+//   const cssPath = path.join(__dirname, "..", "src", "index.css");
+//   res.sendFile(cssPath);
+// });
+// app.get("/", (req, res, next) => {
+//   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+// });
 app.use((err, req, res, next) => {
   console.error(err);
 });

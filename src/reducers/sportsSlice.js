@@ -18,9 +18,6 @@ export const fetchAllSportsAsync = createAsyncThunk(
   }
 );
 
-
-
-
 export const sportsSlice = createSlice({
   name: "sports",
   initialState: [],
@@ -29,7 +26,6 @@ export const sportsSlice = createSlice({
     builder.addCase(fetchAllSportsAsync.fulfilled, (state, { payload }) => {
       return payload;
     });
-  
   },
 });
 export const selectSports = (state) => state.sports;

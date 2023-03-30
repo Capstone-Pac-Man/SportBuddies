@@ -1,15 +1,11 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Conversation = db.define(
-  "conversation",
-  {
-    selected: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-    },
+const Conversation = db.define("conversation", {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
   },
-  { timestamps: false }
-);
-
+});
 module.exports = Conversation;
