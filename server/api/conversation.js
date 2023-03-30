@@ -19,7 +19,25 @@ router.get("/", async (req, res, next) => {
     if (!conversations) {
       next(new Error("No conversations found"));
     }
-    res.send(conversations);
+    let updated = [];
+    await Promise.all(
+      conversations.map(async (e) => {
+        updated.push(
+          await Conversation.findByPk(e.id, {
+            include: {
+              model: User,
+              attributes: ["firstName", "lastName", "id"],
+              where: {
+                id: {
+                  [Sequelize.Op.not]: [user.id],
+                },
+              },
+            },
+          })
+        );
+      })
+    );
+    res.send(updated);
   } catch (e) {
     next(e);
   }
@@ -80,6 +98,32 @@ router.post("/", async (req, res, next) => {
       const finalConvo = filteredConversations;
       res.json(finalConvo);
     }
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.post("/:id", async (req, res, next) => {
+  try {
+    const user = await User.findByToken(req.cookies.token);
+    const convoId = req.params.id;
+    const { content } = req.body;
+    await ConversationMessage.create({
+      senderId: user.id,
+      conversationId: convoId,
+      content: content,
+    });
+    const conversationWithUsers = await Conversation.findByPk(convoId, {
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: ConversationMessage,
+        },
+      ],
+    });
+    res.json(conversationWithUsers);
   } catch (e) {
     next(e);
   }

@@ -10,7 +10,7 @@ export const fetchAllUserConversations = createAsyncThunk(
   "conversations/fetchAll",
   async (id) => {
     try {
-      const { data } = await instance.get(`/api/conversation/${id}`);
+      const { data } = await instance.get(`/api/conversation`);
       return data;
     } catch (e) {
       console.error(e);
@@ -22,9 +22,21 @@ export const addUserConversation = createAsyncThunk(
   "conversations/addUserConvo",
   async ({ userId, id }) => {
     try {
-      const { data } = await instance.post(`/api/conversation/${userId}`, {
-        id,
+      const { data } = await instance.post(`/api/conversation`, {
+        otherId: id,
       });
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+);
+
+export const fetchConversationMessages = createAsyncThunk(
+  "conversations/fetchMessages",
+  async (id) => {
+    try {
+      const { data } = await instance.get(`/api/conversation/${id}`);
       return data;
     } catch (e) {
       console.error(e);
@@ -34,10 +46,11 @@ export const addUserConversation = createAsyncThunk(
 
 export const updateSelectedConvo = createAsyncThunk(
   "conversations/updateSelectedConvo",
-  async (id) => {
+  async ({ id, content }) => {
     try {
-      const { data } = await instance.put(`/api/conversation/${id}`);
-
+      const { data } = await instance.post(`/api/conversation/${id}`, {
+        content: content,
+      });
       return data;
     } catch (e) {
       console.error(e);
@@ -47,17 +60,30 @@ export const updateSelectedConvo = createAsyncThunk(
 
 export const conversationSlice = createSlice({
   name: "conversations",
-  initialState: [],
+  initialState: {
+    status: null,
+    userConversations: [],
+    singleConversation: {},
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
       fetchAllUserConversations.fulfilled,
       (state, { payload }) => {
-        return payload;
+        state.userConversations = payload;
       }
     );
     builder.addCase(addUserConversation.fulfilled, (state, { payload }) => {
-      return payload;
+      state.userConversations = payload;
+    });
+    builder.addCase(
+      fetchConversationMessages.fulfilled,
+      (state, { payload }) => {
+        state.singleConversation = payload;
+      }
+    );
+    builder.addCase(updateSelectedConvo.fulfilled, (state, { payload }) => {
+      state.singleConversation = payload;
     });
   },
 });
