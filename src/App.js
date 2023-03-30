@@ -36,7 +36,9 @@ function App() {
 
   const [location, setLocation] = useState(false);
   useEffect(() => {
-    getLocation();
+    if (!sessionStorage.getItem("location")) {
+      getLocation();
+    }
     dispatch(fetchOneVenueAsync());
     if (user.id) {
       socket.emit("makeRoom", { id: user.id });
