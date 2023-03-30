@@ -53,7 +53,7 @@ const ZipInput = ({ location, setLocation }) => {
         if (user.fullName && data.features[0]) {
           axios
             .put(
-              "/api/users/me",
+              "http://localhost:5000/api/users/me",
               {
                 latitude: zipLocation.latitude,
                 longitude: zipLocation.longitude,

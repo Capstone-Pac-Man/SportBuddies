@@ -1,85 +1,85 @@
 const express = require("express");
 const router = express.Router();
-const {
-  Conversation,
-  Message,
-  UserConversation,
-  Recipient,
-  User,
-} = require("../db/index");
+const { Conversation, ConversationMessage, User } = require("../db/index");
+const Sequelize = require("sequelize");
 
-//GET api/conversation/:id
+//get All users conversations.
+router.get("/", async (req, res, next) => {
+  try {
+    const user = await User.findByToken(req.cookies.token);
+    if (!user) {
+      next(new Error("User not found"));
+    }
+    const conversations = await Conversation.findAll({
+      include: {
+        model: User,
+        where: { id: user.id },
+      },
+    });
+    if (!conversations) {
+      next(new Error("No conversations found"));
+    }
+    res.send(conversations);
+  } catch (e) {
+    next(e);
+  }
+});
 router.get("/:id", async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const allConversations = await Conversation.findAll({
+    const conversation = await Conversation.findByPk(req.params.id, {
       include: {
-        model: UserConversation,
-        where: {
-          userId: id,
-        },
-        include: [Recipient, Message],
+        model: ConversationMessage,
       },
     });
-    res.json(allConversations);
+    res.send(conversation);
   } catch (e) {
     next(e);
   }
 });
-
-//POST api/conversation/:id
-router.post("/:id", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const recipientId = req.body.id;
-    console.log(id);
-
-    const createConvo = await Conversation.create();
-
-    const user = await User.findByPk(+id);
-    const recipient = await User.findByPk(+recipientId);
-    await user.addConversation(createConvo);
-
-    const newUserConvo = await UserConversation.findOne({
-      where: {
-        conversationId: createConvo.id,
-      },
-    });
-    const newRecipient = await Recipient.create({
-      userConversationId: newUserConvo.id,
-      userId: recipient.id,
-      name: recipient.fullName,
-    });
-
-    await newUserConvo.addRecipient(newRecipient);
-
-    const allConversations = await Conversation.findAll({
-      include: {
-        model: UserConversation,
-        where: {
-          userId: id,
+    const user = await User.findByToken(req.cookies.token);
+    const id = user.id;
+    const { otherId } = req.body;
+    const conversations = await Conversation.findAll({
+      include: [
+        {
+          model: User,
+          required: true,
+          through: { attributes: [] },
+          where: { id: [id, otherId] },
+          group: ["conversation.id"],
+          having: Sequelize.literal(`COUNT(DISTINCT users.id) = 2`),
         },
-        include: {
-          model: Recipient,
-          where: {
-            userConversationId: newUserConvo.id,
-          },
-        },
-      },
+        { model: ConversationMessage },
+      ],
     });
-    res.json(allConversations);
-  } catch (e) {
-    next(e);
-  }
-});
-
-//PUT api/conversation/:id
-router.put("/:id", async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const selectedConvo = await Conversation.findByPk(id);
-
-    res.json(await selectedConvo.update({ selected: true }));
+    const filteredConversations = conversations.filter((conversation) => {
+      const userIds = conversation.users.map((user) => user.id);
+      return userIds.includes(id) && userIds.includes(otherId);
+    });
+    if (filteredConversations.length === 0) {
+      const conversation = await Conversation.create();
+      await conversation.addUser(id);
+      await conversation.addUser(otherId);
+      const conversationWithUsers = await Conversation.findByPk(
+        conversation.id,
+        {
+          include: [
+            {
+              model: User,
+            },
+            {
+              model: ConversationMessage,
+            },
+          ],
+        }
+      );
+      res.json(conversationWithUsers);
+    } else {
+      const finalConvo = filteredConversations;
+      res.json(finalConvo);
+    }
   } catch (e) {
     next(e);
   }

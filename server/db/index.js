@@ -3,10 +3,8 @@ const User = require("../db/models/User");
 const Venue = require("../db/models/Venue");
 const Sport = require("../db/models/Sport");
 const UserSport = require("../db/models/UserSport");
-const Message = require("../db/models/Message");
-const UserConversation = require("../db/models/UserConversation");
 const Conversation = require("../db/models/Conversation");
-const Recipient = require("../db/models/Recipient");
+const ConversationMessage = require("../db/models/ConversationMessage");
 
 User.belongsToMany(Sport, { through: UserSport });
 Sport.belongsToMany(User, { through: UserSport });
@@ -20,24 +18,30 @@ Sport.belongsToMany(Venue, { through: "venueSports" });
 
 //"Super" many-to-many associations for advanced eagerloading, check sequelize documentations for more details.
 
-User.belongsToMany(Conversation, { through: UserConversation });
-Conversation.belongsToMany(User, { through: UserConversation });
-UserConversation.belongsTo(User);
-UserConversation.belongsTo(Conversation);
-User.hasMany(UserConversation);
-Conversation.hasMany(UserConversation);
+// User.belongsToMany(Conversation, { through: UserConversation });
+// Conversation.belongsToMany(User, { through: UserConversation });
+// UserConversation.belongsTo(User);
+// UserConversation.belongsTo(Conversation);
+// User.hasMany(UserConversation);
+// Conversation.hasMany(UserConversation);
 
-Recipient.belongsTo(UserConversation);
-UserConversation.hasMany(Recipient);
+// Recipient.belongsTo(UserConversation);
+// UserConversation.hasMany(Recipient);
 
-UserConversation.hasMany(Message);
-Message.belongsTo(UserConversation);
+// UserConversation.hasMany(Message);
+// Message.belongsTo(UserConversation);
 
-Recipient.belongsTo(User);
-User.hasMany(Recipient, { foreignKey: "userId" });
+// Recipient.belongsTo(User);
+// User.hasMany(Recipient, { foreignKey: "userId" });
 
-User.hasMany(Message);
-Message.belongsTo(User);
+// User.hasMany(Message);
+// Message.belongsTo(User);
+
+User.belongsToMany(Conversation, { through: "conversationUsers" });
+Conversation.belongsToMany(User, { through: "conversationUsers" });
+
+ConversationMessage.belongsTo(Conversation, { foreignKey: "conversationId" });
+Conversation.hasMany(ConversationMessage, { foreignKey: "conversationId" });
 
 module.exports = {
   db,
@@ -45,8 +49,6 @@ module.exports = {
   Venue,
   Sport,
   UserSport,
-  Message,
-  UserConversation,
   Conversation,
-  Recipient,
+  ConversationMessage,
 };

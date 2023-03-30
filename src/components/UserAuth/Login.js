@@ -20,7 +20,7 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, email, password);
       // After successful login, send sign in request to backend api.
       const { data } = await axios.post(
-        "/api/users/login",
+        "http://localhost:5000/api/users/login",
         {
           email: auth.currentUser.email,
           uid: auth.currentUser.uid,
@@ -50,7 +50,7 @@ const Login = () => {
       console.log("SIGN IN SUCCESS");
 
       const { data } = await axios.post(
-        "/api/users/login",
+        "http://localhost:5000/api/users/login",
         {
           providerId: userCredential.user.providerData[0].providerId,
           name: userCredential.user.displayName,

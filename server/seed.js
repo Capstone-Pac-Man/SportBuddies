@@ -1,5 +1,13 @@
 const { findNonSerializableValue } = require("@reduxjs/toolkit");
-const { db, User, Sport, UserSport, Venue } = require("../server/db/index");
+const {
+  db,
+  User,
+  Sport,
+  UserSport,
+  Venue,
+  Conversation,
+  ConversationMessage,
+} = require("../server/db/index");
 const now = new Date();
 const futureDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 const futureUTC = futureDate.getTime();
@@ -565,6 +573,31 @@ const seed = async () => {
         await venue.addSport(sport);
       })
     );
+    const user1 = await User.findByPk(1);
+    const user2 = await User.findByPk(2);
+
+    const conversation1 = await Conversation.create();
+
+    await conversation1.addUser(user1);
+    await conversation1.addUser(user2);
+
+    await ConversationMessage.create({
+      senderId: user1.id,
+      content: "Hello",
+      conversationId: conversation1.id,
+    });
+    const user3 = await User.findByPk(3);
+
+    const conversation2 = await Conversation.create();
+
+    await conversation2.addUser(user1);
+    await conversation2.addUser(user3);
+
+    await ConversationMessage.create({
+      senderId: user3.id,
+      content: "Yes",
+      conversationId: conversation2.id,
+    });
 
     console.log("Seeding success, Pacman! ");
     db.close();
