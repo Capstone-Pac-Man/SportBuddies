@@ -15,10 +15,11 @@ import {
 } from "../reducers/userSlice";
 import { Link } from "react-router-dom";
 import LocationChange from "./locationChange";
+import socket from "../socket";
 
 const NavBar = ({ location, setLocation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const user = useSelector(selectUser);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -44,10 +44,21 @@ router.get("/", async (req, res, next) => {
 });
 router.get("/:id", async (req, res, next) => {
   try {
+    const user = await User.findByToken(req.cookies.token);
     const conversation = await Conversation.findByPk(req.params.id, {
-      include: {
-        model: ConversationMessage,
-      },
+      include: [
+        {
+          model: User,
+          where: {
+            id: {
+              [Sequelize.Op.not]: [user.id],
+            },
+          },
+        },
+        {
+          model: ConversationMessage,
+        },
+      ],
     });
     res.send(conversation);
   } catch (e) {
@@ -129,7 +140,8 @@ router.post("/:id", async (req, res, next) => {
   try {
     const user = await User.findByToken(req.cookies.token);
     const convoId = req.params.id;
-    const { content } = req.body;
+    const io = req.io;
+    const { content, otherId } = req.body;
     await ConversationMessage.create({
       senderId: user.id,
       conversationId: convoId,
@@ -145,6 +157,8 @@ router.post("/:id", async (req, res, next) => {
         },
       ],
     });
+    console.log(otherId);
+    io.to(otherId).emit("newMessage");
     res.json(conversationWithUsers);
   } catch (e) {
     next(e);

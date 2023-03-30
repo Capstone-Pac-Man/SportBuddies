@@ -34,8 +34,12 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("join_room", (data) => {
-    socket.join(data);
+  // socket.on("join_room", (data) => {
+  //   socket.join(data);
+  // });
+  socket.on("makeRoom", ({ id }) => {
+    socket.join(id);
+    console.log("joined room ", id);
   });
 
   socket.on("send_message", (data) => {
@@ -43,6 +47,10 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("receive_message", data); */
     socket.to(data.room).emit("receive_message", data);
   });
+});
+app.use((req, res, next) => {
+  req.io = io;
+  next();
 });
 /*server.listen(3001, () => {
   console.log("Pacman-$erver is running.");
