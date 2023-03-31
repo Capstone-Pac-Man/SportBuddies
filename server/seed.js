@@ -359,10 +359,22 @@ const users = [
     longitude: -73.98373599671615,
     latitude: 40.76525212347352,
   },
+  {
+    firstName: "Brian",
+    lastName: "Wong",
+    email: "bwong@gmail.com",
+    mobile: 1234567890,
+    availableTo: futureUTC,
+    address: "Brooklyn, 420 brooklyn",
+    city: "Brooklyn",
+    state: "NY",
+    userType: "player",
+    uid: "hellooworllddd1234567",
+    longitude: -73.95549,
+    latitude: 40.76697,
+  },
 ];
-////////////////////////////////////////////
-////////////////////////////////////////////
-////////////////////////////////////////////
+
 const venues = [
   {
     email: "paul@gmail.com",
@@ -521,7 +533,310 @@ const venueSport = [
   },
 ];
 
-const sports = ["Soccer", "Basketball", "Baseball", "Football"];
+const moreVenues = [
+  {
+    email: "central@gmail.com",
+    password: "12345678",
+    name: "Central Park",
+    address: "14 E 60th St, New York, NY 10022",
+    city: "New York",
+    state: "NY",
+    description:
+      "Central Park is an urban park in New York City located between the Upper West and Upper East Sides of Manhattan. It is the most visited urban park in the United States and one of the most filmed locations in the world.",
+    latitude: 40.7647215,
+    longitude: -73.9721745,
+    sports: [
+      "Basketball",
+      "Baseball",
+      "Soccer",
+      "Football",
+      "Tennis",
+      "Volleyball",
+    ],
+    hours: "6am to 1am",
+    imageUrl:
+      "https://a.cdn-hotels.com/gdcs/production116/d1103/0ffba831-3af6-4ec5-918b-edd67a21480e.jpg?impolicy=fcrop&w=800&h=533&q=medium",
+  },
+  {
+    email: "golden@gmail.com",
+    password: "12345678",
+    name: "Golden Gate Park",
+    address: "501 Stanyan St, San Francisco, CA 94117",
+    city: "San Francisco",
+    state: "CA",
+    description:
+      "Golden Gate Park is a large urban park consisting of 1,017 acres of public grounds in San Francisco, California. It is similar in shape but 20% larger than Central Park in New York.",
+    latitude: 37.7694209,
+    longitude: -122.4857421,
+    sports: ["Baseball", "Soccer", "Tennis"],
+    hours: "5am to 12am",
+    imageUrl:
+      "https://assets3.cbsnewsstatic.com/hub/i/r/2021/02/27/315017ac-dbd7-436e-8211-c4b271f63564/thumbnail/1200x630/cc7184e7060044027add645b27b668fe/Tennis-GG-Park-GOLDMAN-01.jpg",
+  },
+  {
+    email: "griffith@gmail.com",
+    password: "12345678",
+    name: "Griffith Park",
+    address: "4730 Crystal Springs Dr, Los Angeles, CA 90027",
+    city: "Los Angeles",
+    state: "CA",
+    description:
+      "Griffith Park is a large municipal park at the eastern end of the Santa Monica Mountains, in the Los Feliz neighborhood of Los Angeles, California. The park covers 4,310 acres of land, making it one of the largest urban parks in North America.",
+    latitude: 34.1367205,
+    longitude: -118.2947525,
+    sports: ["Baseball", "Soccer", "Tennis"],
+    hours: "5am to 10pm",
+    imageUrl:
+      "https://livingnewdeal.org/wp-content/uploads/2015/10/Tennis05.jpg",
+  },
+  {
+    email: "grant@gmail.com",
+    password: "12345678",
+    name: "Grant Park",
+    address: "337 E Randolph St, Chicago, IL 60601",
+    city: "Chicago",
+    state: "IL",
+    description:
+      "Grant Park is a large urban park in downtown Chicago, Illinois. The park is bounded by Michigan Avenue to the east, Columbus Drive to the west, Randolph Street to the north, and Roosevelt Road to the south. It is also known as 'Chicago's front yard'.",
+    latitude: 41.881624,
+    longitude: -87.6239069,
+    sports: [
+      "Basketball",
+      "Baseball",
+      "Soccer",
+      "Football",
+      "Tennis",
+      "Volleyball",
+    ],
+    hours: "6am to 11pm",
+    imageUrl:
+      "https://greatruns.com/wp-content/uploads/2016/11/Grant-Park-T.jpg",
+  },
+  {
+    email: "fairmount@gmail.com",
+    password: "12345678",
+    name: "Fairmount Park",
+    address: "Reservoir Dr, Philadelphia, PA 19121",
+    city: "Philadelphia",
+    state: "PA",
+    description:
+      "Fairmount Park is the largest municipal park in Philadelphia, Pennsylvania and the largest landscaped urban park in the United States. It is made up of 63 different neighborhoods, covering 2,052 acres.",
+    latitude: 39.9921051,
+    longitude: -75.1793732,
+    sports: ["Baseball", "Soccer", "Football", "Tennis", "Basketball"],
+    hours: "6am to 11pm",
+    imageUrl:
+      "https://myphillypark.org/app/uploads/2022/06/52029343663_518045dbbb_k-825x550.jpg",
+  },
+  {
+    email: "brooklynbridge@gmail.com",
+    password: "12345678",
+    name: "Brooklyn Bridge Park",
+    address: "334 Furman St, Brooklyn, NY 11201",
+    city: "Brooklyn",
+    state: "NY",
+    description:
+      "Brooklyn Bridge Park is a waterfront park in Brooklyn that offers stunning views of the Manhattan skyline. It features several sports fields and courts, including soccer, basketball, volleyball, and handball.",
+    latitude: 40.7025,
+    longitude: -73.9967,
+    sports: ["Soccer", "Basketball", "Volleyball"],
+    hours: "6am to 1am",
+    imageUrl:
+      "https://www.turnerconstruction.com/Files/ProjectImage?url=%2Fsites%2Fmarketingstories%2FMarketing%2520Story%2520Images%2Foriginal.b1af7fa2-54d7-4166-b86c-fcfdab3d23e1.jpg&width=707&height=470&crop=True&jpegQuality=95",
+  },
+
+  {
+    email: "hudson@gmail.com",
+    password: "12345678",
+    name: "Hudson River Park",
+    address: "353 West St, New York, NY 10014",
+    city: "New York",
+    state: "NY",
+    description:
+      "Hudson River Park is a scenic park along the Hudson River in Manhattan that offers various sports fields and courts, including basketball, soccer, volleyball, and tennis. It also has a skate park and a bike path.",
+    latitude: 40.7358,
+    longitude: -74.0086,
+    sports: ["Basketball", "Soccer", "Volleyball", "Tennis"],
+    hours: "6am to 1am",
+    imageUrl:
+      "https://hudsonriverpark.org/app/uploads/2012/03/Sponsor-HRPK-Volleyball-AVP-12.jpg",
+  },
+
+  {
+    email: "randall@gmail.com",
+    password: "12345678",
+    name: "Randall's Island Park",
+    address: "20 Randall's Island Park, New York, NY 10035",
+    city: "New York",
+    state: "NY",
+    description:
+      "Randall's Island Park is a large park on an island in the East River that features several sports fields and courts, including baseball, soccer, tennis, and golf. It also has a bike path and a running track.",
+    latitude: 40.7932,
+    longitude: -73.9219,
+    sports: ["Baseball", "Soccer", "Tennis"],
+    hours: "6am to 1am",
+    imageUrl:
+      "https://static01.nyt.com/images/2010/06/14/nyregion/randalls/randalls-articleLarge.jpg",
+  },
+
+  {
+    email: "flushing@gmail.com",
+    password: "12345678",
+    name: "Flushing Meadows Corona Park",
+    address: "Grand Central Pkwy, Queens, NY 11368",
+    city: "Queens",
+    state: "NY",
+    description:
+      "Flushing Meadows Corona Park is a large park in Queens that features several sports fields and courts, including baseball, soccer, tennis, and basketball. It also has a boating lake and a playground.",
+    latitude: 40.7449,
+    longitude: -73.8448,
+    sports: ["Baseball", "Soccer", "Tennis", "Basketball"],
+    hours: "6am to 1am",
+    imageUrl:
+      "https://static01.nyt.com/images/2011/08/26/arts/26JPFLUSHING5/26JPFLUSHING5-articleLarge.jpg?quality=75&auto=webp&disable=upscale",
+  },
+  {
+    email: "zilker@gmail.com",
+    password: "12345678",
+    name: "Zilker Metropolitan Park",
+    address: "2100 Barton Springs Rd, Austin, TX 78746",
+    city: "Austin",
+    state: "TX",
+    description:
+      "Zilker Metropolitan Park is a large park in Austin that offers various sports fields and courts, including soccer, volleyball, and basketball. It also has a disc golf course, a hiking trail, and a swimming pool.",
+    latitude: 30.2669,
+    longitude: -97.7724,
+    sports: ["Soccer", "Volleyball", "Basketball"],
+    hours: "5am to 10pm",
+    imageUrl: "https://live.staticflickr.com/8042/8059495886_f8baf3902b_b.jpg",
+  },
+
+  {
+    email: "katy@gmail.com",
+    password: "12345678",
+    name: "Katy Park",
+    address: "24927 Morton Rd, Katy, TX 77493",
+    city: "Katy",
+    state: "TX",
+    description:
+      "Katy Park is a large park in Katy that features several sports fields and courts, including baseball, soccer, and tennis. It also has a playground and a picnic area.",
+    latitude: 29.8013,
+    longitude: -95.8307,
+    sports: ["Baseball", "Soccer", "Tennis"],
+    hours: "6am to 10pm",
+    imageUrl:
+      "https://fastly.4sqi.net/img/general/600x600/MGTQDV5HNSSPWQW5Z2C4XU5VSX02DYQJQL2GBA45ZBXS1T1K.jpg",
+  },
+
+  {
+    email: "memorial@gmail.com",
+    password: "12345678",
+    name: "Memorial Park",
+    address: "6501 Memorial Dr, Houston, TX 77007",
+    city: "Houston",
+    state: "TX",
+    description:
+      "Memorial Park is a large park in Houston that offers various sports fields and courts, including baseball, soccer, and tennis. It also has a golf course, a running trail, and a fitness center.",
+    latitude: 29.7637,
+    longitude: -95.4486,
+    sports: ["Baseball", "Soccer", "Tennis"],
+    hours: "6am to 10pm",
+    imageUrl:
+      "https://s3-media0.fl.yelpcdn.com/bphoto/xVmfAjjU5llbf2ODPcQ5_w/348s.jpg",
+  },
+
+  {
+    email: "oakpoint@gmail.com",
+    password: "12345678",
+    name: "Oak Point Park and Nature Preserve",
+    address: "5901 Los Rios Blvd, Plano, TX 75074",
+    city: "Plano",
+    state: "TX",
+    description:
+      "Oak Point Park and Nature Preserve is a large park in Plano that features several sports fields and courts, including soccer, baseball, and volleyball. It also has a bike path, a fishing pond, and a nature preserve.",
+    latitude: 33.0582,
+    longitude: -96.6937,
+    sports: ["Soccer", "Baseball", "Volleyball"],
+    hours: "6am to 10pm",
+    imageUrl:
+      "https://www.putinbay.org/wp-content/uploads/2020/01/volleyballclassic.jpg",
+  },
+  {
+    email: "clearwater@gmail.com",
+    password: "12345678",
+    name: "Clearwater Beach Park",
+    address: "51 Bay Esplanade, Clearwater, FL 33767",
+    city: "Clearwater",
+    state: "FL",
+    description:
+      "Clearwater Beach Park is a large park in Clearwater that offers various sports fields and courts, including volleyball, basketball, and tennis. It also has a fishing pier, a playground, and a picnic area.",
+    latitude: 27.979,
+    longitude: -82.8252,
+    sports: ["Volleyball", "Basketball", "Tennis"],
+    hours: "6am to 10pm",
+    imageUrl: "https://spcfc.reel-scout.com/up_images/5/md/2829115.jpg",
+  },
+
+  {
+    email: "crandon@gmail.com",
+    password: "12345678",
+    name: "Crandon Park",
+    address: "6747 Crandon Blvd, Key Biscayne, FL 33149",
+    city: "Key Biscayne",
+    state: "FL",
+    description:
+      "Crandon Park is a large park in Key Biscayne that features several sports fields and courts, including soccer, tennis, and golf. It also has a beach, a nature center, and a marina.",
+    latitude: 25.7214,
+    longitude: -80.1673,
+    sports: ["Soccer", "Tennis", "Volleyball"],
+    hours: "8am to sunset",
+    imageUrl:
+      "https://www.kbhistory.org/wp-content/uploads/2012/12/Beach-club-volleyball.jpg",
+  },
+
+  {
+    email: "eola@gmail.com",
+    password: "12345678",
+    name: "Lake Eola Park",
+    address: "512 E Washington St, Orlando, FL 32801",
+    city: "Orlando",
+    state: "FL",
+    description:
+      "Lake Eola Park is a large park in Orlando that offers various sports fields and courts, including basketball, tennis, and volleyball. It also has a lake, a playground, and a swan boat rental.",
+    latitude: 28.5432,
+    longitude: -81.3709,
+    sports: ["Basketball", "Tennis", "Volleyball"],
+    hours: "6am to midnight",
+    imageUrl:
+      "https://www.orlando.gov/files/sharedassets/public/departments/parks-amp-rec/lake-eola/lake-eola-park_prana_danielmyers.jpg",
+  },
+
+  {
+    email: "bayview@gmail.com",
+    password: "12345678",
+    name: "Bayview Park",
+    address: "2001 E Lloyd St, Pensacola, FL 32503",
+    city: "Pensacola",
+    state: "FL",
+    description:
+      "Bayview Park is a large park in Pensacola that features several sports fields and courts, including baseball, soccer, and tennis. It also has a playground, a dog park, and a boat launch.",
+    latitude: 30.4481,
+    longitude: -87.2007,
+    sports: ["Baseball", "Soccer", "Tennis"],
+    hours: "6am to 10pm",
+    imageUrl:
+      "https://outdoorgulfcoast.com/wp-content/uploads/2009/09/tennis-courts.jpg",
+  },
+];
+
+const sports = [
+  "Soccer",
+  "Basketball",
+  "Baseball",
+  "Football",
+  "Tennis",
+  "Volleyball",
+];
 
 const seed = async () => {
   try {
@@ -573,6 +888,23 @@ const seed = async () => {
         await venue.addSport(sport);
       })
     );
+
+    await Promise.all(
+      moreVenues.map(async (venue) => {
+        const currentVenue = await Venue.create(venue);
+        if (venue.sports) {
+          venue.sports.map(async (sport) => {
+            const findSport = await Sport.findOne({
+              where: {
+                name: sport,
+              },
+            });
+            await currentVenue.addSport(findSport);
+          });
+        }
+      })
+    );
+
     const user1 = await User.findByPk(1);
     const user2 = await User.findByPk(2);
 

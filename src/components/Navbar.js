@@ -43,11 +43,11 @@ const NavBar = ({ location, setLocation }) => {
     }
   };
   let isAvailableToInFuture;
-  if (user.availableTo) {
-    const currentTime = Date.now();
-    const availableToTime = user.availableTo;
-    isAvailableToInFuture = availableToTime > currentTime;
-  }
+  // if (user.availableTo) {
+  //   const currentTime = Date.now();
+  //   const availableToTime = user.availableTo;
+  //   isAvailableToInFuture = availableToTime > currentTime;
+  // }
 
   return (
     <Navbar bg="dark" expand="lg" variant="dark" style={{ width: "100%" }}>
