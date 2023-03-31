@@ -4,7 +4,6 @@ import { authenticateLogin } from "../../reducers/venueAuthSlice";
 import { Form, Button, Container, Card, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchOneVenueAsync } from "../../reducers/venueAuthSlice";
-import { editUserAsync } from "../../reducers/userSlice";
 
 function Login() {
   const [email, setEmail] = useState("");

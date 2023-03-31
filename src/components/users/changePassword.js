@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { Modal, Button, Form, Row } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import { auth } from "../../config/firebase";
 import {
   EmailAuthProvider,
@@ -102,8 +102,7 @@ export const ChangePassword = () => {
             className="myBtn"
             type="submit"
             onClick={handleSubmit}
-            disabled={!oldPassword || !password}
-          >
+            disabled={!oldPassword || !password}>
             Change
           </Button>
         </Modal.Footer>

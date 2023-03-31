@@ -108,7 +108,7 @@ router.put("/me/location", async (req, res, next) => {
 router.put("/me", async (req, res, next) => {
   try {
     const { sportId, skillLevel, status, imageUrl, ...rest } = req.body;
-    // Use authentication class Function
+
     const user = await User.findByToken(req.cookies.token);
 
     if (sportId) {
@@ -162,20 +162,18 @@ router.get("/:id", async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   try {
-    // Take in address and convert it to coordinates. Save address state.
     const now = Date.now();
     const reqUser = await User.findByToken(req.cookies.token);
     let users = [];
-    // axios.get("/api/users", {params: {}})
+
     const { filters, longitude, latitude, distance } = req.query;
-    // const dist = parseInt(distance);
+
     const dist = 20;
     const lat = latitude ? parseFloat(latitude) : 40.77193565657;
     const long = longitude ? parseFloat(longitude) : -73.974863;
     let filter = [];
     const { longOffset, latOffset } = Offset(long, lat);
-    // Check distance between user coords and all state users coordinates.
-    // Return back all users within query distance
+
     if (filters) {
       filter = JSON.parse(filters);
     }

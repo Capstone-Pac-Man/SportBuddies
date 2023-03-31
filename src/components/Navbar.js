@@ -8,14 +8,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { Logout } from "./UserAuth/LogOut";
 import { SearchBar } from "../components/searchBarSports";
-import {
-  fetchOneUserAsync,
-  selectUser,
-  editUserAsync,
-} from "../reducers/userSlice";
+import { fetchOneUserAsync, editUserAsync } from "../reducers/userSlice";
 import { Link } from "react-router-dom";
 import LocationChange from "./locationChange";
-import socket from "../socket";
 
 const NavBar = ({ location, setLocation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -79,16 +74,14 @@ const NavBar = ({ location, setLocation }) => {
                     <button
                       className="btn btn-outline-danger btn-sm"
                       value="remove"
-                      onClick={handleAvailable}
-                    >
+                      onClick={handleAvailable}>
                       Make Unavailable
                     </button>
                   ) : (
                     <button
                       className="btn btn-outline-success btn-sm"
                       value="add"
-                      onClick={handleAvailable}
-                    >
+                      onClick={handleAvailable}>
                       Make Available
                     </button>
                   )}
@@ -112,8 +105,7 @@ const NavBar = ({ location, setLocation }) => {
             <SearchBar />
             <Nav.Item
               style={{ display: "flex", alignItems: "center", paddingLeft: 20 }}
-              className="link nav-link d-flex"
-            >
+              className="link nav-link d-flex">
               <LocationChange location={location} setLocation={setLocation} />
             </Nav.Item>
           </div>

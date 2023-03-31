@@ -25,26 +25,9 @@ router.get("/:sport", async (req, res, next) => {
         },
       },
     });
-    // const users = await User.findAll({
-    //   include: {
-    //     model: Sport,
-    //     where: {
-    //       id : sportObj.id
-    //     }
-    //   },
-    // });
-    // const venues = await Venue.findAll({
-    //   include: {
-    //     model: Sport,
-    //     where: {
-    //       id : sportObj.id
-    //     }
-    //   },
-    // });
+
     res.json({
       sport: sportObj,
-      // users: users,
-      // venues: venues
     });
   } catch (e) {
     next(e);

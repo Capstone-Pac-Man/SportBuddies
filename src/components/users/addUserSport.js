@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Modal, Button, Form } from "react-bootstrap";
@@ -35,8 +35,7 @@ export const AddUserSport = () => {
       <Button
         className="btn-sm btn-dark"
         style={{ marginLeft: 12 }}
-        onClick={handleShow}
-      >
+        onClick={handleShow}>
         Add Sports
       </Button>
       <Modal show={show} onHide={handleClose}>
@@ -103,8 +102,7 @@ export const AddUserSport = () => {
             className="myBtn"
             type="submit"
             onClick={handleSubmit}
-            disabled={!skillLevel || !sportId}
-          >
+            disabled={!skillLevel || !sportId}>
             Add
           </Button>
         </Modal.Footer>

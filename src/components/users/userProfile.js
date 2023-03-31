@@ -18,7 +18,6 @@ import {
   Table,
   Badge,
 } from "react-bootstrap";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AddUserSport } from "./addUserSport";
 import { signOut } from "firebase/auth";
@@ -30,8 +29,6 @@ export const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
-
-  console.log("USER PROFILE", user);
 
   const isAuth = localStorage.getItem("auth");
 
@@ -82,8 +79,7 @@ export const UserProfile = () => {
               display: "flex",
               justifyContent: "space-between",
               padding: "1rem",
-            }}
-          >
+            }}>
             <h1> Welcome, {user.fullName}!</h1>
             {isAvailableToInFuture ? (
               <button
@@ -95,8 +91,7 @@ export const UserProfile = () => {
                   width: 130,
                   minHeight: 30,
                   height: "fit-content",
-                }}
-              >
+                }}>
                 Make unavailable
               </button>
             ) : (
@@ -108,8 +103,7 @@ export const UserProfile = () => {
                   marginTop: 5,
                   width: 130,
                   height: "fit-content",
-                }}
-              >
+                }}>
                 Make available
               </button>
             )}
@@ -122,45 +116,41 @@ export const UserProfile = () => {
                 <ChangePassword />
               </Accordion.Header>
               <Accordion.Body>
- 								<div xs>
-									<div
-										className="d-flex justify-content-between"
-										style={{ flexWrap: "wrap" }}>
-										<div>
-											<Card.Img
-												src={user.imageUrl}
-												className="img-fluid rounded-start "
-												style={{ width: "240px", minWidth: "120px" }}
-												alt="avatar"></Card.Img>
-										</div>
-										<div className="justify-self-stretch">
-											<Table
-												striped
-												bordered
-												hover
-												size="lg">
-												<thead>
-													<tr>
-														<th>Full Name</th>
-														<th>Email</th>
-														<th>Phone Number</th>
-														<th>Zip Code</th>
-														<th>State</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>{user.fullName}</td>
-														<td>{user.email}</td>
-														<td>{user.mobile}</td>
-														<td>{user.zipcode}</td>
-														<td>{user.state}</td>
-													</tr>
-												</tbody>
-											</Table>
-										</div>
-									</div>
-								</div>
+                <div xs>
+                  <div
+                    className="d-flex justify-content-between"
+                    style={{ flexWrap: "wrap" }}>
+                    <div>
+                      <Card.Img
+                        src={user.imageUrl}
+                        className="img-fluid rounded-start "
+                        style={{ width: "240px", minWidth: "120px" }}
+                        alt="avatar"></Card.Img>
+                    </div>
+                    <div className="justify-self-stretch">
+                      <Table striped bordered hover size="lg">
+                        <thead>
+                          <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Zip Code</th>
+                            <th>State</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{user.fullName}</td>
+                            <td>{user.email}</td>
+                            <td>{user.mobile}</td>
+                            <td>{user.zipcode}</td>
+                            <td>{user.state}</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </div>
+                  </div>
+                </div>
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
@@ -214,8 +204,7 @@ export const UserProfile = () => {
                                         sportId: elem.userSport.sportId,
                                       })
                                     )
-                                  }
-                                >
+                                  }>
                                   Delete
                                 </Button>
                               </td>

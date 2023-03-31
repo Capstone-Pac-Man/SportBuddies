@@ -1,11 +1,7 @@
-// ## JW
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
-
-/* user model has: name, email, imageUrl, mobile, availableFrom, 
-availableTo,address, city, country and userType. */
 
 const instance = axios.create({
   baseURL: "http://localhost:5000",
@@ -15,7 +11,6 @@ const instance = axios.create({
 export const fetchOneUserAsync = createAsyncThunk(
   "users/fetchOne",
   async () => {
-    // does the above async need a parameter....?
     try {
       const { data } = await instance.get(`/api/users/me`);
       return data;
@@ -39,7 +34,7 @@ export const signUpThunk = createAsyncThunk(
       });
       return data;
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 );
@@ -56,7 +51,7 @@ export const addUserSportAsync = createAsyncThunk(
       });
       return data;
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 );
@@ -68,9 +63,6 @@ export const deleteUserSportAsync = createAsyncThunk(
     return data;
   }
 );
-
-/* user model has name, email, imageUrl, mobile, availableFrom, 
-availableTo,address, city, country and userType. */
 
 export const editUserAsync = createAsyncThunk(
   "users/editOne",
@@ -92,8 +84,6 @@ export const editUserAsync = createAsyncThunk(
     skillLevel,
     status,
   }) => {
-    console.log("UID IN SLLICE", uid);
-
     const { data } = await instance.put(`/api/users/me`, {
       firstName,
       lastName,

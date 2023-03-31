@@ -11,7 +11,6 @@ export const fetchAllRelatedToSportAsync = createAsyncThunk(
   async (sport) => {
     let response = {};
     try {
-      console.log(sport);
       const { data } = await instance.get(`/api/sports/${sport}`);
       const userQuery = JSON.stringify([{ sportId: data.sport.id }]);
       const venueQuery = JSON.stringify([data.sport.name]);
@@ -47,10 +46,9 @@ export const fetchAllRelatedToSportAsync = createAsyncThunk(
         });
         response.venues = venues.data;
       }
-      console.log("DATA", response);
       return response;
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 );

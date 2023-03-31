@@ -210,28 +210,24 @@ const VenueSignUp = () => {
               }
               variant="primary"
               type="submit"
-              className="myBtn"
-            >
+              className="myBtn">
               Sign Up
             </Button>
             <br></br>
             <br></br>
-						<Form.Group className="d-flex justify-content-start align-items-center">
-							<Row>
-								<Form.Label>Already have an account?</Form.Label>
-								<Link
-									to="/venue/login"
-									style={{ color: "black" }}>
-									Sign In
-								</Link>
-							</Row>
-						</Form.Group>
+            <Form.Group className="d-flex justify-content-start align-items-center">
+              <Row>
+                <Form.Label>Already have an account?</Form.Label>
+                <Link to="/venue/login" style={{ color: "black" }}>
+                  Sign In
+                </Link>
+              </Row>
+            </Form.Group>
           </Form>
         </Card.Body>
       </Card>
     </Container>
   );
-
 };
 
 export default VenueSignUp;

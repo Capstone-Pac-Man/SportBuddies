@@ -16,8 +16,6 @@ router.get("/", async (req, res, next) => {
     let filter = [];
     let venues = [];
     const { longOffset, latOffset } = Offset(long, lat);
-    // Check distance between user coords and all state users coordinates.
-    // Return back all users within query distance
     if (filters) {
       const temp = JSON.parse(filters);
       const sports = await Sport.findAll({
@@ -154,7 +152,6 @@ router.delete("/:id", async (req, res, next) => {
 router.put("/", async (req, res, next) => {
   try {
     const { id, ...updated } = req.body;
-    console.log(id);
     const venue = await Venue.findByPk(id);
     res.json(await venue.update(updated));
   } catch (err) {

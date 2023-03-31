@@ -46,9 +46,6 @@ const Login = () => {
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
 
-      //**FOR NOW** console.log userCredential.user to see information offered
-      console.log("SIGN IN SUCCESS");
-
       const { data } = await axios.post(
         "http://localhost:5000/api/users/login",
         {
@@ -107,16 +104,14 @@ const Login = () => {
             <Button
               type="submit"
               className="myBtn"
-              disabled={email === "" || password.length === 0}
-            >
+              disabled={email === "" || password.length === 0}>
               Log in
             </Button>
             <br></br>
             <Button
               variant="outline-dark"
               className="mt-4 pr-3"
-              onClick={signInWithGoogle}
-            >
+              onClick={signInWithGoogle}>
               <img
                 className="google"
                 alt=""

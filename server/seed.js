@@ -1,9 +1,7 @@
-const { findNonSerializableValue } = require("@reduxjs/toolkit");
 const {
   db,
   User,
   Sport,
-  UserSport,
   Venue,
   Conversation,
   ConversationMessage,
@@ -360,9 +358,7 @@ const users = [
     latitude: 40.76525212347352,
   },
 ];
-////////////////////////////////////////////
-////////////////////////////////////////////
-////////////////////////////////////////////
+
 const venues = [
   {
     email: "paul@gmail.com",

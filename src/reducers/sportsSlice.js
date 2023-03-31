@@ -13,7 +13,7 @@ export const fetchAllSportsAsync = createAsyncThunk(
       const { data } = await instance.get("/api/sports");
       return data;
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 );

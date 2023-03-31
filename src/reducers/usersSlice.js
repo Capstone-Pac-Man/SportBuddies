@@ -24,7 +24,6 @@ export const fetchAllUsersAsync = createAsyncThunk(
           return data;
         } else {
           const { filters } = params;
-          console.log(filters);
           const { data } = await instance.get(`/api/users/`, {
             params: {
               latitude: latitude,
