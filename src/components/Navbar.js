@@ -42,6 +42,7 @@ const NavBar = ({ location, setLocation }) => {
     }
   };
   let isAvailableToInFuture;
+
   if (user) {
     if (user.availableTo) {
       const currentTime = Date.now();
