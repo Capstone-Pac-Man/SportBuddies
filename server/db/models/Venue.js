@@ -120,7 +120,6 @@ Venue.findByToken = async function (token) {
 };
 
 const hashPassword = async (venue) => {
-  //in case the password has been changed, we want to encrypt it with bcrypt
   if (venue.changed("password")) {
     venue.password = await bcrypt.hash(venue.password, SALT_ROUNDS);
   }

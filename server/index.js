@@ -20,9 +20,7 @@ app.use(
     origin: "http://localhost:3000",
     credentials: true,
   })
-); // MIGHT need to edit these credentials. possibly.
-
-// MAYBE cut this, becase we already HAVE a server listening
+);
 
 const server = http.createServer(app);
 
@@ -36,7 +34,6 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   socket.on("makeRoom", ({ id }) => {
     socket.join(id);
-    console.log("joined room ", id);
   });
 
   socket.on("send_message", (data) => {
