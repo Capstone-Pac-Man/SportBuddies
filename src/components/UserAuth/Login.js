@@ -4,7 +4,7 @@ import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { Form, Button, Container, Card, Row, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { editUserAsync } from "../../reducers/userSlice";
 
 const Login = () => {
@@ -19,7 +19,6 @@ const Login = () => {
     try {
       e.preventDefault();
       await signInWithEmailAndPassword(auth, email, password);
-      // After successful login, send sign in request to backend api.
       const { data } = await axios.post(
         "http://localhost:5000/api/users/login",
         {
@@ -39,7 +38,6 @@ const Login = () => {
       setEmail("");
       setPassword("");
     } catch (err) {
-      console.log("ERROR!!", err);
       setErrorForm("Oops, your credentials are wrong. Try again");
       setEmail("");
       setPassword("");
@@ -49,9 +47,6 @@ const Login = () => {
   const signInWithGoogle = async () => {
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
-
-      //**FOR NOW** console.log userCredential.user to see information offered
-      console.log("SIGN IN SUCCESS");
 
       const { data } = await axios.post(
         "http://localhost:5000/api/users/login",
@@ -114,8 +109,7 @@ const Login = () => {
             <Button
               type="submit"
               className="myBtn"
-              disabled={email === "" || password.length === 0}
-            >
+              disabled={email === "" || password.length === 0}>
               Log in
             </Button>
             <br></br>
@@ -123,8 +117,7 @@ const Login = () => {
             <Button
               variant="outline-dark"
               className="mt-4 pr-3"
-              onClick={signInWithGoogle}
-            >
+              onClick={signInWithGoogle}>
               <img
                 className="google"
                 alt=""

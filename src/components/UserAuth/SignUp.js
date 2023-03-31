@@ -10,7 +10,6 @@ import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { editUserAsync } from "../../reducers/userSlice";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -39,7 +38,6 @@ const SignUp = () => {
       }
       await signInWithEmailAndPassword(auth, email, password);
 
-      console.log("SIGN UP SUCCESS");
       toast.success(
         auth.currentUser.displayName
           ? `Welcome ${auth.currentUser.displayName}!`
@@ -202,8 +200,7 @@ const SignUp = () => {
               }
               variant="primary"
               type="submit"
-              className="myBtn"
-            >
+              className="myBtn">
               Sign Up
             </Button>
             <br></br>

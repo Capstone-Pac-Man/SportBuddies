@@ -1,10 +1,4 @@
-// THIS IS GOING TO BE VENUE CARD
-// THIS IS GOING TO BE VENUE CARD
-// THIS IS GOING TO BE VENUE CARD
-// THIS IS GOING TO BE VENUE CARD
-
 import Card from "react-bootstrap/Card";
-// import { SingleUserPage } from "../users/singleUserPage";
 import Venue from "../venue";
 
 export default function VenueCard({ venue }) {
