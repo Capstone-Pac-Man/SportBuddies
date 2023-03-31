@@ -79,7 +79,6 @@ const Venue = db.define(
 const SALT_ROUNDS = 5;
 
 Venue.prototype.correctPassword = function (candidatePwd) {
-  //we need to compare the plain version to an encrypted version of the password
   return bcrypt.compare(candidatePwd, this.password);
 };
 
@@ -120,7 +119,6 @@ Venue.findByToken = async function (token) {
 };
 
 const hashPassword = async (venue) => {
-  //in case the password has been changed, we want to encrypt it with bcrypt
   if (venue.changed("password")) {
     venue.password = await bcrypt.hash(venue.password, SALT_ROUNDS);
   }
