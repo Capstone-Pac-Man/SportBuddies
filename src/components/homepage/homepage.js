@@ -29,7 +29,7 @@ export const HomePage = ({ location, setLocation }) => {
         const locationParse = JSON.parse(sessionStorage.getItem("location"));
         axios
           .put(
-            "/api/users/me",
+            "http://localhost:5000/api/users/me",
             {
               latitude: locationParse.latitude,
               longitude: locationParse.longitude,
