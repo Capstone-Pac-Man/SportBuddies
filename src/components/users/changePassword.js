@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Modal, Button, Form } from "react-bootstrap";
 import { auth } from "../../config/firebase";
@@ -14,12 +14,13 @@ export const ChangePassword = () => {
   const [show, setShow] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
-  if (!auth.currentUser) return "Loading";
-
-  const credential = EmailAuthProvider.credential(
-    auth.currentUser.email,
-    oldPassword
-  );
+  let credential;
+  if (auth.currentUser) {
+    credential = EmailAuthProvider.credential(
+      auth.currentUser.email,
+      oldPassword
+    );
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

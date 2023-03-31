@@ -60,7 +60,8 @@ export default function Venues() {
                           <Form.Check
                             type="checkbox"
                             id={e.name}
-                            label={e.name}></Form.Check>
+                            label={e.name}
+                          ></Form.Check>
                         </h5>
                       </div>
                     );
@@ -73,18 +74,21 @@ export default function Venues() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-              }}>
+              }}
+            >
               <Button
                 style={{ margin: "1rem" }}
                 onClick={handleClear}
-                className="btn btn-small btn-danger">
+                className="btn btn-small btn-danger"
+              >
                 Clear
               </Button>
 
               <Button
                 style={{ margin: "1rem" }}
                 onClick={handleApply}
-                className="btn btn-small btn-dark">
+                className="btn btn-small btn-dark"
+              >
                 Apply
               </Button>
             </div>
@@ -111,9 +115,19 @@ export default function Venues() {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    width: "80%",
-                  }}>
-                  <Card.Title>{e.name}</Card.Title>
+                    width: "75%",
+                  }}
+                >
+                  <Card.Title
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      maxWidth: "90%",
+                    }}
+                  >
+                    {e.name}
+                  </Card.Title>
                   <Card.Subtitle className="text-muted">
                     {e.distance.toFixed(1)} miles away
                   </Card.Subtitle>
