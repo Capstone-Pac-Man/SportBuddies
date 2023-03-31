@@ -1,12 +1,12 @@
 const { findNonSerializableValue } = require("@reduxjs/toolkit");
 const {
-	db,
-	User,
-	Sport,
-	UserSport,
-	Venue,
-	Conversation,
-	ConversationMessage,
+  db,
+  User,
+  Sport,
+  UserSport,
+  Venue,
+  Conversation,
+  ConversationMessage,
 } = require("../server/db/index");
 const now = new Date();
 const futureDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
@@ -376,163 +376,162 @@ const users = [
 ];
 
 const venues = [
-	{
-		email: "paul@gmail.com",
-		password: "12345678",
-		name: "Paul's Pitches",
-		address: "2903 NJ-138",
-		city: "Wall Township",
-		state: "NJ",
-		description: "Soccer pitches, baseball fields and climbing walls",
-		hours: "7a to 7p",
-		imageUrl:
-			"https://images.unsplash.com/photo-1566349872260-a1d88307b698?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3802&q=80",
-		latitude: 40.1699644,
-		longitude: -74.0806924,
-	},
-	{
-		email: "curt@gmail.com",
-		password: "12345678",
-		name: "Curt's Clubs",
-		address: "1030 Fulton Street",
-		city: "Brooklyn",
-		state: "NY",
-		description: "Driving range + mini golf. Great sandwiches, too.",
-		hours: "6a to 8p",
-		imageUrl:
-			"https://images.unsplash.com/photo-1633328514190-f69982416e90?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80",
-		latitude: 40.68161,
-		longitude: -73.9591971,
-	},
-	{
-		email: "rhonda@gmail.com",
-		password: "12345678",
-		name: "Rhonda's Rings & Rinks",
-		address: "11475 E Via Linda",
-		city: "Scottsdale",
-		state: "AZ",
-		description: "Hockey rinks and boxing rings",
-		hours: "9a to 11p",
-		imageUrl:
-			"https://images.unsplash.com/photo-1607863400985-8d3bc50e3fd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2150&q=80",
-		latitude: 33.5889916,
-		longitude: -111.8339069,
-	},
-	{
-		email: "courtney@gmail.com",
-		password: "12345678",
-		name: "Courtney Fields' Courts & Fields",
-		address: "105 West 28th Street",
-		city: "NY",
-		state: "NY",
-		description: "football fields and basketball courts. Volleyball too!",
-		hours: "6a to 11p",
-		imageUrl:
-			"https://images.unsplash.com/photo-1443029433954-f508cb9936b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
-		latitude: 40.746472,
-		longitude: -73.990957,
-	},
+  {
+    email: "paul@gmail.com",
+    password: "12345678",
+    name: "Paul's Pitches",
+    address: "2903 NJ-138",
+    city: "Wall Township",
+    state: "NJ",
+    description: "Soccer pitches, baseball fields and climbing walls",
+    hours: "7a to 7p",
+    imageUrl:
+      "https://images.unsplash.com/photo-1566349872260-a1d88307b698?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3802&q=80",
+    latitude: 40.1699644,
+    longitude: -74.0806924,
+  },
+  {
+    email: "curt@gmail.com",
+    password: "12345678",
+    name: "Curt's Clubs",
+    address: "1030 Fulton Street",
+    city: "Brooklyn",
+    state: "NY",
+    description: "Driving range + mini golf. Great sandwiches, too.",
+    hours: "6a to 8p",
+    imageUrl:
+      "https://images.unsplash.com/photo-1633328514190-f69982416e90?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80",
+    latitude: 40.68161,
+    longitude: -73.9591971,
+  },
+  {
+    email: "rhonda@gmail.com",
+    password: "12345678",
+    name: "Rhonda's Rings & Rinks",
+    address: "11475 E Via Linda",
+    city: "Scottsdale",
+    state: "AZ",
+    description: "Hockey rinks and boxing rings",
+    hours: "9a to 11p",
+    imageUrl:
+      "https://images.unsplash.com/photo-1607863400985-8d3bc50e3fd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2150&q=80",
+    latitude: 33.5889916,
+    longitude: -111.8339069,
+  },
+  {
+    email: "courtney@gmail.com",
+    password: "12345678",
+    name: "Courtney Fields' Courts & Fields",
+    address: "105 West 28th Street",
+    city: "NY",
+    state: "NY",
+    description: "football fields and basketball courts. Volleyball too!",
+    hours: "6a to 11p",
+    imageUrl:
+      "https://images.unsplash.com/photo-1443029433954-f508cb9936b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
+    latitude: 40.746472,
+    longitude: -73.990957,
+  },
 
-	{
-		email: "drum@gmail.com",
-		password: "12345678",
-		name: "Drum Point Sports Complex",
-		address: "Brick Boulevard",
-		city: "Brick Township",
-		state: "NJ",
-		description: "Skate park, dog parks, baseball & basketball",
-		hours: "730a to 4p",
-		imageUrl:
-			"https://fastly.4sqi.net/img/general/600x600/36698354_qN0gwHHd-8jryGYJMkI8i1oW7B469u8E2cXHf7Mrsyw.jpg",
-		latitude: 40.04160778453462,
-		longitude: -74.13783195868344,
-	},
+  {
+    email: "drum@gmail.com",
+    password: "12345678",
+    name: "Drum Point Sports Complex",
+    address: "Brick Boulevard",
+    city: "Brick Township",
+    state: "NJ",
+    description: "Skate park, dog parks, baseball & basketball",
+    hours: "730a to 4p",
+    imageUrl:
+      "https://fastly.4sqi.net/img/general/600x600/36698354_qN0gwHHd-8jryGYJMkI8i1oW7B469u8E2cXHf7Mrsyw.jpg",
+    latitude: 40.04160778453462,
+    longitude: -74.13783195868344,
+  },
 
-	{
-		email: "philly@gmail.com",
-		password: "12345678",
-		name: "Philadelphia Sports Complex Special Services District",
-		address: "3300 South 7th Street Suite #1",
-		city: "Philadelphia",
-		state: "PA",
-		description: "PSCSSD offers every known sport.",
-		hours: "730a to 4p",
-		imageUrl: "https://storage.googleapis.com/clio-images/12981.22386.jpg",
-		latitude: 39.906594516524855,
-		longitude: -75.16318365087093,
-	},
+  {
+    email: "philly@gmail.com",
+    password: "12345678",
+    name: "Philadelphia Sports Complex Special Services District",
+    address: "3300 South 7th Street Suite #1",
+    city: "Philadelphia",
+    state: "PA",
+    description: "PSCSSD offers every known sport.",
+    hours: "730a to 4p",
+    imageUrl: "https://storage.googleapis.com/clio-images/12981.22386.jpg",
+    latitude: 39.906594516524855,
+    longitude: -75.16318365087093,
+  },
 ];
 
 const userSport = [
-	{
-		skillLevel: "intermediate",
-		status: "active",
-		userId: 1,
-		sportId: 1,
-	},
-	{
-		status: "active",
-		userId: 2,
-		sportId: 1,
-	},
-	{
-		status: "active",
-		userId: 3,
-		sportId: 4,
-	},
-	{
-		status: "active",
-		userId: 4,
-		sportId: 1,
-	},
-	{
-		status: "active",
-		userId: 5,
-		sportId: 2,
-	},
-	{
-		status: "active",
-		userId: 6,
-		sportId: 3,
-	},
-	{
-		status: "active",
-		userId: 1,
-		sportId: 2,
-	},
+  {
+    skillLevel: "intermediate",
+    status: "active",
+    userId: 1,
+    sportId: 1,
+  },
+  {
+    status: "active",
+    userId: 2,
+    sportId: 1,
+  },
+  {
+    status: "active",
+    userId: 3,
+    sportId: 4,
+  },
+  {
+    status: "active",
+    userId: 4,
+    sportId: 1,
+  },
+  {
+    status: "active",
+    userId: 5,
+    sportId: 2,
+  },
+  {
+    status: "active",
+    userId: 6,
+    sportId: 3,
+  },
+  {
+    status: "active",
+    userId: 1,
+    sportId: 2,
+  },
 ];
 
 const venueSport = [
-	{
-		venueId: 1,
-		sportId: 1,
-	},
-	{
-		venueId: 2,
-		sportId: 1,
-	},
-	{
-		venueId: 2,
-		sportId: 2,
-	},
-	{
-		venueId: 3,
-		sportId: 4,
-	},
-	{
-		venueId: 4,
-		sportId: 1,
-	},
-	{
-		venueId: 1,
-		sportId: 3,
-	},
-	{
-		venueId: 1,
-		sportId: 4,
-	},
+  {
+    venueId: 1,
+    sportId: 1,
+  },
+  {
+    venueId: 2,
+    sportId: 1,
+  },
+  {
+    venueId: 2,
+    sportId: 2,
+  },
+  {
+    venueId: 3,
+    sportId: 4,
+  },
+  {
+    venueId: 4,
+    sportId: 1,
+  },
+  {
+    venueId: 1,
+    sportId: 3,
+  },
+  {
+    venueId: 1,
+    sportId: 4,
+  },
 ];
-
 
 const moreVenues = [
   {
@@ -831,34 +830,34 @@ const moreVenues = [
 ];
 
 const sports = [
-	{
-		name: "Soccer",
-		imageUrl: "https://cdn-icons-png.flaticon.com/512/1165/1165187.png",
-	},
-	{
-		name: "Basketball",
-		imageUrl: "https://cdn-icons-png.flaticon.com/512/3437/3437601.png",
-	},
-	{
-		name: "Baseball",
-		imageUrl: "https://cdn-icons-png.flaticon.com/512/484/484482.png",
-	},
-	{
-		name: "Football",
-		imageUrl: "https://cdn-icons-png.flaticon.com/512/2813/2813821.png",
-	},
-	{
-		name: "Tennis",
-		imageUrl: "https://cdn-icons-png.flaticon.com/512/5147/5147762.png",
-	},
-	{
-		name: "Volleyball",
-		imageUrl: "https://cdn-icons-png.flaticon.com/512/5496/5496293.png",
-	},
-	{
-		name: "Hockey",
-		imageUrl: "https://cdn-icons-png.flaticon.com/512/239/239260.png",
-	},
+  {
+    name: "Soccer",
+    imageUrl: "https://cdn-icons-png.flaticon.com/512/1165/1165187.png",
+  },
+  {
+    name: "Basketball",
+    imageUrl: "https://cdn-icons-png.flaticon.com/512/3437/3437601.png",
+  },
+  {
+    name: "Baseball",
+    imageUrl: "https://cdn-icons-png.flaticon.com/512/484/484482.png",
+  },
+  {
+    name: "Football",
+    imageUrl: "https://cdn-icons-png.flaticon.com/512/2813/2813821.png",
+  },
+  {
+    name: "Tennis",
+    imageUrl: "https://cdn-icons-png.flaticon.com/512/5147/5147762.png",
+  },
+  {
+    name: "Volleyball",
+    imageUrl: "https://cdn-icons-png.flaticon.com/512/5496/5496293.png",
+  },
+  {
+    name: "Hockey",
+    imageUrl: "https://cdn-icons-png.flaticon.com/512/239/239260.png",
+  },
 ];
 
 const seed = async () => {
@@ -866,15 +865,19 @@ const seed = async () => {
     await db.sync({ force: true });
 
     await Promise.all(
-      users.map(async (user) => {
-        await User.create(user);
+      sports.map(async (sport) => {
+        await Sport.create(sport);
       })
     );
-		await Promise.all(
-			sports.map(async (sport) => {
-				await Sport.create(sport);
-			})
-		);
+    const playerSports = await Sport.findAll();
+
+    await Promise.all(
+      users.map(async (user) => {
+        const randomNumber = Math.floor(Math.random() * 6);
+        const currentPlayer = await User.create(user);
+        await currentPlayer.addSport(playerSports[randomNumber]);
+      })
+    );
 
     await Promise.all(
       userSport.map(async (val) => {
@@ -961,3 +964,6 @@ const seed = async () => {
     console.error(err);
     db.close();
   }
+};
+
+seed();
