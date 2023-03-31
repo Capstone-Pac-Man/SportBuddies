@@ -77,7 +77,6 @@ function VenueProfile() {
                         alt="avatar"></Card.Img>
                     </div>
                     <div
-                    // className="justify-self-stretch"
                     >
                       <Table striped bordered hover size="lg">
                         <thead>
