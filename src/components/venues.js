@@ -38,8 +38,6 @@ export default function Venues() {
     });
 
     dispatch(fetchAllVenuesAsync(JSON.stringify(arr)));
-
-    console.log(arr);
   };
 
   return (

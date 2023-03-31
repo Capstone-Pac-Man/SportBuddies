@@ -9,12 +9,8 @@ const ConversationMessage = require("../db/models/ConversationMessage");
 User.belongsToMany(Sport, { through: UserSport });
 Sport.belongsToMany(User, { through: UserSport });
 
-// because we created the UserSport model, we DON'T need quotes around name.
-
 Venue.belongsToMany(Sport, { through: "venueSports" });
 Sport.belongsToMany(Venue, { through: "venueSports" });
-/* this requires quotes, as sequelize will CREATE the through-table for us.
-(but we gotta name it) */
 
 User.belongsToMany(Conversation, { through: "conversationUsers" });
 Conversation.belongsToMany(User, { through: "conversationUsers" });
