@@ -2,21 +2,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { auth } from "../../config/firebase";
 import { useEffect } from "react";
 import {
-  deleteUserSportAsync,
-  fetchOneUserAsync,
-  selectUser,
+	deleteUserSportAsync,
+	fetchOneUserAsync,
+	selectUser,
 } from "../../reducers/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { UpdateUser } from "./updateUserProfile";
 
 import {
-  Container,
-  Accordion,
-  Col,
-  Card,
-  Button,
-  Table,
-  Badge,
+	Container,
+	Accordion,
+	Col,
+	Card,
+	Button,
+	Table,
+	Badge,
 } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -27,13 +27,13 @@ import { ChangePassword } from "./changePassword";
 import { editUserAsync } from "../../reducers/userSlice";
 
 export const UserProfile = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector(selectUser);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const user = useSelector(selectUser);
 
-  console.log("USER PROFILE", user);
+	console.log("USER PROFILE", user);
 
-  const isAuth = localStorage.getItem("auth");
+	const isAuth = localStorage.getItem("auth");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -55,20 +55,20 @@ export const UserProfile = () => {
     }
   }, [user]);
 
-  const handleAvailable = (e) => {
-    if (e.target.value === "remove") {
-      dispatch(editUserAsync({ availableTo: 0 }));
-    } else if (e.target.value === "add") {
-      const twelveHoursFromNow = new Date(Date.now() + 12 * 60 * 60 * 1000);
-      const obj = { availableTo: twelveHoursFromNow.getTime() };
-      dispatch(editUserAsync(obj));
-    }
-  };
-  if (!user) return "Loading";
-  if (!user.sports) return "Loading";
-  const currentTime = Date.now();
-  const availableToTime = user.availableTo;
-  const isAvailableToInFuture = availableToTime > currentTime;
+	const handleAvailable = (e) => {
+		if (e.target.value === "remove") {
+			dispatch(editUserAsync({ availableTo: 0 }));
+		} else if (e.target.value === "add") {
+			const twelveHoursFromNow = new Date(Date.now() + 12 * 60 * 60 * 1000);
+			const obj = { availableTo: twelveHoursFromNow.getTime() };
+			dispatch(editUserAsync(obj));
+		}
+	};
+	if (!user) return "Loading";
+	if (!user.sports) return "Loading";
+	const currentTime = Date.now();
+	const availableToTime = user.availableTo;
+	const isAvailableToInFuture = availableToTime > currentTime;
 
   return (
     <>
@@ -181,7 +181,13 @@ export const UserProfile = () => {
                         Object.values(user.sports).map((elem) => {
                           return (
                             <tr key={elem.id}>
-                              <td>{elem.name}</td>
+                              <td>
+																{elem.name}
+																<img
+																	src={elem.imageUrl}
+																	style={{ width: "16px", marginLeft: "2px" }}
+																	alt="sport"></img>
+															</td>
                               <td>{elem.userSport.skillLevel}</td>
                               <td>
                                 {elem.userSport.status === "active" ? (
