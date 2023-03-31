@@ -78,8 +78,9 @@ const Venue = db.define(
 
 const SALT_ROUNDS = 5;
 
-Venue.prototype.correctPassword = function (candidatePwd) {
-  return bcrypt.compare(candidatePwd, this.password);
+Venue.prototype.correctPassword = async function (candidatePwd) {
+  //we need to compare the plain version to an encrypted version of the password
+  return await bcrypt.compare(candidatePwd, this.password);
 };
 
 Venue.prototype.generateToken = function () {

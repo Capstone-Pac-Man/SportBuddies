@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, Button, Form } from "react-bootstrap";
 
@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import {
   selectVenueAuth,
   changeVenuePasswordAsync,
+  fetchOneVenueAsync,
 } from "../../reducers/venueAuthSlice";
 
 export const ChangeVenuePassword = () => {
@@ -21,33 +22,10 @@ export const ChangeVenuePassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      dispatch(
-        changeVenuePasswordAsync({ email, password, newPassword, venueId })
-      );
-      toast.success("Password updated successfully", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } catch (error) {
-      toast.error("Error updating password", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      console(error);
-    }
+    dispatch(
+      changeVenuePasswordAsync({ email, password, newPassword, venueId })
+    );
+
     handleClose();
   };
 
@@ -101,7 +79,8 @@ export const ChangeVenuePassword = () => {
             className="myBtn"
             type="submit"
             onClick={handleSubmit}
-            disabled={!newPassword || !password}>
+            disabled={!newPassword || !password || newPassword.length < 8}
+          >
             Change
           </Button>
         </Modal.Footer>

@@ -72,11 +72,13 @@ router.put("/me/password", async (req, res, next) => {
     const venue = await Venue.findByPk(venueId);
     if (await venue.correctPassword(password)) {
       await venue.update({ password: newPassword });
+      const updated = await Venue.findByPk(venueId, {
+        include: { model: Sport },
+      });
+      res.send(updated);
+    } else if (!(await venue.correctPassword(password))) {
+      res.sendStatus(401);
     }
-    const updated = await Venue.findByPk(venueId, {
-      include: { model: Sport },
-    });
-    res.send(updated);
   } catch (error) {
     next(error);
   }
