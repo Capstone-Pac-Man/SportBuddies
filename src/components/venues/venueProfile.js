@@ -76,7 +76,9 @@ function VenueProfile() {
                         style={{ width: "512px", minWidth: "120px" }}
                         alt="avatar"></Card.Img>
                     </div>
+
                     <div>
+
                       <Table striped bordered hover size="lg">
                         <thead>
                           <tr>
