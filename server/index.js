@@ -34,17 +34,12 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  // socket.on("join_room", (data) => {
-  //   socket.join(data);
-  // });
   socket.on("makeRoom", ({ id }) => {
     socket.join(id);
     console.log("joined room ", id);
   });
 
   socket.on("send_message", (data) => {
-    /* BROADCAST is for all rooms; otherwise, u gotta specify WHICH room.
-    socket.broadcast.emit("receive_message", data); */
     socket.to(data.room).emit("receive_message", data);
   });
 });
@@ -52,11 +47,9 @@ app.use((req, res, next) => {
   req.io = io;
   next();
 });
-/*server.listen(3001, () => {
-  console.log("Pacman-$erver is running.");
-});*/
 
 app.use("/api", api);
+// Note: NEEDED FOR DEPLOYMENT - DO NOT DELETE
 // app.get("/css/index.css", (req, res, next) => {
 //   const cssPath = path.join(__dirname, "..", "src", "index.css");
 //   res.sendFile(cssPath);
@@ -71,6 +64,3 @@ app.use((err, req, res, next) => {
 server.listen(PORT, () => {
   console.log("server.listen + PORT var => socket.io SERVER IS RUNNING.");
 });
-// app.listen(PORT, () => {
-//   console.log(`Listening on "regular" port ${PORT}`);
-// });

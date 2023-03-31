@@ -154,7 +154,6 @@ router.delete("/:id", async (req, res, next) => {
 router.put("/", async (req, res, next) => {
   try {
     const { id, ...updated } = req.body;
-    console.log(id);
     const venue = await Venue.findByPk(id);
     res.json(await venue.update(updated));
   } catch (err) {

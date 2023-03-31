@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Card,
-  Container,
-  Row,
-  Col,
-  Badge,
-  Offcanvas,
-} from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
+import { Button, Badge, Offcanvas } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import {
-  fetchSingleUserAysnc,
-  SingleUserProfile,
-} from "../../reducers/singleUserSlice";
+import { fetchSingleUserAysnc } from "../../reducers/singleUserSlice";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useNavigate } from "react-router-dom";
 import { addUserConversation } from "../../reducers/conversationSlice";
@@ -41,12 +28,6 @@ export const SingleUserPage = (props) => {
     navigate("/chatroom");
   };
 
-  // if (!user) return "Loading..";
-
-  // useEffect(() => {
-  //   dispatch(fetchSingleUserAysnc(id));
-  // }, [dispatch]);
-
   useEffect(() => {
     if (player.availableTo) {
       const ms = parseInt(player.availableTo);
@@ -61,8 +42,6 @@ export const SingleUserPage = (props) => {
       setTime(`${time} on ${month} ${day} `);
     }
   }, [player]);
-
-  // if (!player.fullName) return <h1>Loading...</h1>;
 
   return (
     <>

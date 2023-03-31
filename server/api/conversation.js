@@ -163,7 +163,6 @@ router.post("/:id", async (req, res, next) => {
         },
       ],
     });
-    console.log(otherId);
     io.to(otherId).emit("newMessage");
     res.json(conversationWithUsers);
   } catch (e) {
