@@ -40,8 +40,7 @@ export const SelectedSport = () => {
           <h1 className="homeHeader ">Venues</h1>
           {sportObj.venues.length > 0 ? (
             sportObj.venues.map((venue) => (
-              // <Row>
-              // <Col> */}
+ 
               <Card key={venue.id} className="player-card">
                 <Card.Img
                   variant="top"
@@ -61,12 +60,11 @@ export const SelectedSport = () => {
                     <Card.Subtitle className="text-muted">
                       {venue.distance.toFixed(1)} Miles away
                     </Card.Subtitle>
+
                   </div>
                   <Venue venueId={venue.id} />
                 </Card.Body>
               </Card>
-              // </Col>
-              // </Row>
             ))
           ) : (
             <div>
@@ -89,7 +87,6 @@ export const SelectedSport = () => {
                   style={{ maxWidth: 350 }}
                   key={user.id}
                   className="vertical-card">
-                  {/* <Card className="homeCard"> */}
                   <Card.Img
                     src={user.imageUrl}
                     alt="Image"
@@ -103,13 +100,14 @@ export const SelectedSport = () => {
                         width: "80%",
                       }}>
                       <Card.Title>{user.fullName}</Card.Title>
+
                       <Card.Subtitle className="text-muted">
                         {user.distance.toFixed(1)} Miles away
                       </Card.Subtitle>
                     </div>
                     <SingleUserPage playerId={user.id} />
                   </Card.Body>
-                  {/* </Card> */}
+       
                 </Card>
               ))
             ) : (
