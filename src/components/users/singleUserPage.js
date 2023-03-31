@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import {
-	Button,
-	Card,
-	Container,
-	Row,
-	Col,
-	Badge,
-	Offcanvas,
+  Button,
+  Card,
+  Container,
+  Row,
+  Col,
+  Badge,
+  Offcanvas,
 } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
-	fetchSingleUserAysnc,
-	SingleUserProfile,
+  fetchSingleUserAysnc,
+  SingleUserProfile,
 } from "../../reducers/singleUserSlice";
 import ListGroup from "react-bootstrap/ListGroup";
 import useLocalStorage from "../chat/hooks/useLocalStorage";
@@ -22,48 +22,48 @@ import { addUserConversation } from "../../reducers/conversationSlice";
 import { selectUser } from "../../reducers/userSlice";
 
 export const SingleUserPage = (props) => {
-	const [show, setShow] = useState(false);
-	const [time, setTime] = useState("");
-	const player = useSelector((state) => state.singleUser);
-	const id = props.playerId;
-	const dispatch = useDispatch();
-	const handleClose = () => setShow(false);
-	const handleShow = () => {
-		dispatch(fetchSingleUserAysnc(id));
-		setShow(true);
-	};
-	const user = useSelector(selectUser);
+  const [show, setShow] = useState(false);
+  const [time, setTime] = useState("");
+  const player = useSelector((state) => state.singleUser);
+  const id = props.playerId;
+  const dispatch = useDispatch();
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    dispatch(fetchSingleUserAysnc(id));
+    setShow(true);
+  };
+  const user = useSelector(selectUser);
 
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
-	const handleMessage = async (id) => {
-		const userId = user.id;
-		await dispatch(addUserConversation({ userId, id }));
-		navigate("/chatroom");
-	};
+  const handleMessage = async (id) => {
+    const userId = user.id;
+    await dispatch(addUserConversation({ userId, id }));
+    navigate("/chatroom");
+  };
 
-	// if (!user) return "Loading..";
+  // if (!user) return "Loading..";
 
-	// useEffect(() => {
-	//   dispatch(fetchSingleUserAysnc(id));
-	// }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchSingleUserAysnc(id));
+  // }, [dispatch]);
 
-	useEffect(() => {
-		if (player.availableTo) {
-			const ms = parseInt(player.availableTo);
-			const dateObj = new Date(ms);
-			const time = dateObj.toLocaleTimeString("en-US", {
-				hour12: true,
-				hour: "numeric",
-				minute: "numeric",
-			});
-			const day = dateObj.getDate();
-			const month = dateObj.toLocaleString("default", { month: "short" });
-			setTime(`${time} on ${month} ${day} `);
-		}
-	}, [player]);
+  useEffect(() => {
+    if (player.availableTo) {
+      const ms = parseInt(player.availableTo);
+      const dateObj = new Date(ms);
+      const time = dateObj.toLocaleTimeString("en-US", {
+        hour12: true,
+        hour: "numeric",
+        minute: "numeric",
+      });
+      const day = dateObj.getDate();
+      const month = dateObj.toLocaleString("default", { month: "short" });
+      setTime(`${time} on ${month} ${day} `);
+    }
+  }, [player]);
 
-	// if (!player.fullName) return <h1>Loading...</h1>;
+  // if (!player.fullName) return <h1>Loading...</h1>;
 
   return (
     <>
@@ -94,17 +94,18 @@ export const SingleUserPage = (props) => {
                   return (
                     <ListGroup.Item key={sport.id}>
                       <div>
-												<div className="d-flex justify-content-center">
-													<div>
-														<h4>{sport.name}</h4>
-													</div>
-													<div>
-														<img
-															src={sport.imageUrl}
-															style={{ width: "16px", marginLeft: "2px" }}
-															alt="sport"></img>
-													</div>
-												</div>
+                        <div className="d-flex justify-content-center">
+                          <div>
+                            <h4>{sport.name}</h4>
+                          </div>
+                          <div>
+                            <img
+                              src={sport.imageUrl}
+                              style={{ width: "16px", marginLeft: "2px" }}
+                              alt="sport"
+                            ></img>
+                          </div>
+                        </div>
                         <div className="d-flex justify-content-between">
                           Skill Level:
                           <Badge pill className="mb-1" bg="primary">
@@ -129,7 +130,7 @@ export const SingleUserPage = (props) => {
                 })
               : "loading"}
           </ListGroup>
-          {user.error ? (
+          {!user || user.error ? (
             <h6>Sign in to message this player</h6>
           ) : (
             <Button
