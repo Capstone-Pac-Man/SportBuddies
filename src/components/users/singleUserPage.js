@@ -6,6 +6,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useNavigate } from "react-router-dom";
 import { addUserConversation } from "../../reducers/conversationSlice";
 import { selectUser } from "../../reducers/userSlice";
+import { Link } from "react-router-dom";
 
 export const SingleUserPage = (props) => {
   const [show, setShow] = useState(false);
@@ -108,7 +109,7 @@ export const SingleUserPage = (props) => {
               : "loading"}
           </ListGroup>
           {!user || user.error ? (
-            <h6>Sign in to message this player</h6>
+            <Link to="/login">Sign in to message this player</Link>
           ) : (
             <Button
               onClick={() => {
