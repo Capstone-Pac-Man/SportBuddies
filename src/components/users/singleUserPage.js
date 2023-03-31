@@ -65,43 +65,35 @@ export const SingleUserPage = (props) => {
 
 	// if (!player.fullName) return <h1>Loading...</h1>;
 
-	return (
-		<>
-			<button
-				className="pill-button"
-				onClick={() => handleShow()}>
-				See details
-			</button>
-			<Offcanvas
-				show={show}
-				onHide={handleClose}
-				backdrop="static">
-				<Offcanvas.Header closeButton>
-					<Offcanvas.Title>
-						{player.fullName}{" "}
-						<Badge
-							pill
-							className="mb-1"
-							bg="warning">
-							{player.userType}
-						</Badge>
-					</Offcanvas.Title>
-				</Offcanvas.Header>
-				<Offcanvas.Body>
-					<img
-						className="img-fluid rounded-start"
-						style={{ width: "360px" }}
-						src={player.imageUrl}
-						alt="player"
-					/>
-					<p>State: {player.state}</p>
-					<p>Available until {time}</p>
-					<ListGroup className="list-group-flush">
-						{player.sports
-							? player.sports.map((sport) => {
-									return (
-										<ListGroup.Item key={sport.id}>
-											<div>
+  return (
+    <>
+      <button className="pill-button" onClick={() => handleShow()}>
+        See details
+      </button>
+      <Offcanvas show={show} onHide={handleClose} backdrop="static">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>
+            {player.fullName}{" "}
+            <Badge pill className="mb-1" bg="warning">
+              {player.userType}
+            </Badge>
+          </Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <img
+            className="img-fluid rounded-start"
+            style={{ width: "360px" }}
+            src={player.imageUrl}
+            alt="player"
+          />
+          <p>State: {player.state}</p>
+          <p>Available until {time}</p>
+          <ListGroup className="list-group-flush">
+            {player.sports
+              ? player.sports.map((sport) => {
+                  return (
+                    <ListGroup.Item key={sport.id}>
+                      <div>
 												<div className="d-flex justify-content-center">
 													<div>
 														<h4>{sport.name}</h4>
@@ -113,45 +105,43 @@ export const SingleUserPage = (props) => {
 															alt="sport"></img>
 													</div>
 												</div>
-												<div className="d-flex justify-content-between">
-													Skill Level:
-													<Badge
-														pill
-														className="mb-1"
-														bg="primary">
-														{sport.userSport.skillLevel}
-													</Badge>
-												</div>
-											</div>
-											<div className="d-flex justify-content-between">
-												Status:{" "}
-												{sport.userSport.status === "active" ? (
-													<Badge
-														pill
-														bg="success">
-														{sport.userSport.status}
-													</Badge>
-												) : (
-													<Badge
-														pill
-														bg="danger">
-														{sport.userSport.status}
-													</Badge>
-												)}
-											</div>
-										</ListGroup.Item>
-									);
-							  })
-							: "loading"}
-					</ListGroup>
-					<Button
-						onClick={() => {
-							handleMessage(player.id);
-						}}>
-						Message This Player
-					</Button>
-				</Offcanvas.Body>
-			</Offcanvas>
-		</>
-	);
+                        <div className="d-flex justify-content-between">
+                          Skill Level:
+                          <Badge pill className="mb-1" bg="primary">
+                            {sport.userSport.skillLevel}
+                          </Badge>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        Status:{" "}
+                        {sport.userSport.status === "active" ? (
+                          <Badge pill bg="success">
+                            {sport.userSport.status}
+                          </Badge>
+                        ) : (
+                          <Badge pill bg="danger">
+                            {sport.userSport.status}
+                          </Badge>
+                        )}
+                      </div>
+                    </ListGroup.Item>
+                  );
+                })
+              : "loading"}
+          </ListGroup>
+          {user.error ? (
+            <h6>Sign in to message this player</h6>
+          ) : (
+            <Button
+              onClick={() => {
+                handleMessage(player.id);
+              }}
+            >
+              Message This Player
+            </Button>
+          )}
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
+  );
 };

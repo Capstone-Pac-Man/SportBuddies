@@ -95,56 +95,46 @@ const NavBar = ({ location, setLocation }) => {
                     <button
                       className="btn btn-outline-danger btn-sm"
                       value="remove"
-                      onClick={handleAvailable}
-                    >
+                      onClick={handleAvailable}>
                       Make Unavailable
                     </button>
                   ) : (
                     <button
                       className="btn btn-outline-success btn-sm"
                       value="add"
-                      onClick={handleAvailable}
-                    >
+                      onClick={handleAvailable}>
                       Make Available
                     </button>
-                  )} */}
-									<NavDropdown.Item>
-										<Logout />
-									</NavDropdown.Item>
-								</>
-							) : (
-								<>
-									<NavDropdown.Item
-										as={Link}
-										to="login">
-										Login
-									</NavDropdown.Item>
-									<NavDropdown.Item
-										as={Link}
-										to="signup">
-										Sign up
-									</NavDropdown.Item>
-								</>
-							)}
-						</NavDropdown>
-					</Nav>
-					<div
-						className="d-flex"
-						style={{ minWidth: "50%" }}>
-						<SearchBar />
-						<Nav.Item
-							style={{ display: "flex", alignItems: "center", paddingLeft: 20 }}
-							className="link nav-link d-flex">
-							<LocationChange
-								location={location}
-								setLocation={setLocation}
-							/>
-						</Nav.Item>
-					</div>
-				</Navbar.Collapse>
-			</Container>
-		</Navbar>
-	);
+
+                  )}
+                  <NavDropdown.Item>
+                    <Logout />
+                  </NavDropdown.Item>
+                </>
+              ) : (
+                <>
+                  <NavDropdown.Item as={Link} to="login">
+                    Login
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="signup">
+                    Sign up
+                  </NavDropdown.Item>
+                </>
+              )}
+            </NavDropdown>
+          </Nav>
+          <div className="d-flex" style={{ minWidth: "50%" }}>
+            <SearchBar />
+            <Nav.Item
+              style={{ display: "flex", alignItems: "center", paddingLeft: 20 }}
+              className="link nav-link d-flex">
+              <LocationChange location={location} setLocation={setLocation} />
+            </Nav.Item>
+          </div>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
 };
 
 export default NavBar;
