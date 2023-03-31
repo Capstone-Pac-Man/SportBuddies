@@ -94,7 +94,18 @@ export const SingleUserPage = (props) => {
                   return (
                     <ListGroup.Item key={sport.id}>
                       <div>
-                        <h4>{sport.name}</h4>
+                        <div className="d-flex justify-content-center">
+                          <div>
+                            <h4>{sport.name}</h4>
+                          </div>
+                          <div>
+                            <img
+                              src={sport.imageUrl}
+                              style={{ width: "16px", marginLeft: "2px" }}
+                              alt="sport"
+                            ></img>
+                          </div>
+                        </div>
                         <div className="d-flex justify-content-between">
                           Skill Level:
                           <Badge pill className="mb-1" bg="primary">
@@ -119,13 +130,17 @@ export const SingleUserPage = (props) => {
                 })
               : "loading"}
           </ListGroup>
-          <Button
-            onClick={() => {
-              handleMessage(player.id);
-            }}
-          >
-            Message This Player
-          </Button>
+          {!user || user.error ? (
+            <h6>Sign in to message this player</h6>
+          ) : (
+            <Button
+              onClick={() => {
+                handleMessage(player.id);
+              }}
+            >
+              Message This Player
+            </Button>
+          )}
         </Offcanvas.Body>
       </Offcanvas>
     </>

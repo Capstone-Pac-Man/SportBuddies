@@ -15,11 +15,10 @@ import {
 } from "../reducers/userSlice";
 import { Link } from "react-router-dom";
 import LocationChange from "./locationChange";
-import socket from "../socket";
 
 const NavBar = ({ location, setLocation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const user = useSelector((state) => state.user);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,11 +42,14 @@ const NavBar = ({ location, setLocation }) => {
     }
   };
   let isAvailableToInFuture;
-  // if (user.availableTo) {
-  //   const currentTime = Date.now();
-  //   const availableToTime = user.availableTo;
-  //   isAvailableToInFuture = availableToTime > currentTime;
-  // }
+
+  if (user) {
+    if (user.availableTo) {
+      const currentTime = Date.now();
+      const availableToTime = user.availableTo;
+      isAvailableToInFuture = availableToTime > currentTime;
+    }
+  }
 
   return (
     <Navbar bg="dark" expand="lg" variant="dark" style={{ width: "100%" }}>
@@ -79,14 +81,16 @@ const NavBar = ({ location, setLocation }) => {
                     <button
                       className="btn btn-outline-danger btn-sm"
                       value="remove"
-                      onClick={handleAvailable}>
+                      onClick={handleAvailable}
+                    >
                       Make Unavailable
                     </button>
                   ) : (
                     <button
                       className="btn btn-outline-success btn-sm"
                       value="add"
-                      onClick={handleAvailable}>
+                      onClick={handleAvailable}
+                    >
                       Make Available
                     </button>
                   )}
@@ -110,7 +114,8 @@ const NavBar = ({ location, setLocation }) => {
             <SearchBar />
             <Nav.Item
               style={{ display: "flex", alignItems: "center", paddingLeft: 20 }}
-              className="link nav-link d-flex">
+              className="link nav-link d-flex"
+            >
               <LocationChange location={location} setLocation={setLocation} />
             </Nav.Item>
           </div>

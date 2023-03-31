@@ -31,6 +31,7 @@ router.post("/", async (req, res, next) => {
 });
 router.get("/logout", async (req, res, next) => {
   try {
+    res.clearCookie("token");
     res.cookie("token", "", { expires: new Date(0), httpOnly: true });
     res.send("logged out");
   } catch (e) {
@@ -81,7 +82,8 @@ router.post("/login", async (req, res, next) => {
 router.get("/me", async (req, res, next) => {
   try {
     if (!req.cookies.token) {
-      next();
+      next(new Error("Not logged in"));
+      res.sendStatus(401);
     }
     const user = await User.findByToken(req.cookies.token);
     res.json(user);

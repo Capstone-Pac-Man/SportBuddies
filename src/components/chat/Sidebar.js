@@ -15,14 +15,18 @@ import { fetchAllMessagesInConvo } from "../../reducers/messageSlice";
 import { fetchOneUserAsync } from "../../reducers/userSlice";
 import Loading from "../../assets/Loading";
 import socket from "../../socket";
-// const socket = io.connect("http://localhost:5000");
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../config/firebase";
 
 const CONVERSATIONS_KEY = "conversations";
 
 export default function Sidebar() {
+  const isAuth = localStorage.getItem("auth");
   const [selected, setSelected] = useState(null);
   const [content, setContent] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const conversations = useSelector((state) => state.conversations);
   const selectedConversationIdRef = useRef(null);
@@ -37,10 +41,18 @@ export default function Sidebar() {
     if (conversations.singleConversation) {
       setSelected(conversations.singleConversation.id);
     }
+    if (isAuth) {
+      dispatch(fetchOneUserAsync());
+    } else {
+      signOut(auth);
+      navigate("/login");
+    }
   }, [dispatch]);
   useEffect(() => {
     if (user.id) {
       socket.emit("makeRoom", { id: user.id });
+    } else if (user.error) {
+      navigate("/login");
     }
   }, [user]);
 
@@ -104,16 +116,19 @@ export default function Sidebar() {
     <div
       id="chatroom"
       className="d-flex"
-      style={{ height: "100vh", background_color: "#ffffff" }}>
+      style={{ height: "100vh", background_color: "#ffffff" }}
+    >
       <div
         style={{ width: "250px", height: "90%" }}
-        className="d-flex flex-column">
+        className="d-flex flex-column"
+      >
         <Tab.Container
           activeKey={CONVERSATIONS_KEY}
-          onSelect={CONVERSATIONS_KEY}>
+          onSelect={CONVERSATIONS_KEY}
+        >
           <Nav variant="tabs" className="justify-content-center">
             <Nav.Item>
-              <Nav.Link>Conversations</Nav.Link>
+              <Nav.Link style={{ color: "black" }}>Conversations</Nav.Link>
             </Nav.Item>
           </Nav>
           <Tab.Content className="border overflow-auto flex-grow-1">
@@ -126,7 +141,8 @@ export default function Sidebar() {
                       action
                       key={e.id}
                       id={e.id}
-                      active={parseInt(selected) === e.id}>
+                      active={parseInt(selected) === e.id}
+                    >
                       {e.users[0].firstName} {e.users[0].lastName}
                     </ListGroup.Item>
                   );
@@ -142,7 +158,8 @@ export default function Sidebar() {
           style={{
             height: "90%",
           }}
-          className="d-flex flex-column flex-grow-1">
+          className="d-flex flex-column flex-grow-1"
+        >
           <div className="flex-grow-1 overflow-auto">
             <div className="d-flex flex-column align-items-start justify-content-end px-3">
               {" "}
@@ -169,19 +186,22 @@ export default function Sidebar() {
                         theSender
                           ? "align-self-end align-items-end"
                           : "align-items-start"
-                      }`}>
+                      }`}
+                    >
                       <div
                         className={`rounded px-2 py-1 ${
                           theSender
                             ? "bg-primary text-white"
                             : "bg-white border"
-                        }`}>
+                        }`}
+                      >
                         {e.content}
                       </div>
                       <div
                         className={`text-muted small ${
                           theSender ? "text-right" : ""
-                        }`}>
+                        }`}
+                      >
                         {theSender ? "You" : e.user.fullName}
                       </div>
                     </div>

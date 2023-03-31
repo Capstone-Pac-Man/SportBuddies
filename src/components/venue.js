@@ -72,6 +72,10 @@ export const Venue = (props) => {
 											return (
 												<ListGroup.Item key={sport.name}>
 													{sport.name}
+													<img
+														src={sport.imageUrl}
+														style={{ width: "16px", marginLeft: "2px" }}
+														alt="sport"></img>
 												</ListGroup.Item>
 											);
 										})}
