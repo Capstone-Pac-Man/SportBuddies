@@ -24,6 +24,14 @@ export const fetchOneUserAsync = createAsyncThunk(
     }
   }
 );
+export const userLogout = createAsyncThunk("user/logout", async () => {
+  try {
+    const { data } = await instance.get("/api/users/logout");
+    return data;
+  } catch (e) {
+    throw e;
+  }
+});
 
 export const signUpThunk = createAsyncThunk(
   "users/createUser",
@@ -129,6 +137,11 @@ const userSlice = createSlice({
         localStorage.removeItem("auth");
         signOut(auth);
         return { error: "error" };
+      })
+      .addCase(userLogout.fulfilled, (state, { payload }) => {
+        localStorage.removeItem("auth");
+        signOut(auth);
+        return {};
       });
     builder.addCase(editUserAsync.fulfilled, (state, action) => {
       return action.payload;
