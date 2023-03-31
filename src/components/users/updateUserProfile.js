@@ -5,12 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
-import {
-  fetchOneUserAsync,
-  selectUser,
-  editUserAsync,
-} from "../../reducers/userSlice";
-import { onAuthStateChanged } from "firebase/auth";
+import { selectUser, editUserAsync } from "../../reducers/userSlice";
 import { useNavigate } from "react-router-dom";
 import { UploadPfp } from "./uploadPfp";
 
@@ -18,7 +13,6 @@ export const UpdateUser = () => {
   const [show, setShow] = useState(false);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

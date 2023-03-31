@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Modal, Button, Form, Row } from "react-bootstrap";
 import { editUserAsync, selectUser } from "../../reducers/userSlice";
 
 export const EditUserSport = (props) => {
-  // const {currentSkill, currentStatus, sportId } = props
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const [skillLevel, setSkillLevel] = useState("");

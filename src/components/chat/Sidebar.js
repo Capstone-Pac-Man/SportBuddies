@@ -1,17 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser } from "../../reducers/userSlice";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Tab, Nav, Form, InputGroup, Button } from "react-bootstrap";
 import {
-  selectConversations,
   fetchAllUserConversations,
   fetchConversationMessages,
   updateSelectedConvo,
 } from "../../reducers/conversationSlice";
 import { ListGroup } from "react-bootstrap";
-import OpenConversation from "./OpenConversation";
-import io from "socket.io-client";
-import { fetchAllMessagesInConvo } from "../../reducers/messageSlice";
 import { fetchOneUserAsync } from "../../reducers/userSlice";
 import Loading from "../../assets/Loading";
 import socket from "../../socket";
