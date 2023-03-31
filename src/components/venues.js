@@ -1,23 +1,17 @@
 import Card from "react-bootstrap/Card";
-import { ListGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Collapse from "react-bootstrap/Collapse";
 import { Squash as Hamburger } from "hamburger-react";
-// import { fetchAllSportsAsync } from "../reducers/sportsSlice";
-import { SingleUserPage } from "./users/singleUserPage";
-import PlayerCard from "./homepage/playerCard";
 
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllVenuesAsync, selectVenues } from "../reducers/venuesSlice";
-import { Link } from "react-router-dom";
+import { fetchAllVenuesAsync } from "../reducers/venuesSlice";
 import Venue from "./venue";
 import Loading from "../assets/Loading";
 
 export default function Venues() {
   const [open, setOpen] = useState(false);
-  const [filters, setFilters] = useState([]);
   const dispatch = useDispatch();
 
   const sports = useSelector((state) => state.sports);
@@ -48,11 +42,8 @@ export default function Venues() {
     console.log(arr);
   };
 
-  // If there are no venues, then say so!
-  // If there are venues, map them out into cards
   return (
     <div className="players-container">
-      {/* Perhaps we can reuse this container? */}
       <h1 style={{ width: "100%", marginLeft: "1rem", fontWeight: 700 }}>
         Venues
       </h1>
@@ -69,8 +60,7 @@ export default function Venues() {
                           <Form.Check
                             type="checkbox"
                             id={e.name}
-                            label={e.name}
-                          ></Form.Check>
+                            label={e.name}></Form.Check>
                         </h5>
                       </div>
                     );
@@ -83,28 +73,24 @@ export default function Venues() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-              }}
-            >
+              }}>
               <Button
                 style={{ margin: "1rem" }}
                 onClick={handleClear}
-                className="btn btn-small btn-danger"
-              >
+                className="btn btn-small btn-danger">
                 Clear
               </Button>
 
               <Button
                 style={{ margin: "1rem" }}
                 onClick={handleApply}
-                className="btn btn-small btn-dark"
-              >
+                className="btn btn-small btn-dark">
                 Apply
               </Button>
             </div>
           </div>
         </Collapse>
       </div>
-      {/* {venues.loading ? <Loading /> : } */}
       {venues.loading ? (
         <Loading />
       ) : venues.length === 0 ? (
@@ -126,8 +112,7 @@ export default function Venues() {
                     display: "flex",
                     flexDirection: "column",
                     width: "80%",
-                  }}
-                >
+                  }}>
                   <Card.Title>{e.name}</Card.Title>
                   <Card.Subtitle className="text-muted">
                     {e.distance.toFixed(1)} miles away
@@ -142,57 +127,3 @@ export default function Venues() {
     </div>
   );
 }
-
-//////////////////////////////////
-//////////////////////////////////
-//////////////////////////////////
-//////////////////////////////////
-// BORING DOWN HERE //
-
-/* 
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchAllVenuesAsync, selectVenues } from "../reducers/venuesSlice";
-import { Link } from "react-router-dom";
-
-export default function Venues() {
-  const dispatch = useDispatch();
-  const venues = useSelector(selectVenues);
-  useEffect(() => {
-    dispatch(fetchAllVenuesAsync());
-  }, [dispatch]);
-
-  return (
-    <>
-      <h1>
-        <u>VENUES</u>
-      </h1>{" "}
-      <h3>Click to view individual venue details in new tab</h3>
-      {venues && venues[0] ? (
-        <div>
-          <ul>
-            {venues.map((venue) => {
-              return (
-                <li key={venue}>
-                  {venue.name}: {venue.address}
-                  <br></br>
-                  <Link to={`/venues/${venue.id}`} rel="noreferrer">
-                    <img
-                      src={venue.imageUrl}
-                      alt="Dazzling foto of the venue"
-                      height="158"
-                      width="273"
-                    ></img>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      ) : (
-        <div>No venues to show.</div>
-      )}
-    </>
-  );
-}
-*/

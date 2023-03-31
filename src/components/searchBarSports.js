@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  Form,
-  Button,
-  ListGroup,
-  Dropdown,
-  DropdownButton,
-  Card,
-} from "react-bootstrap";
+import { Form, Dropdown, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchAllSportsAsync, selectSports } from "../reducers/sportsSlice";
-
-/* this component will render a search bar that will let
-a user search for sports. */
 
 export const SearchBar = () => {
   const [query, setQuery] = useState("");
@@ -63,8 +53,7 @@ export const SearchBar = () => {
                     setQuery("");
                     navigate(`/search/${sport}`);
                   }}
-                  onKeyDown={(e) => handleNavigate(e, { sport })}
-                >
+                  onKeyDown={(e) => handleNavigate(e, { sport })}>
                   {sport}
                 </Dropdown.Item>
               );

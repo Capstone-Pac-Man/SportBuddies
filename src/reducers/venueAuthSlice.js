@@ -1,8 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import history from "../history";
-import { useNavigate } from "react-router-dom";
-import { async } from "@firebase/util";
 
 const instance = axios.create({
 	baseURL: "http://localhost:5000",
@@ -10,9 +8,6 @@ const instance = axios.create({
 });
 
 const TOKEN = "token";
-const SET_AUTH = "SET_AUTH";
-
-const setAuth = (auth) => ({ type: SET_AUTH, auth });
 
 export const fetchOneVenueAsync = createAsyncThunk(
 	"venues/fetchOne",
@@ -147,7 +142,6 @@ export const changeVenuePasswordAsync = createAsyncThunk(
 				newPassword: newPassword,
 				venueId: venueId,
 			});
-			console.log("DATA", data);
 			return data;
 		} catch (error) {
 			console.log(error);
@@ -215,12 +209,3 @@ const venueAuthSlice = createSlice({
 export const selectVenueAuth = (state) => state.auth;
 
 export default venueAuthSlice.reducer;
-
-// export default function(state = {}, action) {
-//   switch (action.type) {
-//     case SET_AUTH:
-//        return action.auth
-//     default:
-//       return state
-//   }
-// }

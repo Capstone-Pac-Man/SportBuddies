@@ -80,8 +80,7 @@ export const SingleUserPage = (props) => {
                             <img
                               src={sport.imageUrl}
                               style={{ width: "16px", marginLeft: "2px" }}
-                              alt="sport"
-                            ></img>
+                              alt="sport"></img>
                           </div>
                         </div>
                         <div className="d-flex justify-content-between">
@@ -114,8 +113,7 @@ export const SingleUserPage = (props) => {
             <Button
               onClick={() => {
                 handleMessage(player.id);
-              }}
-            >
+              }}>
               Message This Player
             </Button>
           )}

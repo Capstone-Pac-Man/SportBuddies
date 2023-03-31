@@ -97,8 +97,6 @@ export default function Sidebar() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target.value);
-    console.log("-->>", content);
     const obj = {
       id: selected,
       content: content,
@@ -111,16 +109,13 @@ export default function Sidebar() {
     <div
       id="chatroom"
       className="d-flex"
-      style={{ height: "100vh", background_color: "#ffffff" }}
-    >
+      style={{ height: "100vh", background_color: "#ffffff" }}>
       <div
         style={{ width: "250px", height: "90%" }}
-        className="d-flex flex-column"
-      >
+        className="d-flex flex-column">
         <Tab.Container
           activeKey={CONVERSATIONS_KEY}
-          onSelect={CONVERSATIONS_KEY}
-        >
+          onSelect={CONVERSATIONS_KEY}>
           <Nav variant="tabs" className="justify-content-center">
             <Nav.Item>
               <Nav.Link style={{ color: "black" }}>Conversations</Nav.Link>
@@ -136,8 +131,7 @@ export default function Sidebar() {
                       action
                       key={e.id}
                       id={e.id}
-                      active={parseInt(selected) === e.id}
-                    >
+                      active={parseInt(selected) === e.id}>
                       {e.users[0].firstName} {e.users[0].lastName}
                     </ListGroup.Item>
                   );
@@ -153,8 +147,7 @@ export default function Sidebar() {
           style={{
             height: "90%",
           }}
-          className="d-flex flex-column flex-grow-1"
-        >
+          className="d-flex flex-column flex-grow-1">
           <div className="flex-grow-1 overflow-auto">
             <div className="d-flex flex-column align-items-start justify-content-end px-3">
               {" "}
@@ -165,15 +158,6 @@ export default function Sidebar() {
                   const theSender = e.senderId === user.id;
 
                   return (
-                    // <div
-                    //   style={
-                    //     e.senderId === user.id
-                    //       ? { backgroundColor: "blue" }
-                    //       : null
-                    //   }>
-                    //   {e.content}
-                    // </div>
-
                     <div
                       ref={lastMessage ? setRef : null}
                       key={e.id}
@@ -181,22 +165,19 @@ export default function Sidebar() {
                         theSender
                           ? "align-self-end align-items-end"
                           : "align-items-start"
-                      }`}
-                    >
+                      }`}>
                       <div
                         className={`rounded px-2 py-1 ${
                           theSender
                             ? "bg-primary text-white"
                             : "bg-white border"
-                        }`}
-                      >
+                        }`}>
                         {e.content}
                       </div>
                       <div
                         className={`text-muted small ${
                           theSender ? "text-right" : ""
-                        }`}
-                      >
+                        }`}>
                         {theSender ? "You" : e.user.fullName}
                       </div>
                     </div>
@@ -222,58 +203,6 @@ export default function Sidebar() {
           </Form>
         </div>
       ) : null}
-      {/* <input
-        type="text"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        onKeyDown={(e) => handleSend(e)}></input> */}
     </div>
   );
 }
-
-//   return (
-//     <div className="d-flex" style={{ height: "100vh" }}>
-//       <div
-//         style={{ width: "250px", height: "90%" }}
-//         className="d-flex flex-column">
-//         <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
-//           <Nav variant="tabs" className="justify-content-center">
-//             <Nav.Item>
-//               <Nav.Link eventKey={CONVERSATIONS_KEY}>Conversations</Nav.Link>
-//             </Nav.Item>
-//           </Nav>
-//           <Tab.Content className="border overflow-auto flex-grow-1">
-//             <Tab.Pane eventKey={CONVERSATIONS_KEY}>
-//               <ListGroup variant="flush">
-//                 {conversations.map((conversation) => (
-//                   <ListGroup.Item
-//                     key={conversation.id}
-//                     action
-//                     onClick={() => {
-//                       setSelectedConversationIndex(conversation.id);
-//                       dispatch(
-//                         fetchAllMessagesInConvo(selectedConversationIndex)
-//                       );
-//                       socket.emit("join_room", selectedConversationIndex);
-//                       console.log(
-//                         "SOCKET JOINEDDD, room:",
-//                         selectedConversationIndex
-//                       );
-//                     }}
-//                     active={conversation.id === selectedConversationIndex}>
-//                     {conversation.userConversations[0].recipients
-//                       .map((r) => r.name)
-//                       .join(", ")}
-//                   </ListGroup.Item>
-//                 ))}
-//               </ListGroup>
-//             </Tab.Pane>
-//           </Tab.Content>
-//         </Tab.Container>
-//       </div>
-//       {selectedConversationIndex && (
-//         <OpenConversation id={selectedConversationIndex} />
-//       )}
-//     </div>
-//   );
-// }
