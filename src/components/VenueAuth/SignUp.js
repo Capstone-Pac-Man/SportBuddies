@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Container, Card, Row, Col } from "react-bootstrap";
 import { authenticateRegister } from "../../reducers/venueAuthSlice";
-
 import { fetchOneVenueAsync } from "../../reducers/venueAuthSlice";
 
 const VenueSignUp = () => {
