@@ -4,13 +4,10 @@ import { authenticateLogin } from "../../reducers/venueAuthSlice";
 import { Form, Button, Container, Card, Row, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchOneVenueAsync } from "../../reducers/venueAuthSlice";
-import { editUserAsync } from "../../reducers/userSlice";
-import axios from "axios";
 
 function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [formError, setFormError] = useState("");
 	const auth = useSelector((state) => state.auth);
 	const { error } = auth;
 
@@ -31,27 +28,12 @@ function Login() {
 	const handleSubmit = async (evt) => {
 		try {
 			evt.preventDefault();
-			// const { data } = await axios.post(
-			// 	"http://localhost:5000/api/auth/login",
-			// 	{ email: email, password: password },
-			// 	{
-			// 		withCredentials: true,
-			// 	}
-			// );
-			// console.log("DATA", data);
-			// if (data) {
-			// 	window.localStorage.setItem("token", data);
-			// } else if (data === null) {
-			// 	setFormError("Oops, your credentials are wrong. Try again");
-			// }
 			await dispatch(authenticateLogin({ email, password }));
-
 			navigate("/venue/dashboard");
 			setEmail("");
 			setPassword("");
 		} catch (err) {
 			console.log(err);
-
 			setEmail("");
 			setPassword("");
 		}
