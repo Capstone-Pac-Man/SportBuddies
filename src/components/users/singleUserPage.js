@@ -16,7 +16,6 @@ import {
   SingleUserProfile,
 } from "../../reducers/singleUserSlice";
 import ListGroup from "react-bootstrap/ListGroup";
-import useLocalStorage from "../chat/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
 import { addUserConversation } from "../../reducers/conversationSlice";
 import { selectUser } from "../../reducers/userSlice";
@@ -102,8 +101,7 @@ export const SingleUserPage = (props) => {
                             <img
                               src={sport.imageUrl}
                               style={{ width: "16px", marginLeft: "2px" }}
-                              alt="sport"
-                            ></img>
+                              alt="sport"></img>
                           </div>
                         </div>
                         <div className="d-flex justify-content-between">
@@ -136,8 +134,7 @@ export const SingleUserPage = (props) => {
             <Button
               onClick={() => {
                 handleMessage(player.id);
-              }}
-            >
+              }}>
               Message This Player
             </Button>
           )}

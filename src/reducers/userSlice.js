@@ -1,11 +1,7 @@
-// ## JW
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
-
-/* user model has: name, email, imageUrl, mobile, availableFrom, 
-availableTo,address, city, country and userType. */
 
 const instance = axios.create({
 	baseURL: "http://localhost:5000",
@@ -15,7 +11,6 @@ const instance = axios.create({
 export const fetchOneUserAsync = createAsyncThunk(
 	"users/fetchOne",
 	async () => {
-		// does the above async need a parameter....?
 		try {
 			const { data } = await instance.get(`/api/users/me`);
 			return data;
@@ -73,13 +68,14 @@ export const addUserSportAsync = createAsyncThunk(
 export const deleteUserSportAsync = createAsyncThunk(
 	"user/deleteSport",
 	async ({ sportId }) => {
-		const { data } = await instance.delete(`/api/users/me/sports/${sportId}`);
-		return data;
+		try {
+			const { data } = await instance.delete(`/api/users/me/sports/${sportId}`);
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
 	}
 );
-
-/* user model has name, email, imageUrl, mobile, availableFrom, 
-availableTo,address, city, country and userType. */
 
 export const editUserAsync = createAsyncThunk(
 	"users/editOne",
@@ -101,27 +97,29 @@ export const editUserAsync = createAsyncThunk(
 		skillLevel,
 		status,
 	}) => {
-		console.log("UID IN SLLICE", uid);
-
-		const { data } = await instance.put(`/api/users/me`, {
-			firstName,
-			lastName,
-			email,
-			imageUrl,
-			mobile,
-			availableTo,
-			address,
-			city,
-			state,
-			zipcode,
-			country,
-			userType,
-			uid: uid,
-			sportId,
-			skillLevel,
-			status,
-		});
-		return data;
+		try {
+			const { data } = await instance.put(`/api/users/me`, {
+				firstName,
+				lastName,
+				email,
+				imageUrl,
+				mobile,
+				availableTo,
+				address,
+				city,
+				state,
+				zipcode,
+				country,
+				userType,
+				uid: uid,
+				sportId,
+				skillLevel,
+				status,
+			});
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
 	}
 );
 

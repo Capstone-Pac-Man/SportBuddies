@@ -1,5 +1,13 @@
-import React, { useEffect } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Row,
+  Figure,
+  Col,
+  Card,
+  Carousel,
+  Button,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Loading from "../assets/Loading";
@@ -32,6 +40,7 @@ export const SelectedSport = () => {
           <h1 className="homeHeader ">Venues</h1>
           {sportObj.venues.length > 0 ? (
             sportObj.venues.map((venue) => (
+ 
               <Card key={venue.id} className="player-card">
                 <Card.Img
                   variant="top"
@@ -44,9 +53,14 @@ export const SelectedSport = () => {
                   <div
                     style={{
                       display: "flex",
+                      flexDirection: "column",
                       width: "80%",
                     }}>
                     <Card.Title>{venue.name}</Card.Title>
+                    <Card.Subtitle className="text-muted">
+                      {venue.distance.toFixed(1)} Miles away
+                    </Card.Subtitle>
+
                   </div>
                   <Venue venueId={venue.id} />
                 </Card.Body>
@@ -86,9 +100,14 @@ export const SelectedSport = () => {
                         width: "80%",
                       }}>
                       <Card.Title>{user.fullName}</Card.Title>
+
+                      <Card.Subtitle className="text-muted">
+                        {user.distance.toFixed(1)} Miles away
+                      </Card.Subtitle>
                     </div>
                     <SingleUserPage playerId={user.id} />
                   </Card.Body>
+       
                 </Card>
               ))
             ) : (
