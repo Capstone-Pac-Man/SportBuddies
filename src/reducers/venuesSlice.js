@@ -9,18 +9,24 @@ const instance = axios.create({
 
 export const fetchAllVenuesAsync = createAsyncThunk(
   "venues/getAll",
-  async () => {
+  async (filters) => {
     try {
       if (sessionStorage.getItem("location")) {
         const coords = JSON.parse(sessionStorage.getItem("location"));
         const latitude = coords.latitude;
         const longitude = coords.longitude;
         const { data } = await instance.get("/api/venues", {
-          params: { latitude: latitude, longitude: longitude },
+          params: {
+            latitude: latitude,
+            longitude: longitude,
+            filters: filters,
+          },
         });
         return data;
       } else {
-        const { data } = await instance.get("/api/venues");
+        const { data } = await instance.get("/api/venues", {
+          params: { filters: filters },
+        });
         return data;
       }
     } catch (e) {
