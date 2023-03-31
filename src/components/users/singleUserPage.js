@@ -119,13 +119,17 @@ export const SingleUserPage = (props) => {
                 })
               : "loading"}
           </ListGroup>
-          <Button
-            onClick={() => {
-              handleMessage(player.id);
-            }}
-          >
-            Message This Player
-          </Button>
+          {user.error ? (
+            <h6>Sign in to message this player</h6>
+          ) : (
+            <Button
+              onClick={() => {
+                handleMessage(player.id);
+              }}
+            >
+              Message This Player
+            </Button>
+          )}
         </Offcanvas.Body>
       </Offcanvas>
     </>
