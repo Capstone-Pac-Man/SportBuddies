@@ -79,16 +79,14 @@ const NavBar = ({ location, setLocation }) => {
                     <button
                       className="btn btn-outline-danger btn-sm"
                       value="remove"
-                      onClick={handleAvailable}
-                    >
+                      onClick={handleAvailable}>
                       Make Unavailable
                     </button>
                   ) : (
                     <button
                       className="btn btn-outline-success btn-sm"
                       value="add"
-                      onClick={handleAvailable}
-                    >
+                      onClick={handleAvailable}>
                       Make Available
                     </button>
                   )}
@@ -112,8 +110,7 @@ const NavBar = ({ location, setLocation }) => {
             <SearchBar />
             <Nav.Item
               style={{ display: "flex", alignItems: "center", paddingLeft: 20 }}
-              className="link nav-link d-flex"
-            >
+              className="link nav-link d-flex">
               <LocationChange location={location} setLocation={setLocation} />
             </Nav.Item>
           </div>

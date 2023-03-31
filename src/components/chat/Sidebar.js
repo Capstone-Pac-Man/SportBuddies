@@ -101,7 +101,10 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="d-flex" style={{ height: "100vh" }}>
+    <div
+      id="chatroom"
+      className="d-flex"
+      style={{ height: "100vh", background_color: "#ffffff" }}>
       <div
         style={{ width: "250px", height: "90%" }}
         className="d-flex flex-column">
@@ -110,7 +113,7 @@ export default function Sidebar() {
           onSelect={CONVERSATIONS_KEY}>
           <Nav variant="tabs" className="justify-content-center">
             <Nav.Item>
-              <Nav.Link eventKey={CONVERSATIONS_KEY}>Conversations</Nav.Link>
+              <Nav.Link>Conversations</Nav.Link>
             </Nav.Item>
           </Nav>
           <Tab.Content className="border overflow-auto flex-grow-1">
@@ -124,7 +127,7 @@ export default function Sidebar() {
                       key={e.id}
                       id={e.id}
                       active={parseInt(selected) === e.id}>
-                      {e.users[0].firstName} {e.users[0].lastName} {e.id}
+                      {e.users[0].firstName} {e.users[0].lastName}
                     </ListGroup.Item>
                   );
                 })}
@@ -147,7 +150,6 @@ export default function Sidebar() {
                 (e) => {
                   const lastMessage =
                     conversations.singleConversation.length - 1 === e.id;
-
                   const theSender = e.senderId === user.id;
 
                   return (
@@ -170,7 +172,9 @@ export default function Sidebar() {
                       }`}>
                       <div
                         className={`rounded px-2 py-1 ${
-                          theSender ? "bg-primary text-white" : "border"
+                          theSender
+                            ? "bg-primary text-white"
+                            : "bg-white border"
                         }`}>
                         {e.content}
                       </div>
@@ -178,7 +182,7 @@ export default function Sidebar() {
                         className={`text-muted small ${
                           theSender ? "text-right" : ""
                         }`}>
-                        {theSender ? "You" : e.senderId}
+                        {theSender ? "You" : e.user.fullName}
                       </div>
                     </div>
                   );

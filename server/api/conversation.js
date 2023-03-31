@@ -57,6 +57,9 @@ router.get("/:id", async (req, res, next) => {
         },
         {
           model: ConversationMessage,
+          include: {
+            model: User,
+          },
         },
       ],
     });
@@ -154,6 +157,9 @@ router.post("/:id", async (req, res, next) => {
         },
         {
           model: ConversationMessage,
+          include: {
+            model: User,
+          },
         },
       ],
     });
