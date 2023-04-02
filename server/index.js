@@ -7,7 +7,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const { Server } = require("socket.io");
 const api = require("./api");
-const PORT = 5000;
+const PORT = process.env.PORT;
 const app = express();
 
 app.use(morgan("tiny"));
