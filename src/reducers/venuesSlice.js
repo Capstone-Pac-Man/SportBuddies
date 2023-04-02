@@ -3,7 +3,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // venue model has: name, type, addr, city, state, description, hours.
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 

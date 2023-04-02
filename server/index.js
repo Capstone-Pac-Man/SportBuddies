@@ -13,23 +13,14 @@ const app = express();
 app.use(morgan("tiny"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "build")));
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET, POST"],
-  },
-});
+const io = new Server(server);
 
 io.on("connection", (socket) => {
   socket.on("makeRoom", ({ id }) => {
@@ -47,13 +38,13 @@ app.use((req, res, next) => {
 
 app.use("/api", api);
 // Note: NEEDED FOR DEPLOYMENT - DO NOT DELETE
-// app.get("/css/index.css", (req, res, next) => {
-//   const cssPath = path.join(__dirname, "..", "src", "index.css");
-//   res.sendFile(cssPath);
-// });
-// app.get("/", (req, res, next) => {
-//   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-// });
+app.get("/css/index.css", (req, res, next) => {
+  const cssPath = path.join(__dirname, "..", "src", "index.css");
+  res.sendFile(cssPath);
+});
+app.get("*", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 app.use((err, req, res, next) => {
   console.error(err);
 });

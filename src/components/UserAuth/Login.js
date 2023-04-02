@@ -20,7 +20,7 @@ const Login = () => {
       e.preventDefault();
       await signInWithEmailAndPassword(auth, email, password);
       const { data } = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "/api/users/login",
         {
           email: auth.currentUser.email,
           uid: auth.currentUser.uid,
@@ -49,7 +49,7 @@ const Login = () => {
       const userCredential = await signInWithPopup(auth, googleProvider);
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "/api/users/login",
         {
           providerId: userCredential.user.providerData[0].providerId,
           name: userCredential.user.displayName,
@@ -109,7 +109,8 @@ const Login = () => {
             <Button
               type="submit"
               className="myBtn"
-              disabled={email === "" || password.length === 0}>
+              disabled={email === "" || password.length === 0}
+            >
               Log in
             </Button>
             <br></br>
@@ -117,7 +118,8 @@ const Login = () => {
             <Button
               variant="outline-dark"
               className="mt-4 pr-3"
-              onClick={signInWithGoogle}>
+              onClick={signInWithGoogle}
+            >
               <img
                 className="google"
                 alt=""

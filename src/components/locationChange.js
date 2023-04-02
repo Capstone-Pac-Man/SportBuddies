@@ -51,7 +51,7 @@ const ZipInput = ({ location, setLocation }) => {
         if (user.fullName && data.features[0]) {
           axios
             .put(
-              "http://localhost:5000/api/users/me",
+              "/api/users/me",
               {
                 latitude: zipLocation.latitude,
                 longitude: zipLocation.longitude,
@@ -87,7 +87,8 @@ const ZipInput = ({ location, setLocation }) => {
         if (!editing) {
           setEditing(true);
         }
-      }}>
+      }}
+    >
       <div
         style={{
           height: 18,
@@ -97,7 +98,8 @@ const ZipInput = ({ location, setLocation }) => {
           justifyContent: "center",
           paddingRight: 5,
         }}
-        onClick={(e) => setEditing(!editing)}>
+        onClick={(e) => setEditing(!editing)}
+      >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
           <path
             d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
@@ -113,7 +115,8 @@ const ZipInput = ({ location, setLocation }) => {
               fontWeight: 500,
               letterSpacing: -1,
               whiteSpace: "nowrap",
-            }}>
+            }}
+          >
             {zip ? zip : "Enter Location"}{" "}
           </div>
         ) : (

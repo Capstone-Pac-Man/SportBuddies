@@ -4,7 +4,6 @@ import history from "../history";
 import { toast } from "react-toastify";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 

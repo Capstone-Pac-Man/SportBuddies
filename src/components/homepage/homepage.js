@@ -23,7 +23,7 @@ export const HomePage = ({ location, setLocation }) => {
         const locationParse = JSON.parse(sessionStorage.getItem("location"));
         axios
           .put(
-            "http://localhost:5000/api/users/me",
+            "/api/users/me",
             {
               latitude: locationParse.latitude,
               longitude: locationParse.longitude,
@@ -44,7 +44,8 @@ export const HomePage = ({ location, setLocation }) => {
           className="home"
           style={{
             height: "50vh",
-          }}>
+          }}
+        >
           <h2 className="header text-center">Welcome</h2>
         </Row>
         <Row>
