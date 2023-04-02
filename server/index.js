@@ -7,6 +7,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const { Server } = require("socket.io");
 const api = require("./api");
+const dotenv = require("dotenv");
+dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
 
