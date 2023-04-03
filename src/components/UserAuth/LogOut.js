@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { userLogout } from "../../reducers/userSlice";
 import { useDispatch } from "react-redux";
 
-export const Logout = () => {
+export const Logout = ({ setIsLoggedIn, handleLogout }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logout = async () => {
@@ -13,6 +13,8 @@ export const Logout = () => {
       await signOut(auth);
       localStorage.removeItem("auth");
       await dispatch(userLogout());
+      setIsLoggedIn(false);
+      handleLogout();
       navigate("/");
     } catch (error) {
       console.error(error);

@@ -155,7 +155,7 @@ const userSlice = createSlice({
       return { ...state, sportError: "This sport already exists" };
     });
     builder.addCase(deleteUserSportAsync.fulfilled, (state, { payload }) => {
-      return Object.keys(state).filter((sport) => sport.id !== payload.id);
+      return payload;
     });
   },
 });

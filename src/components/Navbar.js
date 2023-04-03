@@ -21,6 +21,10 @@ const NavBar = ({ location, setLocation }) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -34,10 +38,10 @@ const NavBar = ({ location, setLocation }) => {
   }, []);
 
   useEffect(() => {
-    if (user) {
-      if (user.id && localStorage.getItem("auth")) {
-        setIsLoggedIn(true);
-      }
+    if (user.id && localStorage.getItem("auth")) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
   }, [user]);
 
@@ -104,7 +108,10 @@ const NavBar = ({ location, setLocation }) => {
                     </button>
                   )}
                   <NavDropdown.Item>
-                    <Logout />
+                    <Logout
+                      setIsLoggedIn={setIsLoggedIn}
+                      handleLogout={handleLogout}
+                    />
                   </NavDropdown.Item>
                 </>
               ) : (
