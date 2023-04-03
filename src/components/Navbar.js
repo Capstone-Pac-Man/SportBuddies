@@ -38,10 +38,12 @@ const NavBar = ({ location, setLocation }) => {
   }, []);
 
   useEffect(() => {
-    if (user.id && localStorage.getItem("auth")) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
+    if (user) {
+      if (user.id && localStorage.getItem("auth")) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
     }
   }, [user]);
 
