@@ -90,6 +90,7 @@ export default function Sidebar() {
         content: e.target.value,
         otherId: conversations.singleConversation.users[0].id,
       };
+
       dispatch(updateSelectedConvo(obj));
       setContent("");
     }
@@ -100,6 +101,7 @@ export default function Sidebar() {
     const obj = {
       id: selected,
       content: content,
+      otherId: conversations.singleConversation.users[0].id,
     };
     dispatch(updateSelectedConvo(obj));
     setContent("");
@@ -109,13 +111,16 @@ export default function Sidebar() {
     <div
       id="chatroom"
       className="d-flex"
-      style={{ height: "100vh", background_color: "#ffffff" }}>
+      style={{ height: "100vh", background_color: "#ffffff" }}
+    >
       <div
         style={{ width: "250px", height: "90%" }}
-        className="d-flex flex-column">
+        className="d-flex flex-column"
+      >
         <Tab.Container
           activeKey={CONVERSATIONS_KEY}
-          onSelect={CONVERSATIONS_KEY}>
+          onSelect={CONVERSATIONS_KEY}
+        >
           <Nav variant="tabs" className="justify-content-center">
             <Nav.Item>
               <Nav.Link style={{ color: "black" }}>Conversations</Nav.Link>
@@ -131,7 +136,8 @@ export default function Sidebar() {
                       action
                       key={e.id}
                       id={e.id}
-                      active={parseInt(selected) === e.id}>
+                      active={parseInt(selected) === e.id}
+                    >
                       {e.users[0].firstName} {e.users[0].lastName}
                     </ListGroup.Item>
                   );
@@ -147,7 +153,8 @@ export default function Sidebar() {
           style={{
             height: "90%",
           }}
-          className="d-flex flex-column flex-grow-1">
+          className="d-flex flex-column flex-grow-1"
+        >
           <div className="flex-grow-1 overflow-auto">
             <div className="d-flex flex-column align-items-start justify-content-end px-3">
               {" "}
@@ -165,19 +172,22 @@ export default function Sidebar() {
                         theSender
                           ? "align-self-end align-items-end"
                           : "align-items-start"
-                      }`}>
+                      }`}
+                    >
                       <div
                         className={`rounded px-2 py-1 ${
                           theSender
                             ? "bg-primary text-white"
                             : "bg-white border"
-                        }`}>
+                        }`}
+                      >
                         {e.content}
                       </div>
                       <div
                         className={`text-muted small ${
                           theSender ? "text-right" : ""
-                        }`}>
+                        }`}
+                      >
                         {theSender ? "You" : e.user.fullName}
                       </div>
                     </div>
