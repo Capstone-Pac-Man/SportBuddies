@@ -188,7 +188,7 @@ export default function Sidebar() {
                           theSender ? "text-right" : ""
                         }`}
                       >
-                        {theSender ? "You" : e.user.fullName}
+                        {e.user ? (theSender ? "You" : e.user.fullName) : null}
                       </div>
                     </div>
                   );
