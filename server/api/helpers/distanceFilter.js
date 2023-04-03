@@ -2,7 +2,7 @@ const haversine = require("haversine");
 
 const distanceFilter = (coords, users, dist) => {
   const filteredUsers = users.filter((e) => {
-    const distance = dist ? dist : 20;
+    const distance = dist ? dist : 40;
     const start = {
       latitude: coords.lat,
       longitude: coords.long,
